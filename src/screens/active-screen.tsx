@@ -1,16 +1,19 @@
 import { memo } from "react";
+import type { GymSet } from "../models/gym";
+import { Button, SetList } from "../components";
 
 interface PropsActive {
+  sets: GymSet[];
+  onTrack(set: GymSet): void;
   onEnd(): void;
 }
 
 export const ActiveSession = memo((opts: PropsActive) => {
   return (
-    <button
-      className="h-8 cursor-pointer rounded bg-stone-400 px-2"
-      onClick={() => opts.onEnd()}
-    >
-      End session
-    </button>
+    <>
+      <Button onClick={opts.onEnd}>End session</Button>
+
+      <SetList sets={opts.sets} />
+    </>
   );
 });
