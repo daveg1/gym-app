@@ -13,18 +13,18 @@ export const MuscleGroupValues = [
 
 export type MuscleGroups = (typeof MuscleGroupValues)[number];
 
-export interface GymSet {
+export interface ISet {
   target: MuscleGroups;
   reps: number;
-  weightKg: number;
+  weight: number;
   timestamp: number;
 }
 
-export const MockSets: GymSet[] = [
+export const MockSets: ISet[] = [
   {
     target: "Chest",
     reps: 6,
-    weightKg: 70,
+    weight: 70,
     timestamp: 1761086002743,
   },
 ];

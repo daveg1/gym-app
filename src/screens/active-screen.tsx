@@ -1,11 +1,11 @@
 import { memo } from "react";
-import { type GymSet } from "../models/gym";
+import { type ISet } from "../models/gym";
 import { Button, SetList } from "../components";
 import { SetForm } from "../components/set-form";
 
 interface Props {
-  sets: GymSet[];
-  onTrack(set: GymSet): void;
+  sets: ISet[];
+  onTrack(set: ISet): void;
   onEnd(): void;
 }
 

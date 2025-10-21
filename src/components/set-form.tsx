@@ -1,8 +1,8 @@
 import { memo, useRef } from "react";
-import { MuscleGroupValues, type GymSet } from "../models/gym";
+import { MuscleGroupValues, type ISet } from "../models/gym";
 
 interface Props {
-  onSubmit(set: GymSet): void;
+  onSubmit(set: ISet): void;
 }
 
 export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
@@ -15,10 +15,10 @@ export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
       if (!value) return;
     }
 
-    const newSet: GymSet = {
+    const newSet: ISet = {
       reps: parseInt(data.get("reps") as string) || 0,
-      weightKg: parseFloat(data.get("weight") as string) || 0,
-      target: data.get("target") as GymSet["target"],
+      weight: parseFloat(data.get("weight") as string) || 0,
+      target: data.get("target") as ISet["target"],
       timestamp: Date.now(),
     };
 

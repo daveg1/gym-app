@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { MockSets, type GymSet } from "../models/gym";
+import { MockSets, type ISet } from "../models/gym";
 
 export function useTrackSession() {
   const [isRunning, setIsRunning] = useState(true);
-  const [sets, setSets] = useState<GymSet[]>(MockSets);
+  const [sets, setSets] = useState<ISet[]>(MockSets);
 
   function startSession() {
     setIsRunning(true);
@@ -13,7 +13,7 @@ export function useTrackSession() {
     setIsRunning(false);
   }
 
-  function addSet(newSet: GymSet) {
+  function addSet(newSet: ISet) {
     setSets((sets) => [...sets, newSet]);
   }
 
