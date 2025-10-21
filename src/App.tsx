@@ -6,15 +6,17 @@ function App() {
     useTrackSession();
 
   return (
-    <>
-      <h2 className="text-3xl font-semibold">Session tracker</h2>
+    <div className="mx-auto max-w-2xl">
+      <header className="bg-zinc-700 p-4 text-center">
+        <h2 className="text-3xl font-semibold text-white">Session tracker</h2>
+      </header>
 
       {isRunning ? (
         <ActiveSession sets={sets} onTrack={addSet} onEnd={endSession} />
       ) : (
         <StartScreen onStart={startSession} />
       )}
-    </>
+    </div>
   );
 }
 

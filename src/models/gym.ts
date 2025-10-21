@@ -1,14 +1,17 @@
-export type MuscleGroups =
-  | "Back"
-  | "Chest"
-  | "Shoulders"
-  | "Triceps"
-  | "Biceps"
-  | "Core"
-  | "Forearms"
-  | "Quads"
-  | "Calves"
-  | "Hamstring";
+export const MuscleGroupValues = [
+  "Back",
+  "Chest",
+  "Shoulders",
+  "Triceps",
+  "Biceps",
+  "Core",
+  "Forearms",
+  "Quads",
+  "Calves",
+  "Hamstring",
+] as const;
+
+export type MuscleGroups = (typeof MuscleGroupValues)[number];
 
 export interface GymSet {
   target: MuscleGroups;
