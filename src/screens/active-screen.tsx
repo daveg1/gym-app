@@ -1,5 +1,6 @@
 import { memo, useState } from "react";
 import { Exercise } from "../components/exercise";
+import { ExerciseForm } from "../components/exercise-form";
 
 interface Props {
   sets: ISet[];
@@ -12,13 +13,13 @@ export interface ISet {
   weight: number;
 }
 
-export interface Exercise {
+export interface IExercise {
   name: string;
   sets: ISet[];
 }
 
 export const ActiveSession = memo((props: Readonly<Props>) => {
-  const [exercises, setExercises] = useState<Exercise[]>([
+  const [exercises, setExercises] = useState<IExercise[]>([
     {
       name: "Bench press",
       sets: [
@@ -40,17 +41,17 @@ export const ActiveSession = memo((props: Readonly<Props>) => {
         </button>
       </header>
 
-      {exercises.map((ex) => (
-        <Exercise key={ex.name} data={ex} />
-      ))}
+      <div className="flex flex-col gap-8">
+        {exercises.map((ex) => (
+          <Exercise key={ex.name} data={ex} />
+        ))}
 
-      <button
-        onClick={() => {
-          setExercises((ex) => [...ex, { name: "Flyes", sets: [] }]);
-        }}
-      >
-        Add exercise
-      </button>
+        <ExerciseForm
+          onSubmit={(newEx) => {
+            setExercises((ex) => [...ex, newEx]);
+          }}
+        />
+      </div>
     </>
   );
 });

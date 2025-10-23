@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { Exercise } from "../screens";
+import type { IExercise } from "../screens";
 import { SetForm } from "./set-form";
 
-export function Exercise({ data }: { data: Exercise }) {
+export function Exercise({ data }: { data: IExercise }) {
   const [sets, setSets] = useState(data.sets);
 
   return (

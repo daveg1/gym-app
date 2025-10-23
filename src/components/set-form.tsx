@@ -25,7 +25,7 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <form
         ref={formRef}
         onSubmit={(e) => e.preventDefault()}
@@ -51,11 +51,11 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
       </form>
 
       <button
-        className="bg-gray-100 py-2 text-lg font-semibold text-gray-800"
+        className="bg-gray-100 py-2 font-semibold text-gray-800"
         onClick={() => handleTrack()}
       >
         Add set
       </button>
-    </>
+    </div>
   );
 });
