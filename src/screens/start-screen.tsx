@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Button } from "../components";
+import { Button } from "../components/ui/button";
 
 interface PropsStart {
   onStart(): void;
