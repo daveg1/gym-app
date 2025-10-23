@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Exercise } from "../components/exercise";
 
 interface Props {
@@ -18,7 +18,7 @@ export interface Exercise {
 }
 
 export const ActiveSession = memo((props: Readonly<Props>) => {
-  const exercises: Exercise[] = [
+  const [exercises, setExercises] = useState<Exercise[]>([
     {
       name: "Bench press",
       sets: [
@@ -28,7 +28,7 @@ export const ActiveSession = memo((props: Readonly<Props>) => {
         },
       ],
     },
-  ];
+  ]);
 
   return (
     <>
@@ -44,7 +44,13 @@ export const ActiveSession = memo((props: Readonly<Props>) => {
         <Exercise key={ex.name} data={ex} />
       ))}
 
-      <button>Add exercise</button>
+      <button
+        onClick={() => {
+          setExercises((ex) => [...ex, { name: "Flyes", sets: [] }]);
+        }}
+      >
+        Add exercise
+      </button>
     </>
   );
 });
