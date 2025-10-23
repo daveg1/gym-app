@@ -9,11 +9,35 @@ export function SetList({ sets }: { sets: ISet[] }) {
     );
   }, [sets]);
 
+  // Insert exercise string before each block of exercises
+  // Assume flat list is already sorted and has contiguous blocks of exercises.
+  const items = useMemo(() => {
+    const list = [];
+    let prevExercise = "";
+    let setNo = -1;
+    for (let i = 0; i < sets.length; i++) {
+      if (sets[i].exercise !== prevExercise) {
+        list.push(sets[i].exercise);
+        prevExercise = sets[i].exercise;
+        setNo = 0;
+      }
+      sets[i].setNo = ++setNo;
+      list.push(sets[i]);
+    }
+    return list;
+  }, [sets]);
+
   return (
-    <>
-      {sorted.map((s) => (
-        <SetItem key={s.timestamp} data={s} />
-      ))}
-    </>
+    <div className="px-4">
+      {items.map((item) =>
+        typeof item === "string" ? (
+          <h2 key={item} className="text-lg font-semibold">
+            {item}
+          </h2>
+        ) : (
+          <SetItem key={item.timestamp} data={item} />
+        ),
+      )}
+    </div>
   );
 }

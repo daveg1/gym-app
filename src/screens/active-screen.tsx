@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { type ISet } from "../models/gym";
-import { Button, SetList } from "../components";
+import { SetList } from "../components";
 import { SetForm } from "../components/set-form";
 
 interface Props {
@@ -11,14 +11,20 @@ interface Props {
 
 export const ActiveSession = memo((props: Readonly<Props>) => {
   return (
-    <div className="flex flex-col gap-4">
-      <SetList sets={props.sets} />
+    <>
+      <header className="flex h-16 items-center justify-between px-4">
+        <h2 className="text-xl font-bold">Workout</h2>
 
-      <SetForm onSubmit={props.onTrack} />
+        <button className="font-semibold text-cyan-600" onClick={props.onEnd}>
+          Finish
+        </button>
+      </header>
 
-      <Button className="ml-auto" onClick={props.onEnd}>
-        End session
-      </Button>
-    </div>
+      <div className="flex flex-col gap-4">
+        <SetList sets={props.sets} />
+
+        <SetForm onSubmit={props.onTrack} />
+      </div>
+    </>
   );
 });

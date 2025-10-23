@@ -20,6 +20,8 @@ export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
       weight: parseFloat(data.get("weight") as string) || 0,
       target: data.get("target") as ISet["target"],
       timestamp: Date.now(),
+      exercise: "Bench press",
+      setNo: -1,
     };
 
     onSubmit(newSet);
@@ -32,13 +34,8 @@ export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
         onSubmit={(e) => e.preventDefault()}
         className="grid grid-cols-3 gap-2"
       >
-        <select name="target" className="h-8 rounded border px-1" required>
-          {MuscleGroupValues.map((val) => (
-            <option key={val} value={val}>
-              {val}
-            </option>
-          ))}
-        </select>
+        <div></div>
+
         <input
           className="h-8 rounded border px-1"
           name="reps"
@@ -48,6 +45,7 @@ export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
           defaultValue="0"
           required
         />
+
         <input
           className="h-8 rounded border px-1"
           name="weight"
