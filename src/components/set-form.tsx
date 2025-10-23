@@ -1,11 +1,12 @@
 import { memo, useRef } from "react";
-import { type ISet } from "../models/gym";
+import type { ISet } from "../screens";
 
 interface Props {
+  setNo: number;
   onSubmit(set: ISet): void;
 }
 
-export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
+export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
   const formRef = useRef<HTMLFormElement>(null!);
 
   function handleTrack() {
@@ -18,10 +19,6 @@ export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
     const newSet: ISet = {
       reps: parseInt(data.get("reps") as string) || 0,
       weight: parseFloat(data.get("weight") as string) || 0,
-      target: data.get("target") as ISet["target"],
-      timestamp: Date.now(),
-      exercise: "Bench press",
-      setNo: -1,
     };
 
     onSubmit(newSet);
@@ -34,25 +31,21 @@ export const SetForm = memo(({ onSubmit }: Readonly<Props>) => {
         onSubmit={(e) => e.preventDefault()}
         className="grid grid-cols-3 gap-2"
       >
-        <div></div>
-
+        <span>{setNo}</span>
         <input
-          className="h-8 rounded border px-1"
-          name="reps"
+          className="rounded bg-gray-200 px-1"
           type="number"
-          min="0"
-          max="30"
-          defaultValue="0"
+          name="reps"
+          min={0}
+          defaultValue={1}
           required
         />
-
         <input
-          className="h-8 rounded border px-1"
-          name="weight"
+          className="rounded bg-gray-200 px-1"
           type="number"
-          min="0"
-          max="255"
-          defaultValue="0"
+          name="weight"
+          min={0}
+          defaultValue={10}
           required
         />
       </form>

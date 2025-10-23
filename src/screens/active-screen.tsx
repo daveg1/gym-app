@@ -1,5 +1,4 @@
 import { memo } from "react";
-import { type ISet } from "../models/gym";
 import { Exercise } from "../components/exercise";
 
 interface Props {
@@ -8,7 +7,29 @@ interface Props {
   onEnd(): void;
 }
 
+export interface ISet {
+  reps: number;
+  weight: number;
+}
+
+export interface Exercise {
+  name: string;
+  sets: ISet[];
+}
+
 export const ActiveSession = memo((props: Readonly<Props>) => {
+  const exercises: Exercise[] = [
+    {
+      name: "Bench press",
+      sets: [
+        {
+          reps: 6,
+          weight: 70,
+        },
+      ],
+    },
+  ];
+
   return (
     <>
       <header className="flex h-16 items-center justify-between px-4">
@@ -19,7 +40,9 @@ export const ActiveSession = memo((props: Readonly<Props>) => {
         </button>
       </header>
 
-      <Exercise />
+      {exercises.map((ex) => (
+        <Exercise key={ex.name} data={ex} />
+      ))}
 
       <button>Add exercise</button>
     </>
