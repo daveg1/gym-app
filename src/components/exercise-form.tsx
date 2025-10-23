@@ -1,4 +1,4 @@
-import { memo, useRef } from "react";
+import { memo, useMemo, useRef } from "react";
 import type { IExercise } from "../screens";
 
 interface Props {
@@ -7,14 +7,15 @@ interface Props {
 
 export const ExerciseForm = memo(({ onSubmit }: Readonly<Props>) => {
   const formRef = useRef<HTMLFormElement>(null!);
+  const inputName = useMemo(() => "exercise-name", []);
 
   function handleTrack() {
     const data = new FormData(formRef.current);
 
-    if (!data.get("exercise-name")) return;
+    if (!data.get(inputName)) return;
 
     const newExercise: IExercise = {
-      name: data.get("exercise-name") as string,
+      name: data.get(inputName) as string,
       sets: [],
     };
 
@@ -31,7 +32,7 @@ export const ExerciseForm = memo(({ onSubmit }: Readonly<Props>) => {
         <input
           className="h-12 rounded bg-gray-200 px-2 placeholder:opacity-50"
           type="text"
-          name="exercise-name"
+          name={inputName}
           placeholder="Bench press"
           required
         />
