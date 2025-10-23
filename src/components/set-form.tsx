@@ -1,5 +1,5 @@
 import { memo, useRef } from "react";
-import { MuscleGroupValues, type ISet } from "../models/gym";
+import { type ISet } from "../models/gym";
 
 interface Props {
   onSubmit(set: ISet): void;
