@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { type ISet } from "../models/gym";
-import { SetList } from "../components";
-import { SetForm } from "../components/set-form";
+import { Exercise } from "../components/exercise";
 
 interface Props {
   sets: ISet[];
@@ -20,11 +19,9 @@ export const ActiveSession = memo((props: Readonly<Props>) => {
         </button>
       </header>
 
-      <div className="flex flex-col gap-4">
-        <SetList sets={props.sets} />
+      <Exercise />
 
-        <SetForm onSubmit={props.onTrack} />
-      </div>
+      <button>Add exercise</button>
     </>
   );
 });
