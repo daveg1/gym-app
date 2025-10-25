@@ -1,16 +1,15 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { Exercise } from "../components/exercise";
 import { ExerciseForm } from "../components/exercise-form";
-import type { IExercise } from "../models/gym";
+import { useSessionContext } from "../context";
 
-interface Props {
-  exercises: IExercise[];
-  // onTrack(set: ISet): void;
-  // onEnd(): void;
-}
+// interface Props {
+// onTrack(set: ISet): void;
+// onEnd(): void;
+// }
 
-export const ActiveSession = memo((props: Readonly<Props>) => {
-  const [exercises, setExercises] = useState<IExercise[]>(props.exercises);
+export const ActiveSession = memo(() => {
+  const { exercises, addExercise } = useSessionContext();
 
   return (
     <>
@@ -27,11 +26,7 @@ export const ActiveSession = memo((props: Readonly<Props>) => {
           <Exercise key={ex.name} data={ex} />
         ))}
 
-        <ExerciseForm
-          onSubmit={(newEx) => {
-            setExercises((ex) => [...ex, newEx]);
-          }}
-        />
+        <ExerciseForm onSubmit={addExercise} />
       </div>
     </>
   );

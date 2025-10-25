@@ -2,7 +2,7 @@ import { memo, useMemo, useRef } from "react";
 import type { IExercise } from "../models/gym";
 
 interface Props {
-  onSubmit(set: IExercise): void;
+  onSubmit(value: IExercise): void;
 }
 
 export const ExerciseForm = memo(({ onSubmit }: Readonly<Props>) => {
