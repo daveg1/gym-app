@@ -1,5 +1,5 @@
 import { memo, useMemo, useRef } from "react";
-import type { IExercise } from "../screens";
+import type { IExercise } from "../models/gym";
 
 interface Props {
   onSubmit(set: IExercise): void;

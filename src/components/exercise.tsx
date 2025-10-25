@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { IExercise } from "../screens";
 import { SetForm } from "./set-form";
+import type { IExercise } from "../models/gym";
 
 export function Exercise({ data }: { data: IExercise }) {
   const [sets, setSets] = useState(data.sets);

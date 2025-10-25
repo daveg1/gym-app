@@ -1,5 +1,5 @@
 import { memo, useRef } from "react";
-import type { ISet } from "../screens";
+import type { ISet } from "../models/gym";
 
 interface Props {
   setNo: number;

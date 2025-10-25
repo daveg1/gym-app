@@ -1,34 +1,36 @@
-export const MuscleGroupValues = [
-  "Back",
-  "Chest",
-  "Shoulders",
-  "Triceps",
-  "Biceps",
-  "Core",
-  "Forearms",
-  "Quads",
-  "Calves",
-  "Hamstring",
-] as const;
+// export const MuscleGroupValues = [
+//   "Back",
+//   "Chest",
+//   "Shoulders",
+//   "Triceps",
+//   "Biceps",
+//   "Core",
+//   "Forearms",
+//   "Quads",
+//   "Calves",
+//   "Hamstring",
+// ] as const;
 
-export type MuscleGroups = (typeof MuscleGroupValues)[number];
+// export type MuscleGroups = (typeof MuscleGroupValues)[number];
 
 export interface ISet {
-  exercise: string;
-  target: MuscleGroups;
   reps: number;
   weight: number;
-  timestamp: number;
-  setNo: number;
 }
 
-export const MockSets: ISet[] = [
+export interface IExercise {
+  name: string;
+  sets: ISet[];
+}
+
+export const MockExercises: IExercise[] = [
   {
-    exercise: "Bench press",
-    target: "Chest",
-    reps: 6,
-    weight: 70,
-    timestamp: 1761086002743,
-    setNo: -1,
+    name: "Bench press",
+    sets: [
+      {
+        reps: 6,
+        weight: 70,
+      },
+    ],
   },
 ];
