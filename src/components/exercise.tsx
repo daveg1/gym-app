@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { SetForm } from "./set-form";
 import type { IExercise } from "../models/gym";
+import { SetList } from "./set-list";
 
-export function Exercise({ data }: { data: IExercise }) {
+export const Exercise = memo(({ data }: { data: IExercise }) => {
   const [sets, setSets] = useState(data.sets);
 
   return (
@@ -17,13 +18,7 @@ export function Exercise({ data }: { data: IExercise }) {
         </div>
 
         <div className="flex flex-col gap-2">
-          {sets.map((set, index) => (
-            <div key={index} className="grid grid-cols-3 gap-2">
-              <span>{index + 1}</span>
-              <span>{set.reps} reps</span>
-              <span>{set.weight}kg</span>
-            </div>
-          ))}
+          <SetList sets={sets} />
 
           <SetForm
             setNo={data.sets.length + 1}
@@ -35,4 +30,4 @@ export function Exercise({ data }: { data: IExercise }) {
       </div>
     </section>
   );
-}
+});
