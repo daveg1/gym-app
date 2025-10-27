@@ -12,8 +12,8 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
 
   return (
     <>
-      <header className="flex h-16 items-center justify-between border-b border-b-gray-200 px-4">
-        <h2 className="text-xl font-bold">Workout</h2>
+      <header className="flex h-24 items-center justify-between border-b border-b-gray-200 px-4">
+        <h2 className="text-xl font-bold">Tonight's session</h2>
 
         <button
           className="cursor-pointer rounded bg-gray-200/50 px-4 py-2 font-semibold text-cyan-600"

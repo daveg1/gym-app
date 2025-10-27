@@ -7,7 +7,7 @@ interface PropsStart {
 export const StartScreen = memo((opts: PropsStart) => {
   return (
     <>
-      <header className="grid h-32 place-items-center border-b border-b-gray-200 px-4">
+      <header className="grid h-24 place-items-center border-b border-b-gray-200 px-4">
         <h2 className="text-xl font-bold">Workout tracker</h2>
       </header>
 
