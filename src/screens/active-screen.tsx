@@ -23,7 +23,7 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
         </button>
       </header>
 
-      <div className="flex flex-col gap-8 py-4">
+      <div className="flex flex-col">
         {exercises.map((ex) => (
           <Exercise key={ex.name} data={ex} />
         ))}
