@@ -11,7 +11,7 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
   const { exercises, addExercise } = useSessionContext();
 
   return (
-    <>
+    <div className="active-layout">
       <header className="flex h-24 items-center justify-between border-b border-b-gray-200 px-4">
         <h2 className="text-xl font-bold">Tonight's session</h2>
 
@@ -23,13 +23,15 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
         </button>
       </header>
 
-      <div className="flex flex-col">
+      <main className="flex h-full flex-col">
         {exercises.map((ex) => (
           <Exercise key={ex.name} data={ex} />
         ))}
+      </main>
 
+      <footer className="p-4">
         <ExerciseForm onSubmit={addExercise} />
-      </div>
-    </>
+      </footer>
+    </div>
   );
 });

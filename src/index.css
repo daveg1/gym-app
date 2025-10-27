@@ -10,3 +10,10 @@
     @apply h-full;
   }
 }
+
+@layer components {
+  .active-layout {
+    @apply grid;
+    grid-template-rows: auto 1fr auto;
+  }
+}
