@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
 @layer base {
+  html {
+    @apply h-full;
+  }
+
   body {
     font-family: "Noto Sans", sans-serif;
+    @apply h-full;
   }
 }

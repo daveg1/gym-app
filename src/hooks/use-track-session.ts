@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function useTrackSession() {
-  const [isRunning, setIsRunning] = useState(true);
+  const [isRunning, setIsRunning] = useState(false);
 
   function startSession() {
     setIsRunning(true);
