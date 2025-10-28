@@ -9,12 +9,7 @@ export const Exercise = memo(({ data }: { data: IExercise }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section
-      className={clsx(
-        "flex flex-col gap-4",
-        isExpanded ? "h-[60px] overflow-hidden" : "mb-8",
-      )}
-    >
+    <section className={clsx("flex flex-col gap-4", !isExpanded && "mb-4")}>
       <header
         className="flex items-center gap-2 p-4"
         onClick={() => setIsExpanded((v) => !v)}
@@ -37,7 +32,7 @@ export const Exercise = memo(({ data }: { data: IExercise }) => {
         <h2 className="text-lg font-semibold">{data.name}</h2>
       </header>
 
-      <div className="flex flex-col gap-2 px-4">
+      <div className={clsx("flex flex-col gap-2 px-4", isExpanded && "hidden")}>
         <div className="grid grid-cols-3 gap-2 text-sm text-gray-500">
           <span>SET</span>
           <span>REPS</span>

@@ -11,7 +11,7 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
   const { exercises, addExercise } = useSessionContext();
 
   return (
-    <div className="active-layout">
+    <div className="active-layout h-full">
       <header className="flex h-24 items-center justify-between border-b border-b-gray-200 px-4">
         <h2 className="text-xl font-bold">Tonight's session</h2>
 
@@ -23,7 +23,7 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
         </button>
       </header>
 
-      <main className="flex h-full flex-col">
+      <main className="flex h-full flex-col overflow-y-scroll">
         {exercises.map((ex) => (
           <Exercise key={ex.name} data={ex} />
         ))}
