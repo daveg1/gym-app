@@ -1,13 +1,16 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { ActiveSession, StartScreen } from "./screens";
-import { useSessionContext } from "./context";
+import type { IExercise } from "./models/gym";
+import { useStorage } from "./hooks/use-storage";
 
 function App() {
-  const { isRunning, startSession, endSession } = useSessionContext();
+  const [isRunning, setIsRunning] = useState(false);
+  const { saveData } = useStorage();
 
-  const handleEnd = useCallback(() => {
+  const handleEnd = useCallback((id: string, session: IExercise[]) => {
     if (confirm("Are you sure?")) {
-      endSession();
+      setIsRunning(false);
+      saveData(id, session);
     }
   }, []);
 
@@ -16,7 +19,7 @@ function App() {
       {isRunning ? (
         <ActiveSession onEnd={handleEnd} />
       ) : (
-        <StartScreen onStart={startSession} />
+        <StartScreen onStart={() => setIsRunning(true)} />
       )}
     </div>
   );

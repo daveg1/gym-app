@@ -1,14 +1,15 @@
 import { memo } from "react";
 import { Exercise } from "../components/exercise";
 import { ExerciseForm } from "../components/exercise-form";
-import { useSessionContext } from "../context";
+import { useCurrentSession } from "../hooks";
+import type { IExercise } from "../models/gym";
 
 interface Props {
-  onEnd(): void;
+  onEnd(id: string, session: IExercise[]): void;
 }
 
 export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
-  const { exercises, addExercise } = useSessionContext();
+  const { sessionId, exercises, addExercise } = useCurrentSession();
 
   return (
     <div className="active-layout h-full">
@@ -17,7 +18,7 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
 
         <button
           className="cursor-pointer rounded bg-gray-200/50 px-4 py-2 font-semibold text-cyan-600"
-          onClick={onEnd}
+          onClick={() => onEnd(sessionId, exercises)}
         >
           Finish
         </button>
