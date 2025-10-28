@@ -23,6 +23,8 @@ export interface IExercise {
   sets: ISet[];
 }
 
+export type ISessions = Record<string, IExercise>;
+
 export const MockExercises: IExercise[] = [
   {
     name: "Bench press",
