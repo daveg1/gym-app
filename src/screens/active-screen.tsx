@@ -25,9 +25,11 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
       </header>
 
       <main className="flex h-full flex-col overflow-y-scroll">
-        {exercises.map((ex) => (
-          <Exercise key={ex.name} data={ex} />
-        ))}
+        {exercises.length ? (
+          exercises.map((ex) => <Exercise key={ex.name} data={ex} />)
+        ) : (
+          <div className="p-4">No exercises yet, go add one</div>
+        )}
       </main>
 
       <footer className="p-4">

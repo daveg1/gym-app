@@ -7,6 +7,8 @@ interface Props {
 }
 
 export const StartScreen = memo(({ sessionMap, onStart }: Readonly<Props>) => {
+  const sessions = Object.keys(sessionMap);
+
   return (
     <div className="grail-layout">
       <header className="grid h-24 place-items-center border-b border-b-gray-200 px-4">
@@ -17,9 +19,11 @@ export const StartScreen = memo(({ sessionMap, onStart }: Readonly<Props>) => {
         <h2 className="text-xl font-semibold">Previous sessions</h2>
 
         <div className="flex flex-col">
-          {Object.keys(sessionMap).map((sesh) => (
-            <div>{sesh}</div>
-          ))}
+          {sessions.length ? (
+            sessions.map((sesh) => <div key={sesh}>{sesh}</div>)
+          ) : (
+            <p>No workouts yet, go do one</p>
+          )}
         </div>
       </main>
 
