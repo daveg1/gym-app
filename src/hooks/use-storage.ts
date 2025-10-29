@@ -19,5 +19,5 @@ export function useStorage() {
     serialise(data);
   }
 
-  return { saveData };
+  return { sessionMap, saveData };
 }

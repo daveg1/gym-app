@@ -12,8 +12,8 @@
 }
 
 @layer components {
-  .active-layout {
-    @apply grid;
+  .grail-layout {
+    @apply grid h-full;
     grid-template-rows: auto 1fr auto;
   }
 }

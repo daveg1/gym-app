@@ -12,7 +12,7 @@ export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
   const { sessionId, exercises, addExercise } = useCurrentSession();
 
   return (
-    <div className="active-layout h-full">
+    <div className="grail-layout">
       <header className="flex h-24 items-center justify-between border-b border-b-gray-200 px-4">
         <h2 className="text-xl font-bold">Tonight's session</h2>
 

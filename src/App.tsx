@@ -5,7 +5,7 @@ import { useStorage } from "./hooks/use-storage";
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
-  const { saveData } = useStorage();
+  const { sessionMap, saveData } = useStorage();
 
   const handleEnd = useCallback((id: string, session: IExercise[]) => {
     if (confirm("Are you sure?")) {
@@ -19,7 +19,10 @@ function App() {
       {isRunning ? (
         <ActiveSession onEnd={handleEnd} />
       ) : (
-        <StartScreen onStart={() => setIsRunning(true)} />
+        <StartScreen
+          sessionMap={sessionMap}
+          onStart={() => setIsRunning(true)}
+        />
       )}
     </div>
   );
