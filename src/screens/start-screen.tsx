@@ -18,7 +18,7 @@ export const StartScreen = memo(({ sessionMap, onStart }: Readonly<Props>) => {
 
         <div className="flex flex-col">
           {Object.keys(sessionMap).map((sesh) => (
-            <>{sesh}</>
+            <div>{sesh}</div>
           ))}
         </div>
       </main>
