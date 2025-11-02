@@ -43,7 +43,7 @@ export const Exercise = memo(
             isExpanded && "hidden",
           )}
         >
-          <div className="grid grid-cols-3 gap-2 text-sm text-gray-500">
+          <div className="grid grid-cols-3 gap-2 text-sm font-semibold text-gray-500">
             <span>SET</span>
             <span>REPS</span>
             <span>KG</span>

@@ -31,9 +31,10 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
         onSubmit={(e) => e.preventDefault()}
         className="grid grid-cols-3 gap-2"
       >
-        <span>{setNo}</span>
+        <p className="leading-10">{setNo}</p>
+
         <input
-          className="rounded bg-gray-200 px-1"
+          className="h-full rounded bg-gray-50 px-2 focus:outline-4 focus:outline-amber-400"
           type="number"
           name="reps"
           min={0}
@@ -41,7 +42,7 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
           required
         />
         <input
-          className="rounded bg-gray-200 px-1"
+          className="h-full rounded bg-gray-50 px-2 focus:outline-4 focus:outline-amber-400"
           type="number"
           name="weight"
           min={0}
@@ -51,7 +52,7 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
       </form>
 
       <button
-        className="flex justify-center bg-gray-100 py-2 font-semibold text-gray-800"
+        className="flex justify-center rounded bg-gray-50 py-2 font-semibold text-gray-700"
         onClick={() => handleTrack()}
       >
         <svg
