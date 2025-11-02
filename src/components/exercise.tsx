@@ -4,7 +4,12 @@ import type { IExercise } from "../models/gym";
 import { SetList } from "./set-list";
 import clsx from "clsx";
 
-export const Exercise = memo(({ data }: { data: IExercise }) => {
+interface Props {
+  data: IExercise;
+  readonly?: boolean;
+}
+
+export const Exercise = memo(({ data, readonly }: Readonly<Props>) => {
   const [sets, setSets] = useState(data.sets);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -42,12 +47,14 @@ export const Exercise = memo(({ data }: { data: IExercise }) => {
         <div className="flex flex-col gap-2">
           <SetList sets={sets} />
 
-          <SetForm
-            setNo={sets.length + 1}
-            onSubmit={(newS) => {
-              setSets((s) => [...s, newS]);
-            }}
-          />
+          {!readonly && (
+            <SetForm
+              setNo={sets.length + 1}
+              onSubmit={(newS) => {
+                setSets((s) => [...s, newS]);
+              }}
+            />
+          )}
         </div>
       </div>
     </section>

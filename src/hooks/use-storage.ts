@@ -19,5 +19,9 @@ export function useStorage() {
     serialise(data);
   }
 
-  return { sessionMap, saveData };
+  function getSessionById(sessionId: string) {
+    return sessionMap[sessionId];
+  }
+
+  return { sessionMap, saveData, getSessionById };
 }
