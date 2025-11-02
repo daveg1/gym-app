@@ -32,7 +32,7 @@ export const Exercise = memo(({ data }: { data: IExercise }) => {
         <h2 className="text-lg font-semibold">{data.name}</h2>
       </header>
 
-      <div className={clsx("flex flex-col gap-2 px-4", isExpanded && "hidden")}>
+      <div className={clsx("flex flex-col gap-2 px-6", isExpanded && "hidden")}>
         <div className="grid grid-cols-3 gap-2 text-sm text-gray-500">
           <span>SET</span>
           <span>REPS</span>

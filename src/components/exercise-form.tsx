@@ -27,7 +27,7 @@ export const ExerciseForm = memo(({ onSubmit }: Readonly<Props>) => {
 
   return (
     <button
-      className="h-12 w-full bg-gray-100 py-2 font-semibold text-gray-800"
+      className="rounded-lg bg-gray-200/50 p-4 text-lg font-semibold text-cyan-600"
       onClick={() => handleTrack()}
     >
       Add exercise
