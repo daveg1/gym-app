@@ -17,97 +17,97 @@ export function DashboardRoute() {
               <>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
                 <NavLink
                   className="rounded-lg bg-gray-100 p-3 text-lg"
-                  to={"/session/" + sesh}
+                  to={"/details/" + sesh}
                 >
                   Session 1
                 </NavLink>
