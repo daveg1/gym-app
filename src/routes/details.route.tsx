@@ -2,6 +2,7 @@ import { NavLink, useLocation, useNavigate } from "react-router";
 import { useStorage } from "../hooks/use-storage";
 import { useEffect } from "react";
 import { Exercise } from "../components/exercise";
+import { Header } from "../components/header";
 
 export function DetailsRoute() {
   const { getSessionById } = useStorage();
@@ -19,9 +20,7 @@ export function DetailsRoute() {
 
   return (
     <section className="flex h-full flex-col gap-4 py-6">
-      <header className="flex items-center gap-2 px-6">
-        <h2 className="text-3xl font-semibold">Details</h2>
-      </header>
+      <Header text="Details" />
 
       <main className="h-full overflow-y-auto">
         {session.length ? (

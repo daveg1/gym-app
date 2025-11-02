@@ -1,5 +1,6 @@
 import { NavLink } from "react-router";
 import { useStorage } from "../hooks/use-storage";
+import { Header } from "../components/header";
 
 export function DashboardRoute() {
   const { sessionMap } = useStorage();
@@ -9,9 +10,7 @@ export function DashboardRoute() {
   return (
     <>
       <section className="flex h-full flex-col gap-4 overflow-y-auto py-6">
-        <header className="flex items-center gap-2 px-6">
-          <h2 className="text-3xl font-semibold">Past workouts</h2>
-        </header>
+        <Header text="Past workouts" />
 
         <div className="flex h-full flex-col gap-2 overflow-y-auto px-6">
           {sessions.length ? (

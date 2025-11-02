@@ -5,6 +5,7 @@ import { useStorage } from "../hooks/use-storage";
 import { useNavigate } from "react-router";
 import { useCallback } from "react";
 import type { IExercise, ISet } from "../models/gym";
+import { Header } from "../components/header";
 
 export function WorkoutRoute() {
   const { sessionId, exercises, addExercise, updateExercise } =
@@ -35,9 +36,7 @@ export function WorkoutRoute() {
 
   return (
     <section className="flex h-full flex-col gap-4 py-6">
-      <header className="flex items-center gap-2 px-6">
-        <h2 className="text-3xl font-semibold">{timeOfDay}'s workout</h2>
-      </header>
+      <Header text={timeOfDay + "'s workout"} />
 
       <main className="h-full overflow-y-auto">
         {exercises.length ? (
