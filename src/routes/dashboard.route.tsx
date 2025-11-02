@@ -12,7 +12,7 @@ export function DashboardRoute() {
       <section className="flex h-full flex-col gap-4 overflow-y-auto py-6">
         <Header text="Past workouts" />
 
-        <div className="flex h-full flex-col gap-2 overflow-y-auto px-6">
+        <div className="flex h-full flex-col gap-2 overflow-y-auto px-6 py-4">
           {sessions.length ? (
             sessions.map(([id, _]) => (
               <NavLink
