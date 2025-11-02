@@ -70,8 +70,8 @@ export function WorkoutRoute() {
         <Button text="Add exercise" onClick={() => onAddExercise()} />
 
         <div className="grid grid-cols-2 gap-2">
-          <Button text="Cancel" onClick={() => onCancel()} />
-          <Button text="Finish" onClick={() => onFinish()} />
+          <Button mode="danger" text="Cancel" onClick={() => onCancel()} />
+          <Button mode="primary" text="Finish" onClick={() => onFinish()} />
         </div>
       </footer>
     </section>
