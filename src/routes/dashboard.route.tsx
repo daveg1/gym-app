@@ -3,6 +3,7 @@ import { useStorage } from "../hooks/use-storage";
 import { Header } from "../components/header";
 import { formatDate } from "../utils/format-date";
 import { List } from "../components/list";
+import { Text } from "../components/text";
 
 export function DashboardRoute() {
   const { workoutMap } = useStorage();
@@ -32,7 +33,7 @@ export function DashboardRoute() {
               </NavLink>
             ))
           ) : (
-            <p className="text-lg">No sessions yet, go do one</p>
+            <Text>No sessions yet, go do one</Text>
           )}
         </List>
 

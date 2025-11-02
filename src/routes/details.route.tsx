@@ -4,6 +4,7 @@ import { Header } from "../components/header";
 import { Exercise } from "../components/exercise";
 import { List } from "../components/list";
 import { formatDate } from "../utils/format-date";
+import { Text } from "../components/text";
 
 export function DetailsRoute() {
   const { getSessionById } = useStorage();
@@ -26,7 +27,7 @@ export function DetailsRoute() {
             <Exercise key={ex.name} data={ex} readonly />
           ))
         ) : (
-          <p className="px-6 text-lg">This workout is empty</p>
+          <Text>This workout is empty</Text>
         )}
       </List>
 

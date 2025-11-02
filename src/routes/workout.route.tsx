@@ -7,6 +7,7 @@ import { useCallback } from "react";
 import { Header } from "../components/header";
 import type { IExercise, ISet } from "../models/gym";
 import { List } from "../components/list";
+import { Text } from "../components/text";
 
 export function WorkoutRoute() {
   const { sessionId, exercises, addExercise, updateExercise } =
@@ -49,7 +50,7 @@ export function WorkoutRoute() {
             />
           ))
         ) : (
-          <p className="px-6 text-lg">No exercises yet, go add one</p>
+          <Text>No exercises yet, go add one</Text>
         )}
       </List>
 
