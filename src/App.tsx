@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { ActiveSession, StartScreen } from "./screens";
+import { SessionScreen, StartScreen } from "./screens";
 import type { IExercise } from "./models/gym";
 import { useStorage } from "./hooks/use-storage";
 
@@ -14,10 +14,13 @@ function App() {
     }
   }, []);
 
+  // TODO: add cancel button
+  // TODO: add session view screen
+
   return (
     <div className="mx-auto flex h-screen max-w-2xl flex-col">
       {isRunning ? (
-        <ActiveSession onEnd={handleEnd} />
+        <SessionScreen onEnd={handleEnd} />
       ) : (
         <StartScreen
           sessionMap={sessionMap}

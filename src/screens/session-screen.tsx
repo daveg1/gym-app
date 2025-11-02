@@ -8,7 +8,7 @@ interface Props {
   onEnd(id: string, session: IExercise[]): void;
 }
 
-export const ActiveSession = memo(({ onEnd }: Readonly<Props>) => {
+export const SessionScreen = memo(({ onEnd }: Readonly<Props>) => {
   const { sessionId, exercises, addExercise } = useCurrentSession();
 
   return (
