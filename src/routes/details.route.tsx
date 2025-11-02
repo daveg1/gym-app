@@ -13,6 +13,8 @@ export function DetailsRoute() {
   const workoutId = location.pathname.split("/details/")[1];
   const workout = getSessionById(workoutId);
 
+  // TODO: add option to delete workout
+
   // ! FIXME: redirect not working
   // useEffect(() => {
   //   if (!workout) navigate("/");

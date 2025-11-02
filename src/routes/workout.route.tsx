@@ -68,6 +68,7 @@ export function WorkoutRoute() {
 
       <footer className="flex flex-col gap-2 px-6">
         <Button text="Add exercise" onClick={() => onAddExercise()} />
+
         <div className="grid grid-cols-2 gap-2">
           <Button text="Cancel" onClick={() => onCancel()} />
           <Button text="Finish" onClick={() => onFinish()} />
