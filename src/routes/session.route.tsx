@@ -1,20 +1,24 @@
-import { NavLink } from "react-router";
 import { useCurrentSession } from "../hooks";
-import type { IExercise } from "../models/gym";
 import { Exercise } from "../components/exercise";
-import { SetForm } from "../components/set-form";
 import { ExerciseForm } from "../components/exercise-form";
+import { useStorage } from "../hooks/use-storage";
+import { useNavigate } from "react-router";
 
-interface Props {
-  onEnd(id: string, session: IExercise[]): void;
-}
-
-export function SessionRoute({ onEnd }: Readonly<Props>) {
+export function SessionRoute() {
   const { sessionId, exercises, addExercise } = useCurrentSession();
+  const { saveData } = useStorage();
+  let navigate = useNavigate();
 
   // todo: store session in local storage until we finish or cancel
   // todo: then reload it on any page refreshes.
   // const tempState = {};
+
+  function onFinish() {
+    if (confirm("Are you sure?")) {
+      saveData(sessionId, exercises);
+      navigate("/");
+    }
+  }
 
   const date = new Date();
   const hours = date.getHours();
@@ -31,7 +35,7 @@ export function SessionRoute({ onEnd }: Readonly<Props>) {
         {exercises.length ? (
           exercises.map((ex) => <Exercise key={ex.name} data={ex} />)
         ) : (
-          <p className="text-lg">No exercises yet, go add one</p>
+          <p className="px-6 text-lg">No exercises yet, go add one</p>
         )}
       </main>
 
@@ -40,7 +44,7 @@ export function SessionRoute({ onEnd }: Readonly<Props>) {
 
         <button
           className="rounded-lg bg-gray-200/50 p-4 text-lg font-semibold text-cyan-600"
-          onClick={() => onEnd(sessionId, exercises)}
+          onClick={() => onFinish()}
         >
           Finish
         </button>
