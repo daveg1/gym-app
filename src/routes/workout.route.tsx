@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useCallback } from "react";
 import { Header } from "../components/header";
 import type { IExercise, ISet } from "../models/gym";
+import { List } from "../components/list";
 
 export function WorkoutRoute() {
   const { sessionId, exercises, addExercise, updateExercise } =
@@ -38,7 +39,7 @@ export function WorkoutRoute() {
     <section className="flex h-full flex-col gap-4 py-6">
       <Header text={timeOfDay + "'s workout"} />
 
-      <main className="h-full overflow-y-auto">
+      <List>
         {exercises.length ? (
           exercises.map((exercise) => (
             <Exercise
@@ -50,7 +51,7 @@ export function WorkoutRoute() {
         ) : (
           <p className="px-6 text-lg">No exercises yet, go add one</p>
         )}
-      </main>
+      </List>
 
       <footer className="flex flex-col gap-2 px-6">
         <ExerciseForm onSubmit={addExercise} />

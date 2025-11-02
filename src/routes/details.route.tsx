@@ -2,6 +2,8 @@ import { NavLink, useLocation } from "react-router";
 import { useStorage } from "../hooks/use-storage";
 import { Header } from "../components/header";
 import { Exercise } from "../components/exercise";
+import { List } from "../components/list";
+import { formatDate } from "../utils/format-date";
 
 export function DetailsRoute() {
   const { getSessionById } = useStorage();
@@ -16,9 +18,9 @@ export function DetailsRoute() {
 
   return (
     <section className="flex h-full flex-col gap-4 py-6">
-      <Header text="Details" />
+      <Header text="Workout" caption={formatDate(workout.timestamp)} />
 
-      <main className="h-full overflow-y-auto">
+      <List>
         {workout.exercises.length ? (
           workout.exercises.map((ex) => (
             <Exercise key={ex.name} data={ex} readonly />
@@ -26,7 +28,7 @@ export function DetailsRoute() {
         ) : (
           <p className="px-6 text-lg">This workout is empty</p>
         )}
-      </main>
+      </List>
 
       <footer className="flex flex-col px-6">
         <NavLink
