@@ -1,15 +1,14 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import type { IExercise } from "./models/gym";
 import { useStorage } from "./hooks/use-storage";
-import { NavLink, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import { DashboardRoute } from "./routes/dashboard.route";
 import { SessionRoute } from "./routes";
 import { DetailsRoute } from "./routes/details.route";
-import clsx from "clsx";
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
-  const { saveData } = useStorage();
+  const { sessionMap, saveData } = useStorage();
 
   const handleEnd = useCallback((id: string, session: IExercise[]) => {
     if (confirm("Are you sure?")) {
