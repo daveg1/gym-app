@@ -22,7 +22,7 @@ export function DashboardRoute() {
               </NavLink>
             ))
           ) : (
-            <p>No sessions yet, go do one</p>
+            <p className="text-lg">No sessions yet, go do one</p>
           )}
         </div>
 
