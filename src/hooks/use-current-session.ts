@@ -5,9 +5,20 @@ export function useCurrentSession() {
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const sessionId = crypto.randomUUID();
 
-  const addExercise = (newVal: IExercise) => {
-    setExercises((vals) => [...vals, newVal]);
+  const addExercise = (value: IExercise) => {
+    setExercises((current) => [...current, value]);
   };
 
-  return { sessionId, exercises, addExercise };
+  const updateExercise = (value: IExercise) => {
+    setExercises((current) => {
+      const copy = [...current];
+
+      const idx = copy.findIndex((ex) => ex.name === value.name);
+      copy[idx].sets = value.sets;
+
+      return copy;
+    });
+  };
+
+  return { sessionId, exercises, addExercise, updateExercise };
 }
