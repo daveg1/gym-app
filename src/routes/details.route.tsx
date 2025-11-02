@@ -5,6 +5,7 @@ import { Exercise } from "../components/exercise";
 import { List } from "../components/list";
 import { formatDate } from "../utils/format-date";
 import { Text } from "../components/text";
+import { NavButton } from "../components/nav-button";
 
 export function DetailsRoute() {
   const { getSessionById } = useStorage();
@@ -32,12 +33,7 @@ export function DetailsRoute() {
       </List>
 
       <footer className="flex flex-col px-6">
-        <NavLink
-          to="/"
-          className="rounded-lg bg-gray-200/50 p-4 text-center text-lg font-semibold text-cyan-600"
-        >
-          Close
-        </NavLink>
+        <NavButton to="/" text="Close" />
       </footer>
     </section>
   );
