@@ -16,7 +16,7 @@ export const Exercise = memo(
     return (
       <section className={clsx("flex flex-col", !isExpanded && "mb-4")}>
         <header
-          className="flex items-center gap-2 p-6"
+          className="flex items-center gap-2 px-6 py-4"
           onClick={() => setIsExpanded((v) => !v)}
         >
           <svg
@@ -34,7 +34,7 @@ export const Exercise = memo(
             />
           </svg>
 
-          <h2 className="text-lg font-semibold">{data.name}</h2>
+          <h2 className="text-xl font-semibold">{data.name}</h2>
         </header>
 
         <div
