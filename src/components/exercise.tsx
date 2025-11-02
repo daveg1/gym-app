@@ -1,7 +1,6 @@
 import { memo, useState } from "react";
 import { SetForm } from "./set-form";
 import type { IExercise, ISet } from "../models/gym";
-import { SetList } from "./set-list";
 import clsx from "clsx";
 
 interface Props {
@@ -48,7 +47,13 @@ export const Exercise = memo(
           </div>
 
           <div className="flex flex-col gap-2">
-            <SetList sets={data.sets} />
+            {data.sets.map((set, index) => (
+              <div key={index} className="grid grid-cols-3 gap-2">
+                <span>{index + 1}</span>
+                <span>{set.reps} reps</span>
+                <span>{set.weight}kg</span>
+              </div>
+            ))}
 
             {!readonly && (
               <SetForm
