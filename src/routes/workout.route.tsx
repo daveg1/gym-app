@@ -4,7 +4,7 @@ import { ExerciseForm } from "../components/exercise-form";
 import { useStorage } from "../hooks/use-storage";
 import { useNavigate } from "react-router";
 
-export function SessionRoute() {
+export function WorkoutRoute() {
   const { sessionId, exercises, addExercise } = useCurrentSession();
   const { saveData } = useStorage();
   let navigate = useNavigate();

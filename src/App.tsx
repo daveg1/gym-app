@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import { DashboardRoute } from "./routes/dashboard.route";
-import { SessionRoute } from "./routes";
+import { WorkoutRoute } from "./routes";
 import { DetailsRoute } from "./routes/details.route";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <main className="mx-auto flex h-screen max-w-2xl flex-col overflow-hidden">
       <Routes>
         <Route index element={<DashboardRoute />} />
-        <Route path="session" element={<SessionRoute />} />
+        <Route path="workout" element={<WorkoutRoute />} />
         <Route path="details/:sessionId" element={<DetailsRoute />} />
       </Routes>
     </main>
