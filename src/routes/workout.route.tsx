@@ -1,6 +1,5 @@
 import { useCurrentSession } from "../hooks";
 import { Exercise } from "../components/exercise";
-import { ExerciseForm } from "../components/exercise-form";
 import { useStorage } from "../hooks/use-storage";
 import { useNavigate } from "react-router";
 import { useCallback } from "react";
@@ -29,6 +28,12 @@ export function WorkoutRoute() {
     updateExercise(exercise);
   }, []);
 
+  const onAddExercise = useCallback(() => {
+    const name = prompt("Enter an exercise");
+    if (!name) return;
+    addExercise({ name, sets: [] });
+  }, []);
+
   function onFinish() {
     if (confirm("Are you sure?")) {
       saveData(sessionId, { id: sessionId, exercises, timestamp: +date });
@@ -55,7 +60,12 @@ export function WorkoutRoute() {
       </List>
 
       <footer className="flex flex-col gap-2 px-6">
-        <ExerciseForm onSubmit={addExercise} />
+        <button
+          className="rounded-lg bg-gray-200/50 p-4 text-lg font-semibold text-cyan-600"
+          onClick={() => onAddExercise()}
+        >
+          Add exercise
+        </button>
 
         <button
           className="rounded-lg bg-gray-200/50 p-4 text-lg font-semibold text-cyan-600"
