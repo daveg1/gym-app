@@ -13,10 +13,11 @@ export function DashboardRoute() {
 
         <div className="flex h-full flex-col gap-2 overflow-y-auto px-6">
           {sessions.length ? (
-            sessions.map((sesh) => (
+            sessions.map((id) => (
               <NavLink
+                key={id}
                 className="rounded-lg bg-gray-100 p-3 text-lg"
-                to={"/details/" + sesh}
+                to={"/details/" + id}
               >
                 Session 1
               </NavLink>
