@@ -14,9 +14,9 @@ export const Exercise = memo(
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
-      <section className={clsx("flex flex-col gap-4", !isExpanded && "mb-4")}>
+      <section className={clsx("flex flex-col", !isExpanded && "mb-4")}>
         <header
-          className="flex items-center gap-2 p-4"
+          className="flex items-center gap-2 p-6"
           onClick={() => setIsExpanded((v) => !v)}
         >
           <svg

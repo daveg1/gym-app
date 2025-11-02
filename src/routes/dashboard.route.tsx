@@ -27,12 +27,14 @@ export function DashboardRoute() {
           )}
         </div>
 
-        <NavLink
-          to="/workout"
-          className="mx-6 mb-6 flex justify-center rounded-lg bg-gray-200/50 p-4 text-lg font-semibold text-cyan-600"
-        >
-          Start workout
-        </NavLink>
+        <footer className="flex flex-col p-6 pt-0">
+          <NavLink
+            to="/workout"
+            className="rounded-lg bg-gray-200/50 p-4 text-center text-lg font-semibold text-cyan-600"
+          >
+            Start workout
+          </NavLink>
+        </footer>
       </section>
     </>
   );
