@@ -35,12 +35,18 @@ export function WorkoutRoute() {
     addExercise({ name, sets: [] });
   }, []);
 
-  function onFinish() {
-    if (confirm("Are you sure?")) {
+  const onCancel = useCallback(() => {
+    if (confirm("Cancel workout? Your session will be discarded")) {
+      navigate("/");
+    }
+  }, []);
+
+  const onFinish = useCallback(() => {
+    if (confirm("Finish workout? This session will be saved")) {
       saveData(sessionId, { id: sessionId, exercises, timestamp: +date });
       navigate("/");
     }
-  }
+  }, []);
 
   return (
     <section className="flex h-full flex-col gap-4 py-6">
@@ -62,7 +68,10 @@ export function WorkoutRoute() {
 
       <footer className="flex flex-col gap-2 px-6">
         <Button text="Add exercise" onClick={() => onAddExercise()} />
-        <Button text="Finish" onClick={() => onFinish()} />
+        <div className="grid grid-cols-2 gap-2">
+          <Button text="Cancel" onClick={() => onCancel()} />
+          <Button text="Finish" onClick={() => onFinish()} />
+        </div>
       </footer>
     </section>
   );
