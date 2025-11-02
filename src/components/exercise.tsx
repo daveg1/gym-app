@@ -6,7 +6,7 @@ import clsx from "clsx";
 interface Props {
   data: IExercise;
   readonly?: boolean;
-  onAddSet?: (exercise: ISet) => void;
+  onAddSet?: (set: ISet) => void;
 }
 
 export const Exercise = memo(

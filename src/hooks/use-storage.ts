@@ -1,27 +1,27 @@
 import { useState } from "react";
-import type { IExercise, ISessionMap } from "../models/gym";
+import type { IWorkoutMap, IWorkout } from "../models/gym";
 import { STORAGE_KEY } from "../constants";
 
-const serialise = (data: ISessionMap) => {
+const serialise = (data: IWorkoutMap) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 };
 
-const deserialise = (): ISessionMap => {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as ISessionMap;
+const deserialise = (): IWorkoutMap => {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as IWorkoutMap;
 };
 
 export function useStorage() {
-  const [sessionMap, setSessionMap] = useState(deserialise());
+  const [workoutMap, setWorkoutMap] = useState(deserialise());
 
-  function saveData(sessionId: string, session: IExercise[]) {
-    const data = { ...sessionMap, [sessionId]: session };
-    setSessionMap(data);
+  function saveData(workoutId: string, workout: IWorkout) {
+    const data = { ...workoutMap, [workoutId]: workout };
+    setWorkoutMap(data);
     serialise(data);
   }
 
   function getSessionById(sessionId: string) {
-    return sessionMap[sessionId];
+    return workoutMap[sessionId];
   }
 
-  return { sessionMap, saveData, getSessionById };
+  return { workoutMap, saveData, getSessionById };
 }

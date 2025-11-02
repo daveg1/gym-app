@@ -23,7 +23,13 @@ export interface IExercise {
   sets: ISet[];
 }
 
-export type ISessionMap = Record<string, IExercise[]>;
+export interface IWorkout {
+  id: string;
+  exercises: IExercise[];
+  timestamp: number;
+}
+
+export type IWorkoutMap = Record<string, IWorkout>;
 
 export const MockExercises: IExercise[] = [
   {
