@@ -67,8 +67,8 @@ export function DetailsRoute() {
 
       <List>
         {workout.exercises.length ? (
-          workout.exercises.map((ex) => (
-            <Exercise key={ex.name} data={ex} readonly />
+          workout.exercises.map((exercise, index) => (
+            <Exercise key={index} data={exercise} readonly />
           ))
         ) : (
           <Text>This workout is empty</Text>
@@ -76,7 +76,7 @@ export function DetailsRoute() {
       </List>
 
       <Footer border className="gap-4">
-        <Text>Total weight: {totalKg}kg</Text>
+        <Text>Total weight: {totalKg.toLocaleString()} kg</Text>
 
         <NavButton to="/" text="Close" />
       </Footer>
