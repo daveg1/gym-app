@@ -9,7 +9,7 @@ export function WorkoutRoute() {
   const { sessionId, exercises, addExercise, updateExercise } =
     useCurrentSession();
   const { saveWorkout } = useStorage();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const date = new Date();
   const hours = date.getHours();
@@ -50,9 +50,9 @@ export function WorkoutRoute() {
 
       <List>
         {exercises.length ? (
-          exercises.map((exercise) => (
+          exercises.map((exercise, index) => (
             <Exercise
-              key={exercise.name}
+              key={index}
               data={exercise}
               onAddSet={(newSet) => onAddSet(newSet, exercise)}
               defaultOpen={true}
@@ -66,7 +66,7 @@ export function WorkoutRoute() {
       <Footer>
         <Button text="Add exercise" onClick={() => onAddExercise()} />
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-[inherit]">
           <Button mode="danger" text="Cancel" onClick={() => onCancel()} />
           <Button mode="primary" text="Finish" onClick={() => onFinish()} />
         </div>

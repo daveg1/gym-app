@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { SetForm } from "./set-form";
 import type { IExercise, ISet } from "../../models/gym";
 import clsx from "clsx";
@@ -13,9 +13,16 @@ interface Props {
 export const Exercise = memo(
   ({ data, readonly, onAddSet, defaultOpen }: Readonly<Props>) => {
     const [isExpanded, setIsExpanded] = useState(defaultOpen ?? false);
+    const ref = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+      if (ref.current) {
+        ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+    }, []);
 
     return (
-      <article className="flex flex-col rounded-lg bg-gray-200">
+      <article ref={ref} className="flex flex-col rounded-lg bg-gray-200">
         <header
           className="flex items-center gap-2 px-6 py-4"
           onClick={() => setIsExpanded((v) => !v)}
