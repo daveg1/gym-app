@@ -13,10 +13,8 @@ const deserialise = (): IWorkoutMap => {
 export function useStorage() {
   const [workoutMap, setWorkoutMap] = useState(deserialise());
 
-  // TODO: rename to saveWorkout
-  // TODO: remove workoutId param as it exists in workout object
-  function saveData(workoutId: string, workout: IWorkout) {
-    const data = { ...workoutMap, [workoutId]: workout };
+  function saveWorkout(workout: IWorkout) {
+    const data = { ...workoutMap, [workout.id]: workout };
     setWorkoutMap(data);
     serialise(data);
   }
@@ -34,5 +32,5 @@ export function useStorage() {
     });
   }
 
-  return { workoutMap, saveData, getById, deleteById };
+  return { workoutMap, saveWorkout, getById, deleteById };
 }

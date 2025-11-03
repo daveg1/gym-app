@@ -8,7 +8,7 @@ import type { IExercise, ISet } from "../models/gym";
 export function WorkoutRoute() {
   const { sessionId, exercises, addExercise, updateExercise } =
     useCurrentSession();
-  const { saveData } = useStorage();
+  const { saveWorkout } = useStorage();
   let navigate = useNavigate();
 
   const date = new Date();
@@ -39,7 +39,7 @@ export function WorkoutRoute() {
 
   const onFinish = useCallback(() => {
     if (confirm("Finish workout? This session will be saved")) {
-      saveData(sessionId, { id: sessionId, exercises, timestamp: +date });
+      saveWorkout({ id: sessionId, exercises, timestamp: +date });
       navigate("/");
     }
   }, []);
