@@ -8,6 +8,7 @@ import type { IExercise, ISet } from "../models/gym";
 import { List } from "../components/list";
 import { Text } from "../components/text";
 import { Button } from "../components/button";
+import { Footer } from "../components/footer";
 
 export function WorkoutRoute() {
   const { sessionId, exercises, addExercise, updateExercise } =
@@ -66,14 +67,14 @@ export function WorkoutRoute() {
         )}
       </List>
 
-      <footer className="flex flex-col gap-2 px-6">
+      <Footer>
         <Button text="Add exercise" onClick={() => onAddExercise()} />
 
         <div className="grid grid-cols-2 gap-2">
           <Button mode="danger" text="Cancel" onClick={() => onCancel()} />
           <Button mode="primary" text="Finish" onClick={() => onFinish()} />
         </div>
-      </footer>
+      </Footer>
     </section>
   );
 }

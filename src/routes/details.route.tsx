@@ -8,6 +8,7 @@ import { Text } from "../components/text";
 import { NavButton } from "../components/nav-button";
 import { Button } from "../components/button";
 import { useCallback } from "react";
+import { Footer } from "../components/footer";
 
 export function DetailsRoute() {
   const { getById, deleteById } = useStorage();
@@ -65,9 +66,9 @@ export function DetailsRoute() {
         )}
       </List>
 
-      <footer className="flex flex-col px-6">
+      <Footer>
         <NavButton to="/" text="Close" />
-      </footer>
+      </Footer>
     </section>
   );
 }

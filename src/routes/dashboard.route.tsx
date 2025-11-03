@@ -5,6 +5,7 @@ import { formatDate } from "../utils/format-date";
 import { List } from "../components/list";
 import { Text } from "../components/text";
 import { NavButton } from "../components/nav-button";
+import { Footer } from "../components/footer";
 
 export function DashboardRoute() {
   const { workoutMap } = useStorage();
@@ -38,9 +39,9 @@ export function DashboardRoute() {
           )}
         </List>
 
-        <footer className="flex flex-col px-6">
+        <Footer>
           <NavButton to="/workout" text="Start workout" />
-        </footer>
+        </Footer>
       </section>
     </>
   );
