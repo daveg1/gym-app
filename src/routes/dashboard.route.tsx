@@ -1,13 +1,16 @@
-import { NavLink } from "react-router";
 import { useStorage } from "../hooks";
-import { formatDate } from "../utils";
 import { Page, Header, List, Text, NavButton, Footer } from "../components/ui";
 import { WorkoutItem } from "../components/shared";
+import { useCallback } from "react";
 
 export function DashboardRoute() {
-  const { workoutMap } = useStorage();
+  const { workoutMap, deleteById } = useStorage();
 
   const workouts = Object.values(workoutMap);
+
+  const handleDelete = useCallback((id: string) => {
+    deleteById(id);
+  }, []);
 
   return (
     <>
@@ -17,7 +20,11 @@ export function DashboardRoute() {
         <List>
           {workouts.length ? (
             workouts.map((workout) => (
-              <WorkoutItem key={workout.id} workout={workout} />
+              <WorkoutItem
+                key={workout.id}
+                workout={workout}
+                onDelete={handleDelete}
+              />
             ))
           ) : (
             <Text>No sessions yet, go do one</Text>
