@@ -1,7 +1,5 @@
 import { Route, Routes } from "react-router";
-import { DashboardRoute } from "./routes/dashboard.route";
-import { WorkoutRoute } from "./routes";
-import { DetailsRoute } from "./routes/details.route";
+import { DashboardRoute, DetailsRoute, WorkoutRoute } from "./routes";
 
 function App() {
   // TODO: add cancel button
