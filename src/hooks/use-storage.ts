@@ -13,15 +13,26 @@ const deserialise = (): IWorkoutMap => {
 export function useStorage() {
   const [workoutMap, setWorkoutMap] = useState(deserialise());
 
+  // TODO: rename to saveWorkout
+  // TODO: remove workoutId param as it exists in workout object
   function saveData(workoutId: string, workout: IWorkout) {
     const data = { ...workoutMap, [workoutId]: workout };
     setWorkoutMap(data);
     serialise(data);
   }
 
-  function getSessionById(sessionId: string) {
-    return workoutMap[sessionId];
+  function getById(workoutId: string) {
+    return workoutMap[workoutId];
   }
 
-  return { workoutMap, saveData, getSessionById };
+  async function deleteById(workoutId: string) {
+    setWorkoutMap((current) => {
+      const copy = { ...current };
+      delete copy[workoutId];
+      serialise(copy);
+      return copy;
+    });
+  }
+
+  return { workoutMap, saveData, getById, deleteById };
 }
