@@ -9,6 +9,7 @@ import { NavButton } from "../components/nav-button";
 import { Button } from "../components/button";
 import { useCallback } from "react";
 import { Footer } from "../components/footer";
+import { Page } from "../components/page";
 
 export function DetailsRoute() {
   const { getById, deleteById } = useStorage();
@@ -32,7 +33,7 @@ export function DetailsRoute() {
   if (!workout) return null;
 
   return (
-    <section className="flex h-full flex-col gap-4 py-6">
+    <Page>
       <Header
         text="Workout"
         caption={formatDate(workout.timestamp)}
@@ -69,6 +70,6 @@ export function DetailsRoute() {
       <Footer>
         <NavButton to="/" text="Close" />
       </Footer>
-    </section>
+    </Page>
   );
 }

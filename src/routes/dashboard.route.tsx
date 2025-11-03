@@ -6,6 +6,7 @@ import { List } from "../components/list";
 import { Text } from "../components/text";
 import { NavButton } from "../components/nav-button";
 import { Footer } from "../components/footer";
+import { Page } from "../components/page";
 
 export function DashboardRoute() {
   const { workoutMap } = useStorage();
@@ -14,7 +15,7 @@ export function DashboardRoute() {
 
   return (
     <>
-      <section className="flex h-full flex-col gap-4 overflow-y-auto py-6">
+      <Page>
         <Header text="Your workouts" />
 
         <List>
@@ -42,7 +43,7 @@ export function DashboardRoute() {
         <Footer>
           <NavButton to="/workout" text="Start workout" />
         </Footer>
-      </section>
+      </Page>
     </>
   );
 }

@@ -9,6 +9,7 @@ import { List } from "../components/list";
 import { Text } from "../components/text";
 import { Button } from "../components/button";
 import { Footer } from "../components/footer";
+import { Page } from "../components/page";
 
 export function WorkoutRoute() {
   const { sessionId, exercises, addExercise, updateExercise } =
@@ -50,7 +51,7 @@ export function WorkoutRoute() {
   }, []);
 
   return (
-    <section className="flex h-full flex-col gap-4 py-6">
+    <Page>
       <Header text={timeOfDay + "'s workout"} />
 
       <List>
@@ -75,6 +76,6 @@ export function WorkoutRoute() {
           <Button mode="primary" text="Finish" onClick={() => onFinish()} />
         </div>
       </Footer>
-    </section>
+    </Page>
   );
 }
