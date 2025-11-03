@@ -1,12 +1,7 @@
 import { NavLink } from "react-router";
 import { useStorage } from "../hooks/use-storage";
-import { Header } from "../components/header";
 import { formatDate } from "../utils/format-date";
-import { List } from "../components/list";
-import { Text } from "../components/text";
-import { NavButton } from "../components/nav-button";
-import { Footer } from "../components/footer";
-import { Page } from "../components/page";
+import { Page, Header, List, Text, NavButton, Footer } from "../components/ui";
 
 export function DashboardRoute() {
   const { workoutMap } = useStorage();

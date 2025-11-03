@@ -1,15 +1,17 @@
 import { useLocation, useNavigate } from "react-router";
 import { useStorage } from "../hooks/use-storage";
-import { Header } from "../components/header";
-import { Exercise } from "../components/exercise";
-import { List } from "../components/list";
 import { formatDate } from "../utils/format-date";
-import { Text } from "../components/text";
-import { NavButton } from "../components/nav-button";
-import { Button } from "../components/button";
 import { useCallback } from "react";
-import { Footer } from "../components/footer";
-import { Page } from "../components/page";
+import { Exercise } from "../components/shared";
+import {
+  Header,
+  List,
+  Text,
+  NavButton,
+  Button,
+  Footer,
+  Page,
+} from "../components/ui";
 
 export function DetailsRoute() {
   const { getById, deleteById } = useStorage();

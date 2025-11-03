@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { SetForm } from "./set-form";
-import type { IExercise, ISet } from "../models/gym";
+import type { IExercise, ISet } from "../../models/gym";
 import clsx from "clsx";
 
 interface Props {
