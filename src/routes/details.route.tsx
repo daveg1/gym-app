@@ -34,6 +34,12 @@ export function DetailsRoute() {
 
   if (!workout) return null;
 
+  const totalKg = workout.exercises.reduce(
+    (total, ex) =>
+      total + ex.sets.reduce((kg, set) => kg + set.weight * set.reps, 0),
+    0,
+  );
+
   return (
     <Page>
       <Header
@@ -69,7 +75,9 @@ export function DetailsRoute() {
         )}
       </List>
 
-      <Footer>
+      <Footer border className="gap-4">
+        <Text>Total weight: {totalKg}kg</Text>
+
         <NavButton to="/" text="Close" />
       </Footer>
     </Page>
