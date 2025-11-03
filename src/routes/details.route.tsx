@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
-import { useStorage } from "../hooks/use-storage";
-import { formatDate } from "../utils/format-date";
+import { useStorage } from "../hooks";
+import { formatDate } from "../utils";
 import { useCallback } from "react";
 import { Exercise } from "../components/shared";
 import {

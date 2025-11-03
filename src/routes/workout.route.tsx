@@ -1,7 +1,6 @@
-import { useCurrentSession } from "../hooks";
+import { useCurrentSession, useStorage } from "../hooks";
 import { Exercise } from "../components/shared";
 import { Header, List, Text, Button, Footer, Page } from "../components/ui";
-import { useStorage } from "../hooks/use-storage";
 import { useNavigate } from "react-router";
 import { useCallback } from "react";
 import type { IExercise, ISet } from "../models/gym";
