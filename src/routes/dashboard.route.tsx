@@ -2,6 +2,7 @@ import { NavLink } from "react-router";
 import { useStorage } from "../hooks";
 import { formatDate } from "../utils";
 import { Page, Header, List, Text, NavButton, Footer } from "../components/ui";
+import { WorkoutItem } from "../components/shared";
 
 export function DashboardRoute() {
   const { workoutMap } = useStorage();
@@ -16,19 +17,7 @@ export function DashboardRoute() {
         <List>
           {workouts.length ? (
             workouts.map((workout) => (
-              <NavLink
-                key={workout.id}
-                className="rounded-lg bg-gray-100 p-4 text-lg"
-                to={"/details/" + workout.id}
-              >
-                <h2 className="text-xl font-semibold">
-                  {formatDate(workout.timestamp)}
-                </h2>
-                <p>
-                  {workout.exercises.length} exercise
-                  {workout.exercises.length === 1 ? "" : "s"}
-                </p>
-              </NavLink>
+              <WorkoutItem key={workout.id} workout={workout} />
             ))
           ) : (
             <Text>No sessions yet, go do one</Text>
