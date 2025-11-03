@@ -42,7 +42,7 @@ export function WorkoutRoute() {
       saveWorkout({ id: sessionId, exercises, timestamp: +date });
       navigate("/");
     }
-  }, []);
+  }, [exercises]);
 
   return (
     <Page>
