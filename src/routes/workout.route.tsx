@@ -55,6 +55,7 @@ export function WorkoutRoute() {
               key={exercise.name}
               data={exercise}
               onAddSet={(newSet) => onAddSet(newSet, exercise)}
+              defaultOpen={true}
             />
           ))
         ) : (

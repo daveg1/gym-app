@@ -7,11 +7,12 @@ interface Props {
   data: IExercise;
   readonly?: boolean;
   onAddSet?: (set: ISet) => void;
+  defaultOpen?: boolean;
 }
 
 export const Exercise = memo(
-  ({ data, readonly, onAddSet }: Readonly<Props>) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+  ({ data, readonly, onAddSet, defaultOpen }: Readonly<Props>) => {
+    const [isExpanded, setIsExpanded] = useState(defaultOpen ?? false);
 
     return (
       <article className="flex flex-col rounded-lg bg-gray-200">
@@ -40,7 +41,7 @@ export const Exercise = memo(
         <main
           className={clsx(
             "flex flex-col gap-2 px-6 pb-4",
-            isExpanded && "hidden",
+            !isExpanded && "hidden",
           )}
         >
           <div className="grid grid-cols-3 gap-2 text-sm font-semibold text-gray-500">
