@@ -1,66 +1,24 @@
 import { NavLink } from "react-router";
 import type { IWorkout } from "../../models/gym";
 import { formatDate } from "../../utils";
-import { memo, useRef } from "react";
+import { memo } from "react";
 import { Button } from "../ui";
+import { useSlider } from "../../hooks";
 
 interface Props {
   workout: IWorkout;
   onDelete: (workoutId: string) => void;
 }
 
-interface TouchData {
-  x: number;
-  diff: number;
-  anim: Animation | null;
-}
-
 export const WorkoutItem = memo(({ workout, onDelete }: Readonly<Props>) => {
-  const touchData = useRef<TouchData>({} as TouchData);
-  const touchTargetRef = useRef(null);
-  const DRAG_MAX = 72;
-  touchData.current.diff = 0;
-
-  function handleDragStart(ev: React.TouchEvent<HTMLElement>) {
-    touchData.current.x = ev.touches[0].clientX;
-    if (touchData.current.anim) {
-      touchData.current.anim.cancel();
-    }
-  }
-
-  function handleDrag(ev: React.TouchEvent<HTMLElement>) {
-    const x1 = touchData.current.x;
-    const x2 = ev.touches[0].clientX;
-    const diff = x2 - x1;
-
-    const target = touchTargetRef.current as unknown as HTMLElement;
-    target.style.transform = `translateX(${diff + touchData.current.diff}px)`;
-  }
-
-  function handleDragEnd() {
-    const target = touchTargetRef.current as unknown as HTMLElement;
-    const { right: elemRight } = target.getBoundingClientRect();
-    const padding = 24;
-
-    const right = window.innerWidth - elemRight - padding;
-    const x = right < DRAG_MAX / 2 ? 0 : -DRAG_MAX;
-
-    touchData.current.anim = target.animate(
-      { transform: `translateX(${x}px)` },
-      { fill: "forwards", duration: 150, easing: "ease-out" },
-    );
-    touchData.current.diff = x;
-  }
+  const slideTargetRef = useSlider<HTMLAnchorElement>();
 
   return (
     <div className="relative flex shrink-0 items-center overflow-hidden rounded-lg">
       <NavLink
         className="z-10 block w-full touch-auto rounded-lg bg-gray-100 p-4 text-lg"
         to={"/details/" + workout.id}
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDrag}
-        onTouchEnd={handleDragEnd}
-        ref={touchTargetRef}
+        ref={slideTargetRef}
       >
         <h2 className="text-xl font-semibold">
           {formatDate(workout.timestamp)}
