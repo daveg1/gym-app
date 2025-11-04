@@ -14,7 +14,7 @@ export function WorkoutRoute() {
   const date = new Date();
   const hours = date.getHours();
   const timeOfDay =
-    hours < 12 ? "This morning" : hours < 17 ? "Today" : "Tonight";
+    hours < 12 ? "Morning" : hours < 17 ? "Afternoon" : "Evening";
 
   // todo: store session in local storage until we finish or cancel
   // todo: then reload it on any page refreshes.
@@ -46,7 +46,7 @@ export function WorkoutRoute() {
 
   return (
     <Page>
-      <Header text={timeOfDay + "'s workout"} />
+      <Header text={timeOfDay + " workout"} />
 
       <List>
         {exercises.length ? (
