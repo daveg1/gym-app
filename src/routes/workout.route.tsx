@@ -6,8 +6,7 @@ import { useState } from "react";
 import type { IExercise, ISet } from "../models/gym";
 
 export function WorkoutRoute() {
-  const { sessionId, exercises, addExercise, updateExercise } =
-    useCurrentSession();
+  const { sessionId, exercises, ...crud } = useCurrentSession();
   const { saveWorkout } = useStorage();
   const navigate = useNavigate();
 
@@ -24,13 +23,13 @@ export function WorkoutRoute() {
 
   const onAddSet = (newSet: ISet, exercise: IExercise) => {
     exercise.sets.push(newSet);
-    updateExercise(exercise);
+    crud.updateExercise(exercise);
   };
 
   const onAddExercise = () => {
     const name = prompt("Enter an exercise");
     if (!name) return;
-    addExercise({ id: crypto.randomUUID(), name, sets: [] });
+    crud.addExercise({ id: crypto.randomUUID(), name, sets: [] });
   };
 
   const onCancel = () => {
@@ -65,7 +64,7 @@ export function WorkoutRoute() {
     id: IExercise["id"],
     changes: Partial<IExercise>,
   ) => {
-    updateExercise({ ...changes, id });
+    crud.updateExercise({ ...changes, id });
   };
 
   const handleEditSet = (
@@ -75,7 +74,7 @@ export function WorkoutRoute() {
   ) => {
     const exerciseIndex = exercises.findIndex((ex) => ex.id === id);
     Object.assign(exercises[exerciseIndex].sets[setNo], changes);
-    updateExercise(exercises[exerciseIndex]);
+    crud.updateExercise(exercises[exerciseIndex]);
   };
 
   // TODO: add delete button for sets during workout
