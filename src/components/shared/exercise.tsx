@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 interface Props {
   data: IExercise;
-  readonly?: boolean;
+  hideSetForm?: boolean;
   isEditing?: boolean;
   defaultOpen?: boolean;
   onAddSet?(set: ISet): void;
@@ -16,7 +16,7 @@ interface Props {
 export const Exercise = memo(
   ({
     data,
-    readonly,
+    hideSetForm,
     isEditing,
     defaultOpen,
     onAddSet,
@@ -79,7 +79,11 @@ export const Exercise = memo(
             </svg>
 
             <h2
-              className="text-xl font-semibold"
+              className={clsx(
+                "rounded text-xl font-semibold outline outline-offset-2 transition-all",
+                !isEditing && "outline-transparent",
+                isEditing && "outline-amber-400",
+              )}
               onClick={(e) => handleEditTitle(e)}
             >
               {data.name}
@@ -101,12 +105,24 @@ export const Exercise = memo(
 
           <div className="flex flex-col gap-2">
             {data.sets.map((set, index) => (
-              <div key={index} className="grid grid-cols-3 gap-2">
+              <div key={index} className="grid grid-cols-3 gap-4">
                 <span>{index + 1}</span>
-                <span onClick={(e) => handleEditSetProperty(e, index, "reps")}>
+                <span
+                  className={clsx(
+                    "outline outline-offset-2 transition-all",
+                    !isEditing && "outline-transparent",
+                    isEditing && "relative rounded outline-amber-400",
+                  )}
+                  onClick={(e) => handleEditSetProperty(e, index, "reps")}
+                >
                   {set.reps} reps
                 </span>
                 <span
+                  className={clsx(
+                    "outline outline-offset-2 transition-all",
+                    !isEditing && "outline-transparent",
+                    isEditing && "relative rounded outline-amber-400",
+                  )}
                   onClick={(e) => handleEditSetProperty(e, index, "weight")}
                 >
                   {set.weight}kg
@@ -114,7 +130,7 @@ export const Exercise = memo(
               </div>
             ))}
 
-            {!readonly && (
+            {!hideSetForm && (
               <SetForm
                 setNo={data.sets.length + 1}
                 onSubmit={(value) => onAddSet?.(value)}

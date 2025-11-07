@@ -132,7 +132,7 @@ export function DetailsRoute() {
             <Exercise
               key={index}
               data={exercise}
-              readonly
+              hideSetForm
               isEditing={isEditing}
               onEditExercise={handleEditExercise}
               onEditSet={handleEditSet}
