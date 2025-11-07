@@ -12,7 +12,7 @@ import {
   Footer,
   Page,
 } from "../components/ui";
-import type { IExercise } from "../models/gym";
+import type { IExercise, ISet } from "../models/gym";
 
 export function DetailsRoute() {
   const { getById, deleteById, saveWorkout } = useStorage();
@@ -26,17 +26,24 @@ export function DetailsRoute() {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleEditExercise = useCallback(
-    (id: IExercise["id"], changes: Partial<IExercise>) => {
-      const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
-      workout.exercises[exerciseIndex] = {
-        ...workout.exercises[exerciseIndex],
-        ...changes,
-      };
-      saveWorkout({ ...workout });
-    },
-    [],
-  );
+  const handleEditExercise = (
+    id: IExercise["id"],
+    changes: Partial<IExercise>,
+  ) => {
+    const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+    Object.assign(workout.exercises[exerciseIndex], changes);
+    saveWorkout({ ...workout });
+  };
+
+  const handleEditSet = (
+    id: IExercise["id"],
+    setNo: number,
+    changes: Partial<ISet>,
+  ) => {
+    const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+    Object.assign(workout.exercises[exerciseIndex].sets[setNo], changes);
+    saveWorkout({ ...workout });
+  };
 
   const handleDelete = useCallback(() => {
     if (confirm("Are you sure you want to delete this workout?")) {
@@ -127,7 +134,8 @@ export function DetailsRoute() {
               data={exercise}
               readonly
               isEditing={isEditing}
-              onEdit={handleEditExercise}
+              onEditExercise={handleEditExercise}
+              onEditSet={handleEditSet}
             />
           ))
         ) : (

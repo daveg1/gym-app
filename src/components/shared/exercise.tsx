@@ -9,7 +9,8 @@ interface Props {
   isEditing?: boolean;
   defaultOpen?: boolean;
   onAddSet?(set: ISet): void;
-  onEdit?(id: IExercise["id"], changes: Partial<IExercise>): void;
+  onEditExercise?(id: IExercise["id"], changes: Partial<IExercise>): void;
+  onEditSet?(id: IExercise["id"], setNo: number, changes: Partial<ISet>): void;
 }
 
 export const Exercise = memo(
@@ -19,7 +20,8 @@ export const Exercise = memo(
     isEditing,
     defaultOpen,
     onAddSet,
-    onEdit,
+    onEditExercise,
+    onEditSet,
   }: Readonly<Props>) => {
     const [isExpanded, setIsExpanded] = useState(defaultOpen ?? false);
     const ref = useRef<HTMLElement>(null);
@@ -37,7 +39,20 @@ export const Exercise = memo(
         e.stopPropagation();
         const name = prompt("Enter a new name", data.name);
         if (!name) return;
-        onEdit?.(data.id, { name });
+        onEditExercise?.(data.id, { name });
+      }
+    };
+
+    const handleEditSetProperty = (
+      e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+      index: number, // todo: change to id?
+      prop: keyof ISet,
+    ) => {
+      if (isEditing) {
+        e.stopPropagation();
+        const value = prompt(`Update the ${prop}`, `${data.sets[index][prop]}`);
+        if (!value) return;
+        onEditSet?.(data.id, index, { [prop]: value });
       }
     };
 
@@ -88,8 +103,14 @@ export const Exercise = memo(
             {data.sets.map((set, index) => (
               <div key={index} className="grid grid-cols-3 gap-2">
                 <span>{index + 1}</span>
-                <span>{set.reps} reps</span>
-                <span>{set.weight}kg</span>
+                <span onClick={(e) => handleEditSetProperty(e, index, "reps")}>
+                  {set.reps} reps
+                </span>
+                <span
+                  onClick={(e) => handleEditSetProperty(e, index, "weight")}
+                >
+                  {set.weight}kg
+                </span>
               </div>
             ))}
 
