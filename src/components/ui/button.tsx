@@ -7,6 +7,8 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: boolean;
 };
 
+// TODO: add smaller sizes
+
 export function Button({
   text,
   mode,
