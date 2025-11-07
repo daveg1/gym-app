@@ -67,6 +67,10 @@ export function WorkoutRoute() {
     crud.updateExercise({ ...changes, id });
   };
 
+  const handleDeleteExercise = (id: IExercise["id"]) => {
+    if (confirm(`Delete exercise?`)) crud.deleteExercise(id);
+  };
+
   const handleEditSet = (
     id: IExercise["id"],
     setNo: number,
@@ -132,6 +136,7 @@ export function WorkoutRoute() {
               defaultOpen={true}
               isEditing={isEditing}
               onEditExercise={handleEditExercise}
+              onDeleteExercise={handleDeleteExercise}
               onEditSet={handleEditSet}
             />
           ))

@@ -20,5 +20,16 @@ export function useCurrentSession() {
     });
   };
 
-  return { sessionId, exercises, addExercise, updateExercise };
+  const deleteExercise = (id: IExercise["id"]) => {
+    setExercises((current) => {
+      const copy = [...current];
+
+      const idx = copy.findIndex((ex) => ex.id === id);
+      copy.splice(idx, 1);
+
+      return copy;
+    });
+  };
+
+  return { sessionId, exercises, addExercise, updateExercise, deleteExercise };
 }

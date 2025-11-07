@@ -35,6 +35,24 @@ export function DetailsRoute() {
     saveWorkout({ ...workout });
   };
 
+  const handleDeleteExercise = (id: IExercise["id"]) => {
+    if (confirm(`Delete exercise?`)) {
+      if (
+        workout.exercises.length === 1 &&
+        confirm(
+          "This is your last exercise. Deleting this will delete the entire workout. Continue?",
+        )
+      ) {
+        deleteById(workout.id);
+        navigate("/");
+      } else {
+        const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+        workout.exercises.splice(exerciseIndex, 1);
+        saveWorkout({ ...workout });
+      }
+    }
+  };
+
   const handleEditSet = (
     id: IExercise["id"],
     setNo: number,
@@ -137,6 +155,7 @@ export function DetailsRoute() {
               hideSetForm
               isEditing={isEditing}
               onEditExercise={handleEditExercise}
+              onDeleteExercise={handleDeleteExercise}
               onEditSet={handleEditSet}
             />
           ))
