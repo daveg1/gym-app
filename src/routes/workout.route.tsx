@@ -34,9 +34,14 @@ export function WorkoutRoute() {
   };
 
   const onCancel = () => {
-    if (confirm("Cancel workout? Your session will be discarded")) {
-      navigate("/");
+    if (
+      exercises.length &&
+      !confirm("Cancel workout? Your session will be discarded")
+    ) {
+      return;
     }
+
+    navigate("/");
   };
 
   const onFinish = () => {
