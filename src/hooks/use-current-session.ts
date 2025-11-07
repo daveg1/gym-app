@@ -9,12 +9,12 @@ export function useCurrentSession() {
     setExercises((current) => [...current, value]);
   };
 
-  const updateExercise = (value: IExercise) => {
+  const updateExercise = (changes: Partial<IExercise>) => {
     setExercises((current) => {
       const copy = [...current];
 
-      const idx = copy.findIndex((ex) => ex.id === value.id);
-      copy[idx].sets = value.sets;
+      const idx = copy.findIndex((ex) => ex.id === changes.id);
+      Object.assign(copy[idx], changes);
 
       return copy;
     });
