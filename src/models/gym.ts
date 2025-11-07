@@ -19,6 +19,7 @@ export interface ISet {
 }
 
 export interface IExercise {
+  id: string;
   name: string;
   sets: ISet[];
 }
@@ -33,6 +34,7 @@ export type IWorkoutMap = Record<string, IWorkout>;
 
 export const MockExercises: IExercise[] = [
   {
+    id: "1",
     name: "Bench press",
     sets: [
       {

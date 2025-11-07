@@ -13,7 +13,7 @@ export function useCurrentSession() {
     setExercises((current) => {
       const copy = [...current];
 
-      const idx = copy.findIndex((ex) => ex.name === value.name);
+      const idx = copy.findIndex((ex) => ex.id === value.id);
       copy[idx].sets = value.sets;
 
       return copy;

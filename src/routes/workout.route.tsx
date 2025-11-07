@@ -28,7 +28,7 @@ export function WorkoutRoute() {
   const onAddExercise = useCallback(() => {
     const name = prompt("Enter an exercise");
     if (!name) return;
-    addExercise({ name, sets: [] });
+    addExercise({ id: crypto.randomUUID(), name, sets: [] });
   }, []);
 
   const onCancel = useCallback(() => {

@@ -6,12 +6,21 @@ import clsx from "clsx";
 interface Props {
   data: IExercise;
   readonly?: boolean;
-  onAddSet?: (set: ISet) => void;
+  isEditing?: boolean;
   defaultOpen?: boolean;
+  onAddSet?(set: ISet): void;
+  onEdit?(id: IExercise["id"], changes: Partial<IExercise>): void;
 }
 
 export const Exercise = memo(
-  ({ data, readonly, onAddSet, defaultOpen }: Readonly<Props>) => {
+  ({
+    data,
+    readonly,
+    isEditing,
+    defaultOpen,
+    onAddSet,
+    onEdit,
+  }: Readonly<Props>) => {
     const [isExpanded, setIsExpanded] = useState(defaultOpen ?? false);
     const ref = useRef<HTMLElement>(null);
 
@@ -21,28 +30,46 @@ export const Exercise = memo(
       }
     }, []);
 
+    const handleEditTitle = (
+      e: React.MouseEvent<HTMLHeadingElement, MouseEvent>,
+    ) => {
+      if (isEditing) {
+        e.stopPropagation();
+        const name = prompt("Enter a new name", data.name);
+        if (!name) return;
+        onEdit?.(data.id, { name });
+      }
+    };
+
     return (
-      <article ref={ref} className="flex flex-col rounded-lg bg-gray-200">
+      <article ref={ref} className="flex flex-col rounded-lg bg-gray-100">
         <header
-          className="flex items-center gap-2 px-6 py-4"
+          className="flex items-center justify-between p-4"
           onClick={() => setIsExpanded((v) => !v)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className={clsx("size-6", isExpanded && "rotate-180")}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m19.5 8.25-7.5 7.5-7.5-7.5"
-            />
-          </svg>
+          <div className="flex gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className={clsx("size-6", isExpanded && "rotate-180")}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+              />
+            </svg>
 
-          <h2 className="text-xl font-semibold">{data.name}</h2>
+            <h2
+              className="text-xl font-semibold"
+              onClick={(e) => handleEditTitle(e)}
+            >
+              {data.name}
+            </h2>
+          </div>
         </header>
 
         <main
