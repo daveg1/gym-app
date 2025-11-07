@@ -44,6 +44,9 @@ export function WorkoutRoute() {
     }
   }, [exercises]);
 
+  // TODO: add delete button for sets during workout
+  // TODO: or edit button?
+
   return (
     <Page>
       <Header text={timeOfDay + " workout"} />
