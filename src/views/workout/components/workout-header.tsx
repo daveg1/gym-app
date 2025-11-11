@@ -20,6 +20,8 @@ export function WorkoutHeader() {
   };
 
   const handleEditWorkoutTitle = () => {
+    if (!isEditing) return;
+
     const name = prompt("Edit title", workout.name);
     if (name) {
       updateWorkout({ name });
@@ -28,6 +30,7 @@ export function WorkoutHeader() {
 
   return (
     <Header
+      isEditing={isEditing}
       onClick={() => handleEditWorkoutTitle()}
       text={workout.name ?? ""}
       rightSide={

@@ -15,6 +15,8 @@ export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
   const workout = getById(workoutId);
 
   const handleEditTitle = () => {
+    if (!isEditing) return;
+
     const newTitle = prompt("Edit title", workout.name);
     if (newTitle) {
       addOrSaveWorkout({ ...workout, name: newTitle });
@@ -30,6 +32,7 @@ export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
 
   return (
     <Header
+      isEditing={isEditing}
       onClick={handleEditTitle}
       text={workout.name ?? "Workout"}
       caption={formatDate(workout.timestamp)}
