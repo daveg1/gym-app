@@ -12,6 +12,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
+        short_name: "Gym Tracker",
         name: "Gym Tracker",
         description: "Track your gym sessions",
         theme_color: "#ffffff",
