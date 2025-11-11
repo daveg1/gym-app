@@ -1,11 +1,21 @@
 import { useNavigate } from "react-router";
-import { Button, Header } from "../../../components/ui";
+import {
+  Button,
+  Header,
+  OverflowMenu,
+  OverflowMenuItem,
+} from "../../../components/ui";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutHeader() {
   const { workout, updateWorkout, isEditing, setIsEditing, clearSession } =
     useWorkoutContext();
   const navigate = useNavigate();
+
+  const handlePause = () => {
+    updateWorkout(workout);
+    navigate("/");
+  };
 
   const handleCancel = () => {
     if (
@@ -35,33 +45,6 @@ export function WorkoutHeader() {
       text={workout.name ?? ""}
       rightSide={
         <div className="flex gap-2">
-          {
-            // TODO: hide behind overflow menu
-            <Button
-              icon
-              mode="danger"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleCancel();
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
-                />
-              </svg>
-            </Button>
-          }
-
           {!!workout.exercises.length && (
             <Button
               icon
@@ -103,6 +86,28 @@ export function WorkoutHeader() {
               )}
             </Button>
           )}
+
+          {/* // TODO: hide behind overflow menu */}
+          <OverflowMenu
+            items={
+              <>
+                <OverflowMenuItem
+                  text="Pause"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePause();
+                  }}
+                />
+                <OverflowMenuItem
+                  text="Cancel"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCancel();
+                  }}
+                />
+              </>
+            }
+          />
         </div>
       }
     />

@@ -15,11 +15,6 @@ export function WorkoutFooter() {
     addExercise({ id: crypto.randomUUID(), name, sets: [] });
   };
 
-  const handlePause = () => {
-    updateWorkout(workout);
-    navigate("/");
-  };
-
   const onFinish = () => {
     if (isEditing) {
       return alert("Notice: Please finish editing first");
@@ -44,12 +39,10 @@ export function WorkoutFooter() {
 
   return (
     <Footer>
+      {/* <div className="grid grid-cols-2 gap-[inherit]"> */}
       <Button text="Add exercise" onClick={() => onAddExercise()} />
-
-      <div className="grid grid-cols-2 gap-[inherit]">
-        <Button text="Pause" onClick={() => handlePause()} />
-        <Button text="Finish" onClick={() => onFinish()} />
-      </div>
+      <Button text="Finish" onClick={() => onFinish()} />
+      {/* </div> */}
     </Footer>
   );
 }
