@@ -87,7 +87,6 @@ export function WorkoutHeader() {
             </Button>
           )}
 
-          {/* // TODO: hide behind overflow menu */}
           <OverflowMenu
             items={
               <>
