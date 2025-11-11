@@ -20,10 +20,8 @@ export const WorkoutItem = memo(({ workout, onDelete }: Readonly<Props>) => {
         to={"/details/" + workout.id}
         ref={slideTargetRef}
       >
-        <header className="flex justify-between">
-          <h2 className="text-xl font-semibold">{workout.name ?? "Workout"}</h2>
-          <p className="opacity-80">{formatDate(workout.timestamp)}</p>
-        </header>
+        <h2 className="text-xl font-semibold">{workout.name ?? "Workout"}</h2>
+        <p>{formatDate(workout.timestamp)}</p>
         <p>
           {workout.exercises.length} exercise
           {workout.exercises.length === 1 ? "" : "s"}
