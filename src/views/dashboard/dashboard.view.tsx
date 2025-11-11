@@ -1,9 +1,16 @@
-import { useStorage } from "../hooks";
-import { Page, Header, List, Text, NavButton, Footer } from "../components/ui";
-import { WorkoutItem } from "../components/shared";
+import { useStorage } from "../../hooks";
+import {
+  Page,
+  Header,
+  List,
+  Text,
+  NavButton,
+  Footer,
+} from "../../components/ui";
+import { WorkoutItem } from "../../components/shared";
 import { useCallback } from "react";
 
-export function DashboardRoute() {
+export function DashboardView() {
   const { workoutMap, deleteById } = useStorage();
 
   const workouts = Object.values(workoutMap);

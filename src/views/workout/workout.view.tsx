@@ -1,11 +1,11 @@
-import { useCurrentSession, useStorage } from "../hooks";
-import { Exercise } from "../components/shared";
-import { Header, List, Text, Button, Footer, Page } from "../components/ui";
+import { useCurrentSession, useStorage } from "../../hooks";
+import { Exercise } from "../../components/shared";
+import { Header, List, Text, Button, Footer, Page } from "../../components/ui";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import type { IExercise, ISet } from "../models/gym";
+import type { IExercise, ISet } from "../../models/gym";
 
-export function WorkoutRoute() {
+export function WorkoutView() {
   const { sessionId, title, setTitle, exercises, ...crud } =
     useCurrentSession();
   const { saveWorkout } = useStorage();

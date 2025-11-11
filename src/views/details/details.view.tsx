@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
-import { useStorage } from "../hooks";
-import { formatDate } from "../utils";
+import { useStorage } from "../../hooks";
+import { formatDate } from "../../utils";
 import { useCallback, useMemo, useState } from "react";
-import { Exercise } from "../components/shared";
+import { Exercise } from "../../components/shared";
 import {
   Header,
   List,
@@ -11,10 +11,10 @@ import {
   Button,
   Footer,
   Page,
-} from "../components/ui";
-import type { IExercise, ISet } from "../models/gym";
+} from "../../components/ui";
+import type { IExercise, ISet } from "../../models/gym";
 
-export function DetailsRoute() {
+export function DetailsView() {
   const { getById, deleteById, saveWorkout } = useStorage();
   const navigate = useNavigate();
   const location = useLocation();
