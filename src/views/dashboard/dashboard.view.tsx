@@ -7,8 +7,8 @@ import {
   NavButton,
   Footer,
 } from "../../components/ui";
-import { WorkoutItem } from "../../components/shared";
 import { useCallback } from "react";
+import { WorkoutItem } from "./components/workout-item";
 
 export function DashboardView() {
   const { workoutMap, deleteById } = useStorage();

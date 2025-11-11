@@ -1,9 +1,9 @@
 import { NavLink } from "react-router";
-import type { IWorkout } from "../../models/gym";
-import { formatDate } from "../../utils";
+import type { IWorkout } from "../../../models/gym";
+import { formatDate } from "../../../utils";
 import { memo } from "react";
-import { Button } from "../ui";
-import { useSlider } from "../../hooks";
+import { Button } from "../../../components/ui";
+import { useSlider } from "../../../hooks";
 
 interface Props {
   workout: IWorkout;
