@@ -25,18 +25,19 @@ export function DetailsList({
 
   const handleDeleteExercise = (id: IExercise["id"]) => {
     if (confirm(`Delete exercise?`)) {
-      if (
-        workout.exercises.length === 1 &&
-        confirm(
-          "This is your last exercise. Deleting this will delete the entire workout. Continue?",
-        )
-      ) {
-        deleteById(workout.id);
-        navigate("/");
-      } else {
+      if (workout.exercises.length > 1) {
         const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
         workout.exercises.splice(exerciseIndex, 1);
         addOrSaveWorkout({ ...workout });
+      } else {
+        if (
+          confirm(
+            "This is your last exercise. Deleting this will delete the entire workout. Continue?",
+          )
+        ) {
+          deleteById(workout.id);
+          navigate("/");
+        }
       }
     }
   };

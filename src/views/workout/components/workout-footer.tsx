@@ -6,8 +6,7 @@ import { useWorkoutContext } from "../workout.context";
 export function WorkoutFooter() {
   const navigate = useNavigate();
   const { addOrSaveWorkout } = useStorage();
-  const { workout, clearSession, isEditing, addExercise, updateWorkout } =
-    useWorkoutContext();
+  const { workout, clearSession, isEditing, addExercise } = useWorkoutContext();
 
   const onAddExercise = () => {
     const name = prompt("Enter an exercise");
