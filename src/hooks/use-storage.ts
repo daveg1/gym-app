@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { IWorkoutMap, IWorkout } from "../models/gym";
 import { STORAGE_KEY } from "../constants";
 

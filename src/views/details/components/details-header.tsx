@@ -1,18 +1,25 @@
 import { useNavigate } from "react-router";
 import { Button, Header } from "../../../components/ui";
 import { useStorage } from "../../../hooks";
-import type { IWorkout } from "../../../models/gym";
 import { formatDate } from "../../../utils";
 
 interface Props {
-  workout: IWorkout;
+  workoutId: string;
   isEditing: boolean;
   setIsEditing: (v: (v: boolean) => boolean) => void;
 }
 
-export function DetailsHeader({ workout, isEditing, setIsEditing }: Props) {
-  const { deleteById } = useStorage();
+export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
+  const { saveWorkout, getById, deleteById } = useStorage();
   const navigate = useNavigate();
+  const workout = getById(workoutId);
+
+  const handleEditTitle = () => {
+    const newTitle = prompt("Edit title", workout.name);
+    if (newTitle) {
+      saveWorkout({ ...workout, name: newTitle });
+    }
+  };
 
   const handleDelete = () => {
     if (confirm("Are you sure you want to delete this workout?")) {
@@ -23,12 +30,20 @@ export function DetailsHeader({ workout, isEditing, setIsEditing }: Props) {
 
   return (
     <Header
+      onClick={handleEditTitle}
       text={workout.name ?? "Workout"}
       caption={formatDate(workout.timestamp)}
       rightSide={
         <menu className="flex gap-4">
           {isEditing && (
-            <Button icon mode="danger" onClick={handleDelete}>
+            <Button
+              icon
+              mode="danger"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete();
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -46,7 +61,13 @@ export function DetailsHeader({ workout, isEditing, setIsEditing }: Props) {
             </Button>
           )}
 
-          <Button icon onClick={() => setIsEditing((v) => !v)}>
+          <Button
+            icon
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsEditing((v) => !v);
+            }}
+          >
             {isEditing ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

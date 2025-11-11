@@ -31,7 +31,7 @@ export function DetailsView() {
   return (
     <Page>
       <DetailsHeader
-        workout={workout}
+        workoutId={workout.id}
         isEditing={isEditing}
         setIsEditing={setIsEditing}
       />
