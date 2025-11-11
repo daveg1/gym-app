@@ -8,10 +8,6 @@ Features:
 
 ## TODO
 
-### Meta
-
-- Rename site title
-
 ### Workouts
 
 - Workout pause
