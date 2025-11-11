@@ -2,7 +2,7 @@ import { Button, Header } from "../../../components/ui";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutHeader() {
-  const { title, setTitle, exercises, isEditing, setIsEditing } =
+  const { workout, updateWorkout, isEditing, setIsEditing } =
     useWorkoutContext();
 
   const handleToggleEdit = (
@@ -13,18 +13,18 @@ export function WorkoutHeader() {
   };
 
   const handleEditWorkoutTitle = () => {
-    const newTitle = prompt("Edit title", title);
-    if (newTitle) {
-      setTitle(newTitle);
+    const name = prompt("Edit title", workout.name);
+    if (name) {
+      updateWorkout({ name });
     }
   };
 
   return (
     <Header
       onClick={() => handleEditWorkoutTitle()}
-      text={title}
+      text={workout.name ?? ""}
       rightSide={
-        !!exercises.length && (
+        !!workout.exercises.length && (
           <Button icon onClick={handleToggleEdit}>
             {isEditing ? (
               <svg

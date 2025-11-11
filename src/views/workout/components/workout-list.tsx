@@ -4,7 +4,7 @@ import type { IExercise, ISet } from "../../../models/gym";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutList() {
-  const { exercises, isEditing, setIsEditing, ...crud } = useWorkoutContext();
+  const { workout, isEditing, setIsEditing, ...crud } = useWorkoutContext();
 
   const handleEditExercise = (
     id: IExercise["id"],
@@ -15,7 +15,7 @@ export function WorkoutList() {
 
   const handleDeleteExercise = (id: IExercise["id"]) => {
     if (confirm(`Delete exercise?`)) {
-      if (exercises.length === 1) setIsEditing(false);
+      if (workout.exercises.length === 1) setIsEditing(false);
       crud.deleteExercise(id);
     }
   };
@@ -30,17 +30,17 @@ export function WorkoutList() {
     setNo: number,
     changes: Partial<ISet>,
   ) => {
-    const exerciseIndex = exercises.findIndex((ex) => ex.id === id);
-    Object.assign(exercises[exerciseIndex].sets[setNo], changes);
-    crud.updateExercise(exercises[exerciseIndex]);
+    const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+    Object.assign(workout.exercises[exerciseIndex].sets[setNo], changes);
+    crud.updateExercise(workout.exercises[exerciseIndex]);
   };
 
   // TODO: add delete button for sets during workout
 
   return (
     <List>
-      {exercises.length ? (
-        exercises.map((exercise, index) => (
+      {workout.exercises.length ? (
+        workout.exercises.map((exercise, index) => (
           <Exercise
             key={index}
             data={exercise}

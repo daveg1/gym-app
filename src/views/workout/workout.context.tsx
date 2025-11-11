@@ -1,13 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import type { IExercise } from "../../models/gym";
+import type { IExercise, IWorkout } from "../../models/gym";
 
 interface IContext {
-  sessionId: string;
-  date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  exercises: IExercise[];
+  workout: IWorkout;
+  updateWorkout: (changes: Partial<IWorkout>) => void;
   addExercise: (exercise: IExercise) => void;
   updateExercise: (changes: Partial<IExercise>) => void;
   deleteExercise: (id: IExercise["id"]) => void;
@@ -22,37 +18,39 @@ export function WorkoutContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [date, setDate] = useState(new Date());
-  const hours = date.getHours();
-  const timeOfDay =
-    hours < 12 ? "Morning" : hours < 17 ? "Afternoon" : "Evening";
+  const [workout, setWorkout] = useState<IWorkout>({
+    exercises: [],
+    id: crypto.randomUUID() as string,
+    timestamp: Date.now(),
+    name: "Workout",
+  });
 
-  const [title, setTitle] = useState(`${timeOfDay} workout`);
-  const [exercises, setExercises] = useState<IExercise[]>([]);
-  const sessionId = crypto.randomUUID() as string;
+  const updateWorkout = (changes: Partial<IWorkout>) => {
+    setWorkout((current) => ({ ...current, ...changes }));
+  };
 
   const addExercise = (value: IExercise) => {
-    setExercises((current) => [...current, value]);
+    setWorkout((current) => {
+      const copy = { ...current };
+      copy.exercises = [...copy.exercises, value];
+      return copy;
+    });
   };
 
   const updateExercise = (changes: Partial<IExercise>) => {
-    setExercises((current) => {
-      const copy = [...current];
-
-      const idx = copy.findIndex((ex) => ex.id === changes.id);
-      Object.assign(copy[idx], changes);
-
+    setWorkout((current) => {
+      const copy = { ...current };
+      const idx = copy.exercises.findIndex((ex) => ex.id === changes.id);
+      Object.assign(copy.exercises[idx], changes);
       return copy;
     });
   };
 
   const deleteExercise = (id: IExercise["id"]) => {
-    setExercises((current) => {
-      const copy = [...current];
-
-      const idx = copy.findIndex((ex) => ex.id === id);
-      copy.splice(idx, 1);
-
+    setWorkout((current) => {
+      const copy = { ...current };
+      const idx = copy.exercises.findIndex((ex) => ex.id === id);
+      copy.exercises.splice(idx, 1);
       return copy;
     });
   };
@@ -60,12 +58,8 @@ export function WorkoutContextProvider({
   const [isEditing, setIsEditing] = useState(false);
 
   const value = {
-    sessionId,
-    date,
-    setDate,
-    title,
-    setTitle,
-    exercises,
+    workout,
+    updateWorkout,
     addExercise,
     updateExercise,
     deleteExercise,
