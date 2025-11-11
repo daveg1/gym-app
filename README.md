@@ -10,7 +10,6 @@ Features:
 
 ### Workouts
 
-- Workout pause
 - Notes for exercises (like a description)
 - Delete reps from exercise
 
