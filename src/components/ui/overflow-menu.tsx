@@ -18,7 +18,12 @@ export function OverflowMenu({ items }: Props) {
       )}
 
       <div className="relative">
-        <Button onClick={() => setIsOpen(true)}>
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpen(true);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -34,7 +39,7 @@ export function OverflowMenu({ items }: Props) {
         </Button>
 
         {isOpen && (
-          <div className="absolute right-0 mt-2 flex flex-col rounded-xl bg-white shadow-lg">
+          <div className="absolute right-0 mt-2 flex flex-col overflow-hidden rounded-xl bg-white shadow-lg">
             {items}
           </div>
         )}

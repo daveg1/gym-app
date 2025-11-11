@@ -99,6 +99,7 @@ export function WorkoutHeader() {
                 />
                 <OverflowMenuItem
                   text="Cancel"
+                  mode="danger"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleCancel();
