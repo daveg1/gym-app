@@ -63,6 +63,10 @@ export function WorkoutRoute() {
       return alert("Notice: Please finish editing first");
     }
 
+    if (!exercises.length) {
+      return alert("Notice: you haven't added any exercises");
+    }
+
     if (exercises.some((ex) => !ex.sets.length)) {
       return alert(
         "Notice: some of your exercises are empty - please add sets or remove them",
@@ -88,7 +92,10 @@ export function WorkoutRoute() {
   };
 
   const handleDeleteExercise = (id: IExercise["id"]) => {
-    if (confirm(`Delete exercise?`)) crud.deleteExercise(id);
+    if (confirm(`Delete exercise?`)) {
+      if (exercises.length === 1) setIsEditing(false);
+      crud.deleteExercise(id);
+    }
   };
 
   const handleEditSet = (
