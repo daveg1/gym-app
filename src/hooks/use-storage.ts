@@ -13,7 +13,7 @@ const deserialise = (): IWorkoutMap => {
 export function useStorage() {
   const [workoutMap, setWorkoutMap] = useState(deserialise());
 
-  function saveWorkout(workout: IWorkout) {
+  function addOrSaveWorkout(workout: IWorkout) {
     const data = { ...workoutMap, [workout.id]: workout };
     setWorkoutMap(data);
     serialise(data);
@@ -32,5 +32,10 @@ export function useStorage() {
     });
   }
 
-  return { workoutMap, saveWorkout, getById, deleteById };
+  return {
+    workoutMap,
+    addOrSaveWorkout,
+    getById,
+    deleteById,
+  };
 }

@@ -10,14 +10,14 @@ interface Props {
 }
 
 export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
-  const { saveWorkout, getById, deleteById } = useStorage();
+  const { addOrSaveWorkout, getById, deleteById } = useStorage();
   const navigate = useNavigate();
   const workout = getById(workoutId);
 
   const handleEditTitle = () => {
     const newTitle = prompt("Edit title", workout.name);
     if (newTitle) {
-      saveWorkout({ ...workout, name: newTitle });
+      addOrSaveWorkout({ ...workout, name: newTitle });
     }
   };
 

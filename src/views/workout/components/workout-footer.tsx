@@ -5,8 +5,8 @@ import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutFooter() {
   const navigate = useNavigate();
-  const { saveWorkout } = useStorage();
-  const { workout, isEditing, ...crud } = useWorkoutContext();
+  const { addOrSaveWorkout: addWorkout } = useStorage();
+  const { workout, clearSession, isEditing, ...crud } = useWorkoutContext();
 
   const onAddExercise = () => {
     const name = prompt("Enter an exercise");
@@ -41,7 +41,8 @@ export function WorkoutFooter() {
     }
 
     if (confirm("Finish workout? This session will be saved")) {
-      saveWorkout(workout);
+      clearSession();
+      addWorkout(workout);
       navigate("/");
     }
   };

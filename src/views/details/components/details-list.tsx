@@ -11,7 +11,7 @@ export function DetailsList({
   workout: IWorkout;
   isEditing: boolean;
 }) {
-  const { saveWorkout, deleteById } = useStorage();
+  const { addOrSaveWorkout, deleteById } = useStorage();
   const navigate = useNavigate();
 
   const handleEditExercise = (
@@ -20,7 +20,7 @@ export function DetailsList({
   ) => {
     const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
     Object.assign(workout.exercises[exerciseIndex], changes);
-    saveWorkout({ ...workout });
+    addOrSaveWorkout({ ...workout });
   };
 
   const handleDeleteExercise = (id: IExercise["id"]) => {
@@ -36,7 +36,7 @@ export function DetailsList({
       } else {
         const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
         workout.exercises.splice(exerciseIndex, 1);
-        saveWorkout({ ...workout });
+        addOrSaveWorkout({ ...workout });
       }
     }
   };
@@ -48,7 +48,7 @@ export function DetailsList({
   ) => {
     const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
     Object.assign(workout.exercises[exerciseIndex].sets[setNo], changes);
-    saveWorkout({ ...workout });
+    addOrSaveWorkout({ ...workout });
   };
 
   return (
