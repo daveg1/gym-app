@@ -13,7 +13,6 @@ Features:
 - Workout pause
 - Notes for exercises (like a description)
 - Delete reps from exercise
-- Ability to rename workout
 
 ### Stats
 
