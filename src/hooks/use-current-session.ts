@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { IExercise } from "../models/gym";
 
 export function useCurrentSession() {
+  const [title, setTitle] = useState("");
   const [exercises, setExercises] = useState<IExercise[]>([]);
   const sessionId = crypto.randomUUID();
 
@@ -31,5 +32,13 @@ export function useCurrentSession() {
     });
   };
 
-  return { sessionId, exercises, addExercise, updateExercise, deleteExercise };
+  return {
+    sessionId,
+    title,
+    setTitle,
+    exercises,
+    addExercise,
+    updateExercise,
+    deleteExercise,
+  };
 }

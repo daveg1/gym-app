@@ -26,6 +26,7 @@ export interface IExercise {
 
 export interface IWorkout {
   id: string;
+  name?: string;
   exercises: IExercise[];
   timestamp: number;
 }

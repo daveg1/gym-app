@@ -1,18 +1,22 @@
-interface Props {
+type Props = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement>,
+  HTMLElement
+> & {
   text: string;
   caption?: string;
   leftSide?: React.ReactNode;
   rightSide?: React.ReactNode;
-}
+};
 
 export function Header({
   text,
   caption,
   leftSide,
   rightSide,
+  ...htmlProps
 }: Readonly<Props>) {
   return (
-    <header className="flex gap-4 px-6">
+    <header className="flex gap-4 px-6" {...htmlProps}>
       {leftSide && <aside>{leftSide}</aside>}
 
       <div className="flex flex-col gap-1">

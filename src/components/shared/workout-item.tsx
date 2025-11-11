@@ -14,15 +14,16 @@ export const WorkoutItem = memo(({ workout, onDelete }: Readonly<Props>) => {
   const slideTargetRef = useSlider<HTMLAnchorElement>();
 
   return (
-    <div className="relative flex shrink-0 items-center overflow-hidden rounded-lg">
+    <article className="relative flex shrink-0 items-center overflow-hidden rounded-lg">
       <NavLink
         className="z-10 block w-full touch-auto rounded-lg bg-gray-100 p-4 text-lg"
         to={"/details/" + workout.id}
         ref={slideTargetRef}
       >
-        <h2 className="text-xl font-semibold">
-          {formatDate(workout.timestamp)}
-        </h2>
+        <header className="flex justify-between">
+          <h2 className="text-xl font-semibold">{workout.name ?? "Workout"}</h2>
+          <p className="opacity-80">{formatDate(workout.timestamp)}</p>
+        </header>
         <p>
           {workout.exercises.length} exercise
           {workout.exercises.length === 1 ? "" : "s"}
@@ -50,6 +51,6 @@ export const WorkoutItem = memo(({ workout, onDelete }: Readonly<Props>) => {
           />
         </svg>
       </Button>
-    </div>
+    </article>
   );
 });

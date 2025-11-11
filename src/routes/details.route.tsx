@@ -86,7 +86,7 @@ export function DetailsRoute() {
   return (
     <Page>
       <Header
-        text="Workout"
+        text={workout.name ?? "Workout"}
         caption={formatDate(workout.timestamp)}
         rightSide={
           <menu className="flex gap-4">

@@ -6,7 +6,8 @@ import { useState } from "react";
 import type { IExercise, ISet } from "../models/gym";
 
 export function WorkoutRoute() {
-  const { sessionId, exercises, ...crud } = useCurrentSession();
+  const { sessionId, title, setTitle, exercises, ...crud } =
+    useCurrentSession();
   const { saveWorkout } = useStorage();
   const navigate = useNavigate();
 
@@ -20,6 +21,20 @@ export function WorkoutRoute() {
   // todo: store session in local storage until we finish or cancel
   // todo: then reload it on any page refreshes.
   // const tempState = {};
+
+  const handleToggleEdit = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    setIsEditing((v) => !v);
+  };
+
+  const handleEditWorkoutTitle = () => {
+    const newTitle = prompt("Edit title", title);
+    if (newTitle) {
+      setTitle(newTitle);
+    }
+  };
 
   const onAddSet = (newSet: ISet, exercise: IExercise) => {
     exercise.sets.push(newSet);
@@ -55,7 +70,12 @@ export function WorkoutRoute() {
     }
 
     if (confirm("Finish workout? This session will be saved")) {
-      saveWorkout({ id: sessionId, exercises, timestamp: +date });
+      saveWorkout({
+        id: sessionId,
+        exercises,
+        timestamp: +date,
+        name: timeOfDay,
+      });
       navigate("/");
     }
   };
@@ -86,10 +106,11 @@ export function WorkoutRoute() {
   return (
     <Page>
       <Header
-        text={timeOfDay + " workout"}
+        onClick={() => handleEditWorkoutTitle()}
+        text={title || timeOfDay + " workout"}
         rightSide={
           !!exercises.length && (
-            <Button icon onClick={() => setIsEditing((v) => !v)}>
+            <Button icon onClick={handleToggleEdit}>
               {isEditing ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
