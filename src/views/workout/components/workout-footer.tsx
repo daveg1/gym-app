@@ -5,7 +5,7 @@ import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutFooter() {
   const navigate = useNavigate();
-  const { addOrSaveWorkout: addWorkout } = useStorage();
+  const { addOrSaveWorkout } = useStorage();
   const { workout, clearSession, isEditing, ...crud } = useWorkoutContext();
 
   const onAddExercise = () => {
@@ -14,14 +14,8 @@ export function WorkoutFooter() {
     crud.addExercise({ id: crypto.randomUUID(), name, sets: [] });
   };
 
-  const onCancel = () => {
-    if (
-      workout.exercises.length &&
-      !confirm("Cancel workout? Your session will be discarded")
-    ) {
-      return;
-    }
-
+  const handlePause = () => {
+    crud.updateWorkout(workout);
     navigate("/");
   };
 
@@ -42,7 +36,7 @@ export function WorkoutFooter() {
 
     if (confirm("Finish workout? This session will be saved")) {
       clearSession();
-      addWorkout(workout);
+      addOrSaveWorkout(workout);
       navigate("/");
     }
   };
@@ -52,8 +46,8 @@ export function WorkoutFooter() {
       <Button text="Add exercise" onClick={() => onAddExercise()} />
 
       <div className="grid grid-cols-2 gap-[inherit]">
-        <Button mode="danger" text="Cancel" onClick={() => onCancel()} />
-        <Button mode="primary" text="Finish" onClick={() => onFinish()} />
+        <Button text="Pause" onClick={() => handlePause()} />
+        <Button text="Finish" onClick={() => onFinish()} />
       </div>
     </Footer>
   );

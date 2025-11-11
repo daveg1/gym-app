@@ -9,6 +9,7 @@ import {
 } from "../../components/ui";
 import { useCallback } from "react";
 import { WorkoutItem } from "./components/workout-item";
+import { WORKOUT_SESSION_KEY } from "../../constants";
 
 export function DashboardView() {
   const { workoutMap, deleteById } = useStorage();
@@ -18,6 +19,8 @@ export function DashboardView() {
   const handleDelete = useCallback((id: string) => {
     deleteById(id);
   }, []);
+
+  const hasSession = !!localStorage.getItem(WORKOUT_SESSION_KEY);
 
   return (
     <>
@@ -39,7 +42,10 @@ export function DashboardView() {
         </List>
 
         <Footer>
-          <NavButton to="/workout" text="Start workout" />
+          <NavButton
+            to="/workout"
+            text={hasSession ? "Resume workout" : "Start workout"}
+          />
         </Footer>
       </Page>
     </>
