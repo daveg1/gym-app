@@ -6,16 +6,17 @@ import { useWorkoutContext } from "../workout.context";
 export function WorkoutFooter() {
   const navigate = useNavigate();
   const { addOrSaveWorkout } = useStorage();
-  const { workout, clearSession, isEditing, ...crud } = useWorkoutContext();
+  const { workout, clearSession, isEditing, addExercise, updateWorkout } =
+    useWorkoutContext();
 
   const onAddExercise = () => {
     const name = prompt("Enter an exercise");
     if (!name) return;
-    crud.addExercise({ id: crypto.randomUUID(), name, sets: [] });
+    addExercise({ id: crypto.randomUUID(), name, sets: [] });
   };
 
   const handlePause = () => {
-    crud.updateWorkout(workout);
+    updateWorkout(workout);
     navigate("/");
   };
 

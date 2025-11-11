@@ -4,25 +4,26 @@ import type { IExercise, ISet } from "../../../models/gym";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutList() {
-  const { workout, isEditing, setIsEditing, ...crud } = useWorkoutContext();
+  const { workout, isEditing, setIsEditing, updateExercise, deleteExercise } =
+    useWorkoutContext();
 
   const handleEditExercise = (
     id: IExercise["id"],
     changes: Partial<IExercise>,
   ) => {
-    crud.updateExercise({ ...changes, id });
+    updateExercise({ ...changes, id });
   };
 
   const handleDeleteExercise = (id: IExercise["id"]) => {
     if (confirm(`Delete exercise?`)) {
       if (workout.exercises.length === 1) setIsEditing(false);
-      crud.deleteExercise(id);
+      deleteExercise(id);
     }
   };
 
   const onAddSet = (newSet: ISet, exercise: IExercise) => {
     exercise.sets.push(newSet);
-    crud.updateExercise(exercise);
+    updateExercise(exercise);
   };
 
   const handleEditSet = (
@@ -32,7 +33,7 @@ export function WorkoutList() {
   ) => {
     const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
     Object.assign(workout.exercises[exerciseIndex].sets[setNo], changes);
-    crud.updateExercise(workout.exercises[exerciseIndex]);
+    updateExercise(workout.exercises[exerciseIndex]);
   };
 
   // TODO: add delete button for sets during workout
