@@ -8,6 +8,10 @@ Features:
 
 ## TODO
 
+## UI
+
+- Button sizes
+
 ### Workouts
 
 - Notes for exercises (like a description)
