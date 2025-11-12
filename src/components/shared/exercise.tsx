@@ -2,7 +2,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import { SetForm } from "./set-form";
 import type { IExercise, ISet } from "../../models/gym";
 import clsx from "clsx";
-import { Button } from "../ui";
+import { Button, Text } from "../ui";
 
 interface Props {
   data: IExercise;
@@ -126,10 +126,10 @@ export const Exercise = memo(
             !isExpanded && "hidden",
           )}
         >
-          <div className="grid grid-cols-3 gap-2 text-sm font-semibold text-gray-500">
-            <span>SET</span>
-            <span>REPS</span>
-            <span>KG</span>
+          <div className="grid grid-cols-3 gap-2">
+            <Text size="s">SET</Text>
+            <Text size="s">REPS</Text>
+            <Text size="s">KG</Text>
           </div>
 
           <div className="flex flex-col gap-2">
