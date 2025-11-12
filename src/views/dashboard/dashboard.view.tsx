@@ -10,6 +10,7 @@ import {
 import { WorkoutItem } from "./components/workout-item";
 import { WORKOUT_SESSION_KEY } from "../../constants";
 import { useMemo } from "react";
+import { TextSeparator } from "../../components/shared";
 
 export function DashboardView() {
   const { workoutMap } = useStorage();
@@ -34,9 +35,9 @@ export function DashboardView() {
           {workouts.length ? (
             workouts.map((workout, index) => (
               <>
-                {index === 0 && <Text size="s">Latest</Text>}
+                {index === 0 && <TextSeparator text="Latest" />}
                 <WorkoutItem key={workout.id} workout={workout} />
-                {index === 0 && <Text size="s">Previous</Text>}
+                {index === 0 && <TextSeparator text="Previous" />}
               </>
             ))
           ) : (
