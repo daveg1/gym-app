@@ -41,7 +41,7 @@ export function DetailsView() {
       <Footer border className="gap-4">
         <Text>Total weight: {totalKg.toLocaleString()} kg</Text>
 
-        <NavButton to="/">Close</NavButton>
+        <NavButton to="/" label="Close" />
       </Footer>
     </Page>
   );

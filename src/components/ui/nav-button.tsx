@@ -1,17 +1,25 @@
+import clsx from "clsx";
 import { NavLink, type NavLinkProps } from "react-router";
 
 type Props = {
   to: string;
-  children: React.ReactNode;
+  label?: string;
+  icon?: React.ReactNode;
 } & NavLinkProps;
 
-export function NavButton({ children, ...props }: Readonly<Props>) {
+export function NavButton({ label, icon, ...props }: Readonly<Props>) {
   return (
     <NavLink
-      className="flex items-center justify-center gap-2 rounded-lg bg-gray-200/50 p-4 text-lg font-semibold text-cyan-600"
+      className={(link) =>
+        clsx(
+          "flex flex-col items-center rounded-lg bg-gray-200/50 px-4 py-2 text-lg font-semibold",
+          link.isActive ? "text-cyan-600" : "text-gray-500",
+        )
+      }
       {...props}
     >
-      {children}
+      {icon}
+      {label && <span>{label}</span>}
     </NavLink>
   );
 }
