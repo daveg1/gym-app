@@ -48,7 +48,7 @@ export function Card({
 
           <h2
             className={clsx(
-              "rounded text-xl font-semibold outline outline-offset-2 transition-all",
+              "rounded text-xl font-semibold outline outline-offset-2",
               !isEditing && "outline-transparent",
               isEditing && "outline-amber-400",
             )}

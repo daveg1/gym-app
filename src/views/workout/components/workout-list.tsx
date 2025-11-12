@@ -35,7 +35,23 @@ export function WorkoutList() {
     updateExercise(workout.exercises[exerciseIndex]);
   };
 
-  // TODO: add delete button for sets during workout
+  const handleDeleteSet = (id: IExercise["id"], setNo: number) => {
+    const exIndex = workout.exercises.findIndex((ex) => ex.id === id);
+    // TODO: use id instead to find sets
+    const setIndex = workout.exercises[exIndex].sets.findIndex(
+      (_, index) => index === setNo,
+    );
+
+    if (setIndex > -1) {
+      const setsCopy = [...workout.exercises[exIndex].sets];
+      setsCopy.splice(setIndex, 1);
+
+      const exercisesCopy = [...workout.exercises];
+      exercisesCopy[exIndex].sets = setsCopy;
+
+      updateExercise(exercisesCopy[exIndex]);
+    }
+  };
 
   return (
     <List>
@@ -50,6 +66,7 @@ export function WorkoutList() {
             onEditExercise={handleEditExercise}
             onDeleteExercise={handleDeleteExercise}
             onEditSet={handleEditSet}
+            onDeleteSet={handleDeleteSet}
           />
         ))
       ) : (

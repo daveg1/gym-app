@@ -12,8 +12,9 @@ interface Props {
   defaultOpen?: boolean;
   onAddSet?(set: ISet): void;
   onEditExercise?(id: IExercise["id"], changes: Partial<IExercise>): void;
-  onEditSet?(id: IExercise["id"], setNo: number, changes: Partial<ISet>): void;
   onDeleteExercise?(id: IExercise["id"]): void;
+  onEditSet?(id: IExercise["id"], setNo: number, changes: Partial<ISet>): void;
+  onDeleteSet?(id: IExercise["id"], setNo: number): void;
 }
 
 export const Exercise = memo(
@@ -26,6 +27,7 @@ export const Exercise = memo(
     onEditExercise,
     onDeleteExercise,
     onEditSet,
+    onDeleteSet,
   }: Readonly<Props>) => {
     const ref = useRef<HTMLElement>(null);
 
@@ -46,13 +48,17 @@ export const Exercise = memo(
       }
     };
 
-    const handlePropertyClick = (
+    const handlePropertyEdit = (
       index: number, // todo: change to id?
       prop: keyof ISet,
     ) => {
       const value = prompt(`Update the ${prop}`, `${data.sets[index][prop]}`);
       if (!value) return;
       onEditSet?.(data.id, index, { [prop]: value });
+    };
+
+    const handleSetDelete = (setNo: number) => {
+      onDeleteSet?.(data.id, setNo);
     };
 
     return (
@@ -71,10 +77,13 @@ export const Exercise = memo(
           <ExerciseBody
             data={data}
             isEditing={isEditing}
-            onPropertyEditClick={handlePropertyClick}
+            hideSetForm={hideSetForm}
+            onPropertyClick={handlePropertyEdit}
+            onSetDelete={handleSetDelete}
           />
         }
         footerContent={
+          !isEditing &&
           !hideSetForm && <ExerciseFooter data={data} onAddSet={onAddSet} />
         }
       />

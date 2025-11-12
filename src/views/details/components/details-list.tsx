@@ -4,13 +4,12 @@ import { List, Text } from "../../../components/ui";
 import { useStorage } from "../../../hooks";
 import type { IExercise, ISet, IWorkout } from "../../../models/gym";
 
-export function DetailsList({
-  workout,
-  isEditing,
-}: {
+interface Props {
   workout: IWorkout;
   isEditing: boolean;
-}) {
+}
+
+export function DetailsList({ workout, isEditing }: Props) {
   const { addOrSaveWorkout, deleteById } = useStorage();
   const navigate = useNavigate();
 
@@ -52,6 +51,25 @@ export function DetailsList({
     addOrSaveWorkout({ ...workout });
   };
 
+  const handleDeleteSet = (id: IExercise["id"], setNo: number) => {
+    const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+    const setIndex = workout.exercises[exerciseIndex].sets.findIndex(
+      (_, index) => index === setNo,
+    );
+
+    if (setIndex > -1) {
+      const setsCopy = [...workout.exercises[exerciseIndex].sets];
+      setsCopy.splice(setIndex, 1);
+
+      const exercisesCopy = [...workout.exercises];
+      exercisesCopy[exerciseIndex].sets = setsCopy;
+
+      workout.exercises = exercisesCopy;
+
+      addOrSaveWorkout({ ...workout });
+    }
+  };
+
   return (
     <List>
       {workout.exercises.length ? (
@@ -64,6 +82,7 @@ export function DetailsList({
             onEditExercise={handleEditExercise}
             onDeleteExercise={handleDeleteExercise}
             onEditSet={handleEditSet}
+            onDeleteSet={handleDeleteSet}
           />
         ))
       ) : (
