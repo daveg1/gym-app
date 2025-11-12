@@ -13,7 +13,7 @@ export function NavBarItem({ to, label, icon }: Props) {
       to={to}
       className={(link) =>
         clsx(
-          "flex w-full flex-col items-center py-2 text-lg font-semibold",
+          "flex w-full flex-col items-center py-3 text-lg font-semibold transition-colors",
           link.isActive ? "text-cyan-600" : "text-gray-500",
         )
       }
