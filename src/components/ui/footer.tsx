@@ -16,7 +16,7 @@ export function Footer({
     <footer
       className={clsx(
         "flex flex-col gap-2",
-        noPadding ? "" : "px-4",
+        noPadding ? "" : "px-4 pb-6",
         border && "border-t border-gray-200 pt-4",
         props.className,
       )}
