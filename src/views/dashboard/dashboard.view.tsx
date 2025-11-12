@@ -1,16 +1,9 @@
 import { useStorage } from "../../hooks";
-import {
-  Page,
-  Header,
-  List,
-  Text,
-  NavButton,
-  Footer,
-} from "../../components/ui";
+import { Page, List, Text, Footer } from "../../components/ui";
 import { WorkoutItem } from "./components/workout-item";
-import { WORKOUT_SESSION_KEY } from "../../constants";
 import { Fragment, useMemo } from "react";
-import { TextSeparator } from "../../components/shared";
+import { NavBar, TextSeparator } from "../../components/shared";
+import { DashboardHeader } from "./components/dashboard-header";
 
 export function DashboardView() {
   const { workoutMap } = useStorage();
@@ -24,12 +17,11 @@ export function DashboardView() {
           : 0;
     });
   }, [workoutMap]);
-  const hasSession = !!localStorage.getItem(WORKOUT_SESSION_KEY);
 
   return (
     <>
       <Page>
-        <Header text="Your workouts" />
+        <DashboardHeader />
 
         <List hasFade>
           {workouts.length ? (
@@ -50,10 +42,7 @@ export function DashboardView() {
         </List>
 
         <Footer>
-          <NavButton
-            to="/workout"
-            text={hasSession ? "Resume workout" : "Start workout"}
-          />
+          <NavBar />
         </Footer>
       </Page>
     </>
