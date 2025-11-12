@@ -11,14 +11,9 @@ import { WorkoutItem } from "./components/workout-item";
 import { WORKOUT_SESSION_KEY } from "../../constants";
 
 export function DashboardView() {
-  const { workoutMap, deleteById } = useStorage();
+  const { workoutMap } = useStorage();
 
   const workouts = Object.values(workoutMap);
-
-  const handleDelete = (id: string) => {
-    deleteById(id);
-  };
-
   const hasSession = !!localStorage.getItem(WORKOUT_SESSION_KEY);
 
   return (
@@ -29,11 +24,7 @@ export function DashboardView() {
         <List>
           {workouts.length ? (
             workouts.map((workout) => (
-              <WorkoutItem
-                key={workout.id}
-                workout={workout}
-                onDelete={handleDelete}
-              />
+              <WorkoutItem key={workout.id} workout={workout} />
             ))
           ) : (
             <Text>No sessions yet, go do one</Text>
