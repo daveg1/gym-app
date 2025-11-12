@@ -21,7 +21,7 @@ export function Dialog({ title, ref, children }: Props) {
       ></div>
 
       <div className="fixed z-50 mt-40 w-full">
-        <section className="mx-4 flex flex-col gap-2 rounded bg-white p-4 shadow-md">
+        <section className="mx-4 flex flex-col gap-2 rounded-xl bg-white p-4 shadow-md">
           <header>
             <h2 className="text-xl font-semibold">{title}</h2>
           </header>
