@@ -5,10 +5,12 @@ interface Props {
 
 export function List({ hasFade, children }: Props) {
   return (
-    <div className="relative flex h-full flex-col gap-4 overflow-y-auto px-6 py-4">
-      {children}
+    <div className="relative h-full overflow-hidden">
+      <div className="flex h-full flex-col gap-4 overflow-y-auto px-6 py-4">
+        {children}
+      </div>
       {hasFade && (
-        <div className="list-fade fixed inset-x-0 bottom-24 z-30 h-8 min-h-4"></div>
+        <div className="list-fade absolute inset-x-0 -bottom-2 z-30 h-10 min-h-4"></div>
       )}
     </div>
   );
