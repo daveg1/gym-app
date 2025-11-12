@@ -75,9 +75,12 @@ export function PlannerView() {
         </Dialog>
       )}
 
-      <List>
+      <List hasFade>
         {plans.map((plan) => (
-          <article className="flex flex-col gap-2 rounded-lg bg-gray-100 p-4">
+          <article
+            key={plan.timestamp}
+            className="flex flex-col gap-2 rounded-lg bg-gray-100 p-4"
+          >
             <h2 className="text-xl">{plan.title}</h2>
             <Text pre>{plan.description}</Text>
           </article>
