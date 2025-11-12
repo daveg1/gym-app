@@ -9,7 +9,7 @@ import {
 } from "../../components/ui";
 import { WorkoutItem } from "./components/workout-item";
 import { WORKOUT_SESSION_KEY } from "../../constants";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { TextSeparator } from "../../components/shared";
 
 export function DashboardView() {
@@ -33,13 +33,17 @@ export function DashboardView() {
 
         <List hasFade>
           {workouts.length ? (
-            workouts.map((workout, index) => (
-              <>
-                {index === 0 && <TextSeparator text="Latest" />}
+            workouts.map((workout, index) =>
+              index === 0 ? (
+                <Fragment key={workout.id}>
+                  <TextSeparator text="Latest" />
+                  <WorkoutItem workout={workout} />
+                  <TextSeparator text="Previous" />
+                </Fragment>
+              ) : (
                 <WorkoutItem key={workout.id} workout={workout} />
-                {index === 0 && <TextSeparator text="Previous" />}
-              </>
-            ))
+              ),
+            )
           ) : (
             <Text>No sessions yet, go do one</Text>
           )}
