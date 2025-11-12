@@ -12,6 +12,7 @@ Features:
 
 - Notes for exercises (like a description)
 - Delete reps from exercise
+- Add page for workout plans
 
 ### Stats
 
