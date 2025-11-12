@@ -84,7 +84,7 @@ export function PlannerView() {
         ))}
       </List>
 
-      <Footer>
+      <Footer noPadding>
         <NavBar />
       </Footer>
     </Page>

@@ -40,7 +40,7 @@ export function DashboardView() {
         )}
       </List>
 
-      <Footer>
+      <Footer noPadding>
         <NavBar />
       </Footer>
     </Page>
