@@ -19,32 +19,30 @@ export function DashboardView() {
   }, [workoutMap]);
 
   return (
-    <>
-      <Page>
-        <DashboardHeader />
+    <Page>
+      <DashboardHeader />
 
-        <List hasFade>
-          {workouts.length ? (
-            workouts.map((workout, index) =>
-              index === 0 ? (
-                <Fragment key={workout.id}>
-                  <TextSeparator text="Latest" />
-                  <WorkoutItem workout={workout} />
-                  <TextSeparator text="Previous" />
-                </Fragment>
-              ) : (
-                <WorkoutItem key={workout.id} workout={workout} />
-              ),
-            )
-          ) : (
-            <Text>No sessions yet, go do one</Text>
-          )}
-        </List>
+      <List hasFade>
+        {workouts.length ? (
+          workouts.map((workout, index) =>
+            index === 0 ? (
+              <Fragment key={workout.id}>
+                <TextSeparator text="Latest" />
+                <WorkoutItem workout={workout} />
+                <TextSeparator text="Previous" />
+              </Fragment>
+            ) : (
+              <WorkoutItem key={workout.id} workout={workout} />
+            ),
+          )
+        ) : (
+          <Text>No sessions yet, go do one</Text>
+        )}
+      </List>
 
-        <Footer>
-          <NavBar />
-        </Footer>
-      </Page>
-    </>
+      <Footer>
+        <NavBar />
+      </Footer>
+    </Page>
   );
 }
