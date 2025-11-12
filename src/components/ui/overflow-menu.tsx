@@ -12,12 +12,12 @@ export function OverflowMenu({ items }: Props) {
     <>
       {isOpen && (
         <div
-          className="absolute inset-0 bg-black/20"
+          className="absolute inset-0 z-40 bg-black/20"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
 
-      <div className="relative">
+      <div className="relative z-50">
         <Button
           onClick={(e) => {
             e.stopPropagation();

@@ -21,7 +21,7 @@ export function DashboardView() {
       <Page>
         <Header text="Your workouts" />
 
-        <List>
+        <List hasFade>
           {workouts.length ? (
             workouts.map((workout) => (
               <WorkoutItem key={workout.id} workout={workout} />
