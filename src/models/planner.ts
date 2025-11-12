@@ -1,4 +1,5 @@
 export interface IPlan {
-  text: string;
+  title: string;
+  description: string;
   timestamp: number;
 }
