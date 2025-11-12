@@ -6,10 +6,10 @@ import { Dialog, useDialogRef } from "../../components/ui/dialog";
 
 export function PlannerView() {
   const [plans, setPlans] = useState<IPlan[]>([]);
-  const [dialogRef] = useDialogRef();
+  const dialogRef = useDialogRef();
 
   const openPlanDialog = () => {
-    dialogRef.current.open = true;
+    dialogRef.showDialog();
   };
 
   const handleSavePlan = (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,8 +28,7 @@ export function PlannerView() {
     };
 
     setPlans((v) => [...v, plan]);
-    e.currentTarget.reset();
-    dialogRef.current.open = false;
+    dialogRef.hideDialog();
   };
 
   return (
@@ -39,23 +38,29 @@ export function PlannerView() {
         rightSide={<Button text="Add plan" onClick={() => openPlanDialog()} />}
       />
 
-      <Dialog title="Add plan" ref={dialogRef}>
-        <form className="flex flex-col gap-2" onSubmit={handleSavePlan}>
-          <Text size="s">Title</Text>
-          <input
-            name="plan-title"
-            className="h-10 w-full rounded border px-2"
-            type="text"
-          />
+      {dialogRef.isOpen && (
+        <Dialog ref={dialogRef} title="Add plan">
+          <form className="flex flex-col gap-4" onSubmit={handleSavePlan}>
+            <div className="flex flex-col gap-2">
+              <Text size="s">Title</Text>
+              <input
+                name="plan-title"
+                className="h-10 rounded bg-gray-50 px-2 outline outline-gray-600 focus:outline-4 focus:outline-amber-400"
+                type="text"
+              />
+            </div>
 
-          <Text size="s">Description</Text>
-          <textarea
-            name="plan-description"
-            className="w-full resize-none border p-2"
-          ></textarea>
-          <Button>Save</Button>
-        </form>
-      </Dialog>
+            <div className="flex flex-col gap-2">
+              <Text size="s">Description</Text>
+              <textarea
+                name="plan-description"
+                className="h-[calc(1lh*10)] rounded bg-gray-50 p-2 outline outline-gray-600 focus:outline-4 focus:outline-amber-400"
+              ></textarea>
+            </div>
+            <Button>Save</Button>
+          </form>
+        </Dialog>
+      )}
 
       <List>
         {plans.map((plan) => (
