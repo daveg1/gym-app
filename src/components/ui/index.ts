@@ -8,3 +8,4 @@ export * from "./text";
 export * from "./overflow-menu";
 export * from "./overflow-menu-item";
 export * from "./divider";
+export * from "./card";

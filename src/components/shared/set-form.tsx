@@ -41,6 +41,7 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
           defaultValue={1}
           required
         />
+
         <input
           className="h-full rounded bg-gray-200 px-2 outline outline-gray-600 focus:outline-4 focus:outline-amber-400"
           type="number"
