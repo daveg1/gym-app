@@ -1,9 +1,9 @@
-import { NavButton } from "../ui";
+import { NavBarItem } from "./nav-bar-item";
 
 export function NavBar() {
   return (
-    <nav className="grid w-full grid-cols-2 gap-2">
-      <NavButton
+    <nav className="flex w-full border-t border-t-gray-200">
+      <NavBarItem
         to="/"
         label="Home"
         icon={
@@ -24,7 +24,7 @@ export function NavBar() {
         }
       />
 
-      <NavButton
+      <NavBarItem
         to="/planner"
         label="Planner"
         icon={
