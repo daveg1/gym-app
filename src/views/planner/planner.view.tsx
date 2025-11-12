@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { NavBar } from "../../components/shared";
 import { Page, Footer, Header, Button, List, Text } from "../../components/ui";
 import type { IPlan } from "../../models/planner";
 import { Dialog, useDialogRef } from "../../components/ui/dialog";
+import { usePlannerStore } from "../../hooks";
 
 export function PlannerView() {
-  const [plans, setPlans] = useState<IPlan[]>([]);
+  const { plans, addPlan } = usePlannerStore();
   const dialogRef = useDialogRef();
 
   const openPlanDialog = () => {
@@ -27,7 +27,7 @@ export function PlannerView() {
       timestamp: Date.now(),
     };
 
-    setPlans((v) => [...v, plan]);
+    addPlan(plan);
     dialogRef.hideDialog();
   };
 
