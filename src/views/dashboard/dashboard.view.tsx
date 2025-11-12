@@ -27,9 +27,9 @@ export function DashboardView() {
           workouts.map((workout, index) =>
             index === 0 ? (
               <Fragment key={workout.id}>
-                <TextSeparator text="Latest" />
+                <Text>Latest</Text>
                 <WorkoutItem workout={workout} />
-                <TextSeparator text="Previous" />
+                <Text>Previous</Text>
               </Fragment>
             ) : (
               <WorkoutItem key={workout.id} workout={workout} />
