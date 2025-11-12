@@ -29,7 +29,7 @@ export function DashboardView() {
   return (
     <>
       <Page>
-        <Header text="Test" />
+        <Header text="Your workouts" />
 
         <List hasFade>
           {workouts.length ? (
