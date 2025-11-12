@@ -10,6 +10,10 @@ Features:
 
 ## UI
 
+- Navbar for different screens
+  - Workouts (Home)
+  - Planner
+  - Stats
 - Button sizes
 
 ### Workouts
