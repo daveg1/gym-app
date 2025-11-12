@@ -4,7 +4,7 @@ import type { IExercise, ISet } from "../../../models/gym";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutList() {
-  const { workout, isEditing, setIsEditing, updateExercise, deleteExercise } =
+  const { workout, isEditing, updateExercise, deleteExercise } =
     useWorkoutContext();
 
   const handleEditExercise = (
@@ -16,7 +16,6 @@ export function WorkoutList() {
 
   const handleDeleteExercise = (id: IExercise["id"]) => {
     if (confirm(`Delete exercise?`)) {
-      if (workout.exercises.length === 1) setIsEditing(false);
       deleteExercise(id);
     }
   };

@@ -45,7 +45,7 @@ export function WorkoutHeader() {
       text={workout.name ?? ""}
       rightSide={
         <div className="flex gap-2">
-          {!!workout.exercises.length && (
+          {
             <Button
               icon
               onClick={(e) => {
@@ -85,7 +85,7 @@ export function WorkoutHeader() {
                 </svg>
               )}
             </Button>
-          )}
+          }
 
           <OverflowMenu
             items={
