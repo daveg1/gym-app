@@ -7,7 +7,6 @@ import {
   NavButton,
   Footer,
 } from "../../components/ui";
-import { useCallback } from "react";
 import { WorkoutItem } from "./components/workout-item";
 import { WORKOUT_SESSION_KEY } from "../../constants";
 
@@ -16,9 +15,9 @@ export function DashboardView() {
 
   const workouts = Object.values(workoutMap);
 
-  const handleDelete = useCallback((id: string) => {
+  const handleDelete = (id: string) => {
     deleteById(id);
-  }, []);
+  };
 
   const hasSession = !!localStorage.getItem(WORKOUT_SESSION_KEY);
 
