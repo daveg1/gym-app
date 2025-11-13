@@ -30,6 +30,8 @@ export function WorkoutExerciseDialog() {
     dialogRef.hideDialog();
   };
 
+  // TODO: Create a custom text box which shows suggestions as you type
+
   return (
     <Dialog title="Add exercise" ref={dialogRef}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -54,6 +56,7 @@ export function WorkoutExerciseDialog() {
             className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400"
             type="text"
             placeholder="E.g. Bench press"
+            autoFocus
           />
         </div>
 
