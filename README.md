@@ -8,10 +8,17 @@ Features:
 
 ## TODO
 
+## UI
+
+- Navbar for different screens
+  - ☑️ Dashboard (Home)
+  - ☑️ Planner
+  - ❌ Stats
+- Button sizes
+
 ### Workouts
 
 - Notes for exercises (like a description)
-- Add page for workout plans
 
 ### Stats
 

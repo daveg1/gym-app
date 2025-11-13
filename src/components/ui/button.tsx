@@ -19,7 +19,7 @@ export function Button({
   return (
     <button
       className={clsx(
-        "rounded-lg p-4 text-lg font-semibold",
+        "rounded-lg p-4 text-lg font-semibold disabled:opacity-25",
         mode === "danger"
           ? "bg-red-200/50 text-red-600"
           : mode === "primary"

@@ -1,4 +1,6 @@
 export * from "./button";
+export * from "./card";
+export * from "./divider";
 export * from "./footer";
 export * from "./header";
 export * from "./list";
@@ -7,5 +9,3 @@ export * from "./page";
 export * from "./text";
 export * from "./overflow-menu";
 export * from "./overflow-menu-item";
-export * from "./divider";
-export * from "./card";

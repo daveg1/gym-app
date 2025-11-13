@@ -1,16 +1,9 @@
 import { useStorage } from "../../hooks";
-import {
-  Page,
-  Header,
-  List,
-  Text,
-  NavButton,
-  Footer,
-} from "../../components/ui";
-import { WorkoutItem } from "./components/workout-item";
-import { WORKOUT_SESSION_KEY } from "../../constants";
+import { Page, List, Text, Footer } from "../../components/ui";
+import { DashboardItem } from "./components/dashboard-item";
 import { Fragment, useMemo } from "react";
-import { TextSeparator } from "../../components/shared";
+import { NavBar, TextSeparator } from "../../components/shared";
+import { DashboardHeader } from "./components/dashboard-header";
 
 export function DashboardView() {
   const { workoutMap } = useStorage();
@@ -24,38 +17,32 @@ export function DashboardView() {
           : 0;
     });
   }, [workoutMap]);
-  const hasSession = !!localStorage.getItem(WORKOUT_SESSION_KEY);
 
   return (
-    <>
-      <Page>
-        <Header text="Test" />
+    <Page>
+      <DashboardHeader />
 
-        <List hasFade>
-          {workouts.length ? (
-            workouts.map((workout, index) =>
-              index === 0 ? (
-                <Fragment key={workout.id}>
-                  <TextSeparator text="Latest" />
-                  <WorkoutItem workout={workout} />
-                  <TextSeparator text="Previous" />
-                </Fragment>
-              ) : (
-                <WorkoutItem key={workout.id} workout={workout} />
-              ),
-            )
-          ) : (
-            <Text>No sessions yet, go do one</Text>
-          )}
-        </List>
+      <List hasFade>
+        {workouts.length ? (
+          workouts.map((workout, index) =>
+            index === 0 ? (
+              <Fragment key={workout.id}>
+                <Text>Latest</Text>
+                <DashboardItem workout={workout} />
+                <Text>Previous</Text>
+              </Fragment>
+            ) : (
+              <DashboardItem key={workout.id} workout={workout} />
+            ),
+          )
+        ) : (
+          <Text>No sessions yet, go do one</Text>
+        )}
+      </List>
 
-        <Footer>
-          <NavButton
-            to="/workout"
-            text={hasSession ? "Resume workout" : "Start workout"}
-          />
-        </Footer>
-      </Page>
-    </>
+      <Footer noPadding>
+        <NavBar />
+      </Footer>
+    </Page>
   );
 }

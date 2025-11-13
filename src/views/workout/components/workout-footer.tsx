@@ -6,13 +6,7 @@ import { useWorkoutContext } from "../workout.context";
 export function WorkoutFooter() {
   const navigate = useNavigate();
   const { addOrSaveWorkout } = useStorage();
-  const { workout, clearSession, isEditing, addExercise } = useWorkoutContext();
-
-  const onAddExercise = () => {
-    const name = prompt("Enter an exercise");
-    if (!name) return;
-    addExercise({ id: crypto.randomUUID(), name, sets: [] });
-  };
+  const { workout, clearSession, isEditing, dialogRef } = useWorkoutContext();
 
   const onFinish = () => {
     if (isEditing) {
@@ -39,7 +33,7 @@ export function WorkoutFooter() {
   return (
     <Footer>
       {/* <div className="grid grid-cols-2 gap-[inherit]"> */}
-      <Button text="Add exercise" onClick={() => onAddExercise()} />
+      <Button text="Add exercise" onClick={() => dialogRef.showDialog()} />
       <Button text="Finish" onClick={() => onFinish()} />
       {/* </div> */}
     </Footer>

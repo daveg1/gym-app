@@ -63,6 +63,7 @@ export const Exercise = memo(
 
     return (
       <Card
+        isCollapsible
         title={data.name}
         defaultOpen={defaultOpen}
         isEditing={isEditing}
