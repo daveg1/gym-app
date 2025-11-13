@@ -1,6 +1,6 @@
 import { useStorage } from "../../hooks";
 import { Page, List, Text, Footer } from "../../components/ui";
-import { WorkoutItem } from "./components/workout-item";
+import { DashboardItem } from "./components/dashboard-item";
 import { Fragment, useMemo } from "react";
 import { NavBar, TextSeparator } from "../../components/shared";
 import { DashboardHeader } from "./components/dashboard-header";
@@ -28,11 +28,11 @@ export function DashboardView() {
             index === 0 ? (
               <Fragment key={workout.id}>
                 <Text>Latest</Text>
-                <WorkoutItem workout={workout} />
+                <DashboardItem workout={workout} />
                 <Text>Previous</Text>
               </Fragment>
             ) : (
-              <WorkoutItem key={workout.id} workout={workout} />
+              <DashboardItem key={workout.id} workout={workout} />
             ),
           )
         ) : (

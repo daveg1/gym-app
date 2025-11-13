@@ -8,7 +8,7 @@ interface Props {
   workout: IWorkout;
 }
 
-export const WorkoutItem = memo(({ workout }: Readonly<Props>) => {
+export const DashboardItem = memo(({ workout }: Readonly<Props>) => {
   const navigate = useNavigate();
 
   return (
