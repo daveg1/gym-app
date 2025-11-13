@@ -1,6 +1,5 @@
 export * from "./button";
 export * from "./card";
-export * from "./divider";
 export * from "./footer";
 export * from "./header";
 export * from "./list";
