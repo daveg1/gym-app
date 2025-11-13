@@ -40,7 +40,10 @@ export function Card({
     >
       <div className="flex w-full flex-col">
         <header
-          className="flex items-center justify-between p-4"
+          className={clsx(
+            "flex items-center justify-between px-4",
+            isCollapsible ? "py-4" : "pt-3 pb-1",
+          )}
           onClick={() => isCollapsible && setIsExpanded((v) => !v)}
         >
           <div className="flex gap-2">
@@ -78,16 +81,18 @@ export function Card({
 
         <main
           className={clsx(
-            "flex flex-col gap-2 px-6 pb-2",
+            "flex flex-col gap-2 px-4 pb-3",
             !isExpanded && "hidden",
           )}
         >
           {mainContent}
         </main>
 
-        <footer className={clsx("px-6 pb-4", !isExpanded && "hidden")}>
-          {footerContent}
-        </footer>
+        {footerContent && (
+          <footer className={clsx("px-4 pb-4", !isExpanded && "hidden")}>
+            {footerContent}
+          </footer>
+        )}
       </div>
 
       {rightContent && (
