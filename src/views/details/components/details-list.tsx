@@ -77,6 +77,7 @@ export function DetailsList({ workout, isEditing }: Props) {
           <Exercise
             key={index}
             data={exercise}
+            defaultOpen
             hideSetForm
             isEditing={isEditing}
             onEditExercise={handleEditExercise}
