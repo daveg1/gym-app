@@ -39,7 +39,6 @@ export function useDialogRef(): DialogRef {
   const [isOpen, setIsOpen] = useState(false);
 
   const showDialog = () => {
-    console.log("click");
     setIsOpen(true);
   };
 

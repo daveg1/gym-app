@@ -14,6 +14,9 @@ export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
   const navigate = useNavigate();
   const workout = getById(workoutId);
 
+  // Avoid TypeErrors when deleting workout
+  if (!workout) return;
+
   const handleEditTitle = () => {
     if (!isEditing) return;
 
