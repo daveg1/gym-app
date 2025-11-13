@@ -11,15 +11,14 @@ Features:
 ## UI
 
 - Navbar for different screens
-  - Workouts (Home)
-  - Planner
-  - Stats
+  - ☑️ Dashboard (Home)
+  - ☑️ Planner
+  - ❌ Stats
 - Button sizes
 
 ### Workouts
 
 - Notes for exercises (like a description)
-- Add page for workout plans
 
 ### Stats
 
