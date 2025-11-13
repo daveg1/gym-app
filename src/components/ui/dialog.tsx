@@ -13,6 +13,8 @@ interface Props {
 }
 
 export function Dialog({ title, ref, children }: Props) {
+  if (!ref.isOpen) return null;
+
   return (
     <>
       <div

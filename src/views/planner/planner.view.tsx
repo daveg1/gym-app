@@ -57,31 +57,29 @@ export function PlannerView() {
         }
       />
 
-      {dialogRef.isOpen && (
-        <Dialog ref={dialogRef} title="Add plan">
-          <form className="flex flex-col gap-4" onSubmit={handleSavePlan}>
-            <div className="flex flex-col gap-2">
-              <Text>Title</Text>
-              <input
-                name="plan-title"
-                className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400"
-                type="text"
-                placeholder="E.g. Leg day"
-              />
-            </div>
+      <Dialog ref={dialogRef} title="Add plan">
+        <form className="flex flex-col gap-4" onSubmit={handleSavePlan}>
+          <div className="flex flex-col gap-2">
+            <Text>Title</Text>
+            <input
+              name="plan-title"
+              className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400"
+              type="text"
+              placeholder="E.g. Leg day"
+            />
+          </div>
 
-            <div className="flex flex-col gap-2">
-              <Text>Description</Text>
-              <textarea
-                name="plan-description"
-                className="h-[calc(1lh*10)] rounded bg-gray-50 p-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400"
-                placeholder={"For example:\nSquats\n3 sets of 6 x 100kg"}
-              ></textarea>
-            </div>
-            <Button>Save</Button>
-          </form>
-        </Dialog>
-      )}
+          <div className="flex flex-col gap-2">
+            <Text>Description</Text>
+            <textarea
+              name="plan-description"
+              className="h-[calc(1lh*10)] rounded bg-gray-50 p-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400"
+              placeholder={"For example:\nSquats\n3 sets of 6 x 100kg"}
+            ></textarea>
+          </div>
+          <Button>Save</Button>
+        </form>
+      </Dialog>
 
       <List hasFade>
         {plans.map((plan) => (
