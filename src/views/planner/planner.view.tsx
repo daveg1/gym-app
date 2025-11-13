@@ -1,5 +1,13 @@
 import { NavBar } from "../../components/shared";
-import { Page, Footer, Header, Button, List, Text } from "../../components/ui";
+import {
+  Page,
+  Footer,
+  Header,
+  Button,
+  List,
+  Text,
+  Card,
+} from "../../components/ui";
 import type { IPlan } from "../../models/planner";
 import { Dialog, useDialogRef } from "../../components/ui/dialog";
 import { usePlannerStore } from "../../hooks";
@@ -77,13 +85,11 @@ export function PlannerView() {
 
       <List hasFade>
         {plans.map((plan) => (
-          <article
+          <Card
             key={plan.timestamp}
-            className="flex flex-col gap-2 rounded-lg bg-gray-100 p-4"
-          >
-            <h2 className="text-xl">{plan.title}</h2>
-            <Text pre>{plan.description}</Text>
-          </article>
+            title={plan.title}
+            mainContent={<Text pre>{plan.description}</Text>}
+          />
         ))}
       </List>
 
