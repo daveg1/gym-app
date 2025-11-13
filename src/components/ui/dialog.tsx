@@ -3,7 +3,7 @@ import { useState } from "react";
 export interface DialogRef {
   isOpen: boolean;
   showDialog(): void;
-  hideDialog(): void;
+  hideDialog(): void; // TODO: rename to closeDialog
 }
 
 interface Props {
@@ -39,6 +39,7 @@ export function useDialogRef(): DialogRef {
   const [isOpen, setIsOpen] = useState(false);
 
   const showDialog = () => {
+    console.log("click");
     setIsOpen(true);
   };
 

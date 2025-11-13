@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import type { IExercise, IWorkout } from "../../models/gym";
 import { WORKOUT_SESSION_KEY } from "../../constants";
+import { useDialogRef, type DialogRef } from "../../components/ui/dialog";
 
 interface IContext {
   workout: IWorkout;
@@ -9,6 +10,7 @@ interface IContext {
   updateExercise: (changes: Partial<IExercise>) => void;
   deleteExercise: (id: IExercise["id"]) => void;
   isEditing: boolean;
+  dialogRef: DialogRef;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   clearSession: () => void;
 }
@@ -82,6 +84,7 @@ export function WorkoutContextProvider({
   };
 
   const [isEditing, setIsEditing] = useState(false);
+  const dialogRef = useDialogRef();
 
   const value = {
     workout,
@@ -90,6 +93,7 @@ export function WorkoutContextProvider({
     updateExercise,
     deleteExercise,
     isEditing,
+    dialogRef,
     setIsEditing,
     clearSession,
   };
