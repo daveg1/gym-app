@@ -3,9 +3,10 @@ import { Button } from "./button";
 
 interface Props {
   items: React.ReactNode;
+  disabled?: boolean;
 }
 
-export function OverflowMenu({ items }: Props) {
+export function OverflowMenu({ items, disabled }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,6 +20,7 @@ export function OverflowMenu({ items }: Props) {
 
       <div className="relative z-50">
         <Button
+          disabled={disabled}
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(true);
