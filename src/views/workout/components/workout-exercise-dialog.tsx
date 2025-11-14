@@ -36,7 +36,7 @@ export function WorkoutExerciseDialog() {
 
   return (
     <Dialog title="Add exercise" ref={dialogRef}>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-2">
           <Text>Choose an existing one:</Text>
           <select
@@ -65,6 +65,7 @@ export function WorkoutExerciseDialog() {
             placeholder="E.g. Bench press"
             autoFocus
           />
+          <Text size="s">Leave blank to use one from dropdown</Text>
         </div>
 
         <Button>Save</Button>
