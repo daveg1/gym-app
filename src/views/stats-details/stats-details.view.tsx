@@ -1,8 +1,9 @@
 import { useLocation } from "react-router";
 import { NavBar } from "../../components/shared";
-import { Page, Header, Footer, Text } from "../../components/ui";
+import { Page, Header, Footer } from "../../components/ui";
 import { useWorkoutStore } from "../../hooks";
 import { LineChart } from "@mui/x-charts";
+import { SectionCard } from "../../components/ui/section-card";
 
 export function StatsDetailsView() {
   const { workoutMap } = useWorkoutStore();
@@ -30,27 +31,24 @@ export function StatsDetailsView() {
       <Header text={`Stats for`} />
 
       <div className="flex h-full flex-col gap-4 px-6">
-        <section className="rounded-xl bg-gray-100 p-4">
-          <header>
-            <h2 className="text-lg font-semibold">Weight progression</h2>
-            <Text size="s">Highest weight per session</Text>
-          </header>
-
-          <main>
-            <LineChart
-              height={300}
-              grid={{ vertical: true, horizontal: true }}
-              title="Best set per workout"
-              yAxis={[{ min, max }]}
-              series={[
-                {
-                  data: sets,
-                  label: (loc) => (loc === "tooltip" ? "KG" : "Weight (kg)"),
-                },
-              ]}
-            />
-          </main>
-        </section>
+        <SectionCard
+          title="Weight progression"
+          caption="Highest weight per session"
+        >
+          <LineChart
+            height={280}
+            margin={{ left: 0, top: 10 }}
+            grid={{ vertical: true, horizontal: true }}
+            title="Best set per workout"
+            yAxis={[{ min, max }]}
+            series={[
+              {
+                data: sets,
+                label: (loc) => (loc === "tooltip" ? "KG" : "Weight (kg)"),
+              },
+            ]}
+          />
+        </SectionCard>
       </div>
 
       <Footer noPadding>
