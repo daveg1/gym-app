@@ -38,7 +38,7 @@ export function WorkoutExerciseDialog() {
     <Dialog title="Add exercise" ref={dialogRef}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-2">
-          <Text>Choose one recorded previously:</Text>
+          <Text>Choose an existing one:</Text>
           <select
             name="exercise-suggested"
             className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50"
