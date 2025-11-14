@@ -18,6 +18,8 @@ export function WorkoutExerciseDialog() {
     [workoutMap],
   );
 
+  // TODO: store exercises in separate storage key and query that
+  // TODO: to ensure consistency
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -39,13 +41,18 @@ export function WorkoutExerciseDialog() {
           <Text>Choose one recorded previously:</Text>
           <select
             name="exercise-suggested"
-            className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400"
+            className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50"
+            disabled={!suggestions.length}
           >
-            {suggestions.map((sug) => (
-              <option key={sug} value={sug}>
-                {sug}
-              </option>
-            ))}
+            {suggestions.length ? (
+              suggestions.map((sug) => (
+                <option key={sug} value={sug}>
+                  {sug}
+                </option>
+              ))
+            ) : (
+              <option>No exercises yet</option>
+            )}
           </select>
         </div>
 
