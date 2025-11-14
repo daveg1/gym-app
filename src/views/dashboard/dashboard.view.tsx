@@ -29,7 +29,7 @@ export function DashboardView() {
               <Fragment key={workout.id}>
                 <Text>Latest</Text>
                 <DashboardItem workout={workout} />
-                <Text>Previous</Text>
+                {workouts.length > 1 && <Text>Previous</Text>}
               </Fragment>
             ) : (
               <DashboardItem key={workout.id} workout={workout} />
