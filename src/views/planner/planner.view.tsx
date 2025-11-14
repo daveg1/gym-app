@@ -41,6 +41,7 @@ export function PlannerView() {
       <AddPlannerDialog dialogRef={dialogRef} onAddPlan={addPlan} />
 
       <List hasFade>
+        {!plans.length && <Text>No available routines - go write one</Text>}
         {plans.map((plan) => (
           <Card
             key={plan.timestamp}
