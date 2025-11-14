@@ -26,7 +26,7 @@ const findHighest = (exercises: IExercise[]) => {
 export function StatsView() {
   const navigate = useNavigate();
   const { workoutMap } = useWorkoutStore();
-  const exercisesByGroup = useMemo(() => {
+  const exerciseGroups = useMemo(() => {
     const groups = new Map<string, IExercise[]>();
 
     Object.values(workoutMap).forEach((workout) => {
@@ -43,6 +43,8 @@ export function StatsView() {
     return groups;
   }, [workoutMap]);
 
+  const sortedGroups = [...exerciseGroups].sort(([a], [b]) => (a > b ? 1 : -1));
+
   // TODO: group by muscle group
   // TODO: order alphabetically
 
@@ -51,7 +53,7 @@ export function StatsView() {
       <Header text="Stats" />
 
       <List>
-        {[...exercisesByGroup].map(([name, exercises]) => (
+        {sortedGroups.map(([name, exercises]) => (
           <Card
             key={name}
             title={name}
