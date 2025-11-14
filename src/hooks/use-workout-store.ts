@@ -10,7 +10,7 @@ const deserialise = (): IWorkoutMap => {
   return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as IWorkoutMap;
 };
 
-export function useStorage() {
+export function useWorkoutStore() {
   const [workoutMap, setWorkoutMap] = useState(deserialise());
 
   function addOrSaveWorkout(workout: IWorkout) {

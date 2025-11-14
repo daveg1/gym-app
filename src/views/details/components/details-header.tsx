@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { Button, Header } from "../../../components/ui";
-import { useStorage } from "../../../hooks";
+import { useWorkoutStore } from "../../../hooks";
 import { formatDate } from "../../../utils";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
-  const { addOrSaveWorkout, getById, deleteById } = useStorage();
+  const { addOrSaveWorkout, getById, deleteById } = useWorkoutStore();
   const navigate = useNavigate();
   const workout = getById(workoutId);
 

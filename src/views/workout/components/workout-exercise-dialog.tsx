@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { Button, Text } from "../../../components/ui";
 import { Dialog } from "../../../components/ui/dialog";
-import { useStorage } from "../../../hooks";
+import { useWorkoutStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutExerciseDialog() {
   const { dialogRef, addExercise } = useWorkoutContext();
-  const { workoutMap } = useStorage();
+  const { workoutMap } = useWorkoutStore();
   const suggestions = useMemo(
     () => [
       ...new Set(

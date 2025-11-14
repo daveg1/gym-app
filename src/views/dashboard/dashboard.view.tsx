@@ -1,4 +1,4 @@
-import { useStorage } from "../../hooks";
+import { useWorkoutStore } from "../../hooks";
 import { Page, List, Text, Footer } from "../../components/ui";
 import { DashboardItem } from "./components/dashboard-item";
 import { Fragment, useMemo } from "react";
@@ -6,7 +6,7 @@ import { NavBar } from "../../components/shared";
 import { DashboardHeader } from "./components/dashboard-header";
 
 export function DashboardView() {
-  const { workoutMap } = useStorage();
+  const { workoutMap } = useWorkoutStore();
 
   const workouts = useMemo(() => {
     return Object.values(workoutMap).sort((a, b) => {
