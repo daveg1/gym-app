@@ -20,7 +20,7 @@ export function Header({
   ...htmlProps
 }: Readonly<Props>) {
   return (
-    <header className="flex gap-4 px-6" {...htmlProps}>
+    <header className="flex min-h-12 items-center gap-4 px-6" {...htmlProps}>
       {leftSide && <aside>{leftSide}</aside>}
 
       <div className="flex flex-col gap-1">

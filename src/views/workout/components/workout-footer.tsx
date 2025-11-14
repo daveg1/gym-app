@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router";
 import { Button, Footer } from "../../../components/ui";
-import { useStorage } from "../../../hooks";
+import { useWorkoutStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutFooter() {
   const navigate = useNavigate();
-  const { addOrSaveWorkout } = useStorage();
+  const { addOrSaveWorkout } = useWorkoutStore();
   const { workout, clearSession, isEditing, dialogRef } = useWorkoutContext();
 
   const onFinish = () => {

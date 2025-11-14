@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { Exercise } from "../../../components/shared";
 import { List, Text } from "../../../components/ui";
-import { useStorage } from "../../../hooks";
+import { useWorkoutStore } from "../../../hooks";
 import type { IExercise, ISet, IWorkout } from "../../../models/gym";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function DetailsList({ workout, isEditing }: Props) {
-  const { addOrSaveWorkout, deleteById } = useStorage();
+  const { addOrSaveWorkout, deleteById } = useWorkoutStore();
   const navigate = useNavigate();
 
   const handleEditExercise = (

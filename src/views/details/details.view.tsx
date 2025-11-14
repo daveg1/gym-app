@@ -1,12 +1,12 @@
 import { useLocation } from "react-router";
-import { useStorage } from "../../hooks";
+import { useWorkoutStore } from "../../hooks";
 import { useMemo, useState } from "react";
 import { Text, NavButton, Footer, Page } from "../../components/ui";
 import { DetailsHeader } from "./components/details-header";
 import { DetailsList } from "./components/details-list";
 
 export function DetailsView() {
-  const { getById } = useStorage();
+  const { getById } = useWorkoutStore();
   const location = useLocation();
   const workoutId = useMemo(
     () => location.pathname.split("/details/")[1],
