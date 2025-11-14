@@ -48,7 +48,7 @@ export function ExerciseBody({
                 )}
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (isEditing) onPropertyClick?.(index, "reps");
+                  onPropertyClick?.(index, "reps");
                 }}
               >
                 {set.reps} reps
