@@ -42,7 +42,12 @@ export function StatsDetailsView() {
               grid={{ vertical: true, horizontal: true }}
               title="Best set per workout"
               yAxis={[{ min, max }]}
-              series={[{ data: sets }]}
+              series={[
+                {
+                  data: sets,
+                  label: (loc) => (loc === "tooltip" ? "KG" : "Weight (kg)"),
+                },
+              ]}
             />
           </main>
         </section>
