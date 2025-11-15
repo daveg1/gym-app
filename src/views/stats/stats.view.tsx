@@ -47,7 +47,6 @@ export function StatsView() {
   const sortedGroups = [...exerciseGroups].sort(([a], [b]) => (a > b ? 1 : -1));
 
   // TODO: group by muscle group
-  // TODO: order alphabetically
 
   return (
     <Page>
