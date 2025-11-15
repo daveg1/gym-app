@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import type { IExercise, IWorkout } from "../../models/gym";
-import { WORKOUT_SESSION_KEY } from "../../constants";
+import { TEMP_SESSION_KEY } from "../../constants";
 import { useDialogRef, type DialogRef } from "../../components/ui/modal/dialog";
 
 interface IContext {
@@ -18,13 +18,11 @@ interface IContext {
 const WorkoutContext = createContext<IContext>(null!);
 
 const serialise = (data: IWorkout) => {
-  localStorage.setItem(WORKOUT_SESSION_KEY, JSON.stringify(data));
+  localStorage.setItem(TEMP_SESSION_KEY, JSON.stringify(data));
 };
 
 const deserialise = (): IWorkout => {
-  return JSON.parse(
-    localStorage.getItem(WORKOUT_SESSION_KEY) ?? "{}",
-  ) as IWorkout;
+  return JSON.parse(localStorage.getItem(TEMP_SESSION_KEY) ?? "{}") as IWorkout;
 };
 
 export function WorkoutContextProvider({
@@ -84,7 +82,7 @@ export function WorkoutContextProvider({
   };
 
   const clearSession = () => {
-    localStorage.removeItem(WORKOUT_SESSION_KEY);
+    localStorage.removeItem(TEMP_SESSION_KEY);
   };
 
   const [isEditing, setIsEditing] = useState(false);

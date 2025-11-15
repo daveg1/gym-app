@@ -1,13 +1,15 @@
 import { useState } from "react";
 import type { IWorkoutMap, IWorkout } from "../models/gym";
-import { STORAGE_KEY } from "../constants";
+import { WORKOUT_STORE_KEY } from "../constants";
 
 const serialise = (data: IWorkoutMap) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  localStorage.setItem(WORKOUT_STORE_KEY, JSON.stringify(data));
 };
 
 const deserialise = (): IWorkoutMap => {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as IWorkoutMap;
+  return JSON.parse(
+    localStorage.getItem(WORKOUT_STORE_KEY) ?? "{}",
+  ) as IWorkoutMap;
 };
 
 export function useWorkoutStore() {
