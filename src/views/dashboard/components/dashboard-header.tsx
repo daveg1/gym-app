@@ -7,7 +7,7 @@ export function DashboardHeader() {
 
   return (
     <Header
-      text="Your workouts"
+      text="Dashboard"
       rightSide={
         <NavButton to="/workout">
           {hasSession ? <ResumeIcon /> : <AddIcon />}
