@@ -1,6 +1,7 @@
 import { ExportIcon, ImportIcon } from "../../components/icons";
 import { NavBar } from "../../components/shared";
-import { Button, Footer, Header, Page } from "../../components/ui";
+import { Button, Footer, Header, List, Page, Text } from "../../components/ui";
+import { SectionCard } from "../../components/ui/section-card";
 import { usePlannerStore, useWorkoutStore } from "../../hooks";
 import type { IWorkoutMap } from "../../models/gym";
 import type { IPlan } from "../../models/planner";
@@ -48,23 +49,41 @@ export function SettingsView() {
     <Page>
       <Header text="Settings" />
 
-      <div className="flex h-full flex-col justify-end gap-2 px-6">
-        <Button
-          className="flex items-center justify-center gap-2"
-          onClick={() => handleImport()}
-        >
-          <ImportIcon />
-          <span>Import data</span>
-        </Button>
+      <List>
+        <SectionCard title="Backups">
+          <div className="flex flex-col gap-3">
+            <Text>
+              WARNING: This is experimental and may result in data loss.
+            </Text>
 
-        <Button
-          className="flex items-center justify-center gap-2"
-          onClick={() => handleExport()}
-        >
-          <ExportIcon />
-          <span>Export data</span>
-        </Button>
-      </div>
+            <Button
+              className="flex items-center justify-center gap-2"
+              onClick={() => handleImport()}
+            >
+              <ImportIcon />
+              <span>Import data</span>
+            </Button>
+
+            <Button
+              className="flex items-center justify-center gap-2"
+              onClick={() => handleExport()}
+            >
+              <ExportIcon />
+              <span>Export data</span>
+            </Button>
+          </div>
+        </SectionCard>
+
+        <SectionCard title="Preferences">
+          <div className="flex flex-col gap-3 pt-3">
+            <Text size="s">Units</Text>
+            <select className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50">
+              <option value="metric">Metric (kg)</option>
+              <option value="imperial">Imperial (lbs)</option>
+            </select>
+          </div>
+        </SectionCard>
+      </List>
 
       <Footer noPadding>
         <NavBar />
