@@ -10,7 +10,7 @@ export function List({ hasFade, children }: Props) {
         {children}
       </div>
       {hasFade && (
-        <div className="list-fade absolute inset-x-0 -bottom-2 z-30 h-10 min-h-4"></div>
+        <div className="list-fade absolute inset-x-0 -bottom-1 z-30 h-10 min-h-4"></div>
       )}
     </div>
   );
