@@ -25,7 +25,7 @@ export function Button({
           : mode === "primary"
             ? "bg-sky-200/50 text-cyan-600"
             : "bg-gray-200/50 text-cyan-600",
-        icon && "size-14",
+        icon && "grid size-13 place-items-center",
         className,
       )}
       {...props}

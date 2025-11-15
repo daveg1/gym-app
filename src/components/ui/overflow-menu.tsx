@@ -21,6 +21,7 @@ export function OverflowMenu({ items, disabled }: Props) {
 
       <div className="relative z-50">
         <Button
+          icon
           disabled={disabled}
           onClick={(e) => {
             e.stopPropagation();
