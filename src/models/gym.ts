@@ -1,20 +1,4 @@
-export const muscleGroupValues = [
-  "Abs",
-  "Back",
-  "Biceps",
-  "Calves",
-  "Chest",
-  "Forearms",
-  "Glutes",
-  "Hamstrings",
-  "Hips",
-  "Shoulders",
-  "Traps",
-  "Triceps",
-  "Quads",
-] as const;
-
-export type MuscleGroups = (typeof muscleGroupValues)[number];
+import type { MuscleGroups } from "./muscle-groups";
 
 export interface ISet {
   reps: number;

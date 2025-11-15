@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import type { IWorkout } from "../../../models/gym";
+import type { IWorkout } from "../../../models";
 import { formatDate } from "../../../utils";
 import { memo } from "react";
 import { Card } from "../../../components/ui";

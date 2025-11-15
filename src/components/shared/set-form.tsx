@@ -1,5 +1,5 @@
 import { memo, useRef } from "react";
-import type { ISet } from "../../models/gym";
+import type { ISet } from "../../models";
 import { AddIcon } from "../icons";
 import { TextBox } from "../ui";
 

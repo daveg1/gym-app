@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { EXERCISE_STORE_KEY } from "../constants";
-import type { IExercise, IExerciseMap } from "../models/gym";
+import type { IExercise, IExerciseMap } from "../models";
 
 const serialise = (data: IExerciseMap) => {
   localStorage.setItem(EXERCISE_STORE_KEY, JSON.stringify(data));

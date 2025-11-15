@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { Exercise } from "../../../components/shared";
 import { List, Text } from "../../../components/ui";
 import { useWorkoutStore } from "../../../hooks";
-import type { IExercise, ISet, IWorkout } from "../../../models/gym";
+import type { IExercise, ISet, IWorkout } from "../../../models";
 
 interface Props {
   workout: IWorkout;

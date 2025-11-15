@@ -2,7 +2,7 @@ import { Page, Footer, Header, List, Card, Text } from "../../components/ui";
 import { NavBar } from "../../components/shared";
 import { useWorkoutStore } from "../../hooks";
 import { useMemo } from "react";
-import type { IExercise } from "../../models/gym";
+import type { IExercise } from "../../models";
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
 

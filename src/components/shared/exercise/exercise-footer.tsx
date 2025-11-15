@@ -1,4 +1,4 @@
-import type { IExercise, ISet } from "../../../models/gym";
+import type { IExercise, ISet } from "../../../models";
 import { SetForm } from "../set-form";
 
 interface Props {

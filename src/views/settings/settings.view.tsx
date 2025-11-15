@@ -11,7 +11,7 @@ import {
 } from "../../components/ui";
 import { SectionCard } from "../../components/ui/section-card";
 import { usePlannerStore, useWorkoutStore } from "../../hooks";
-import type { IWorkoutMap } from "../../models/gym";
+import type { IWorkoutMap } from "../../models";
 import type { IPlan } from "../../models/planner";
 
 interface DataFormat {

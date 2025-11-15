@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import type { IExercise, IWorkout } from "../../models/gym";
+import type { IExercise, IWorkout } from "../../models";
 import { TEMP_SESSION_KEY } from "../../constants";
 import { useDialogRef, type DialogRef } from "../../components/ui/modal/dialog";
 

@@ -3,7 +3,7 @@ import { Button, RadioBox, SelectBox, TextBox } from "../../../components/ui";
 import { Dialog } from "../../../components/ui/modal/dialog";
 import { useExerciseStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
-import { muscleGroupValues } from "../../../models/gym";
+import { muscleGroupValues } from "../../../models";
 
 const FormGroups = {
   existing: "existing",

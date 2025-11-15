@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { IExercise, ISet } from "../../../models/gym";
+import type { IExercise, ISet } from "../../../models";
 import { Text } from "../../ui";
 import { DeleteIcon } from "../../icons";
 

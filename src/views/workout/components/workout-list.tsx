@@ -1,6 +1,6 @@
 import { Exercise } from "../../../components/shared";
 import { List, Text } from "../../../components/ui";
-import type { IExercise, ISet } from "../../../models/gym";
+import type { IExercise, ISet } from "../../../models";
 import { useWorkoutContext } from "../workout.context";
 
 export function WorkoutList() {

@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef } from "react";
-import type { IExercise, ISet } from "../../../models/gym";
+import type { IExercise, ISet } from "../../../models";
 import { Card } from "../../ui";
 import { ExerciseBody } from "./exercise-body";
 import { ExerciseHeaderOptions } from "./exercise-header-options";

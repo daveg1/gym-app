@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { IWorkoutMap, IWorkout } from "../models/gym";
+import type { IWorkoutMap, IWorkout } from "../models";
 import { WORKOUT_STORE_KEY } from "../constants";
 
 const serialise = (data: IWorkoutMap) => {
