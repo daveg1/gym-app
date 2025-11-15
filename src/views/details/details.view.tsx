@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Text, NavButton, Footer, Page } from "../../components/ui";
 import { DetailsHeader } from "./components/details-header";
 import { DetailsList } from "./components/details-list";
-import { ArrowLeft } from "../../components/icons";
+import { ArrowLeftIcon } from "../../components/icons";
 
 export function DetailsView() {
   const { getById } = useWorkoutStore();
@@ -43,7 +43,7 @@ export function DetailsView() {
         <Text>Total weight: {totalKg.toLocaleString()} kg</Text>
 
         <NavButton to="/">
-          <ArrowLeft />
+          <ArrowLeftIcon />
           Go back
         </NavButton>
       </Footer>
