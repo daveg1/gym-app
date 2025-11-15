@@ -13,9 +13,12 @@ const FormGroups = {
 
 export function WorkoutExerciseDialog() {
   const { dialogRef, addExercise } = useWorkoutContext();
-  const { exerciseMap, createExercise } = useExerciseStore();
+  const { exerciseMap, createExercise, doesExist } = useExerciseStore();
   const suggestions = useMemo(
-    () => Object.values(exerciseMap).flatMap((exercise) => exercise),
+    () =>
+      Object.values(exerciseMap)
+        .flatMap((exercise) => exercise)
+        .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)),
     [exerciseMap],
   );
 
@@ -37,7 +40,9 @@ export function WorkoutExerciseDialog() {
       const name = `${data.get("exercise-created")}`.trim();
       const muscle = `${data.get("exercise-muscle")}`.trim();
 
+      // TODO: user feedback
       if (!name || !muscle) return;
+      if (doesExist(name)) return;
 
       const exercise = { id: crypto.randomUUID(), name, muscle, sets: [] };
       createExercise(exercise);

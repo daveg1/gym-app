@@ -21,5 +21,9 @@ export function useExerciseStore() {
     serialise(data);
   }
 
-  return { exerciseMap, createExercise };
+  function doesExist(targetName: string) {
+    return Object.entries(exerciseMap).find((ex) => ex[1].name === targetName);
+  }
+
+  return { exerciseMap, createExercise, doesExist };
 }
