@@ -62,8 +62,10 @@ export function WorkoutContextProvider({
   const updateExercise = (changes: Partial<IExercise>) => {
     setWorkout((current) => {
       const data = { ...current };
-      const idx = data.exercises.findIndex((ex) => ex.id === changes.id);
-      Object.assign(data.exercises[idx], changes);
+      const index = data.exercises.findIndex((ex) => ex.id === changes.id);
+      const exercisesCopy = [...data.exercises];
+      exercisesCopy[index] = { ...exercisesCopy[index], ...changes };
+      data.exercises = exercisesCopy;
       serialise(data);
       return data;
     });
@@ -72,8 +74,10 @@ export function WorkoutContextProvider({
   const deleteExercise = (id: IExercise["id"]) => {
     setWorkout((current) => {
       const data = { ...current };
-      const idx = data.exercises.findIndex((ex) => ex.id === id);
-      data.exercises.splice(idx, 1);
+      const index = data.exercises.findIndex((ex) => ex.id === id);
+      const exercisesCopy = [...data.exercises];
+      exercisesCopy.splice(index, 1);
+      data.exercises = exercisesCopy;
       serialise(data);
       return data;
     });
