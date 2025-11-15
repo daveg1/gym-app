@@ -52,6 +52,7 @@ export const Exercise = memo(
       index: number, // todo: change to id?
       prop: keyof ISet,
     ) => {
+      if (!isEditing) return;
       const value = prompt(`Update the ${prop}`, `${data.sets[index][prop]}`);
       if (!value) return;
       onEditSet?.(data.id, index, { [prop]: value });

@@ -4,6 +4,7 @@ import { useWorkoutStore } from "../../hooks";
 import { useMemo } from "react";
 import type { IExercise } from "../../models/gym";
 import { useNavigate } from "react-router";
+import { ForwardIcon } from "../../components/icons";
 
 const findHighest = (exercises: IExercise[]) => {
   let highest = -1;
@@ -26,8 +27,7 @@ const findHighest = (exercises: IExercise[]) => {
 export function StatsView() {
   const navigate = useNavigate();
   const { workoutMap } = useWorkoutStore();
-  // Aggregate stats
-  const exercisesByGroup = useMemo(() => {
+  const exerciseGroups = useMemo(() => {
     const groups = new Map<string, IExercise[]>();
 
     Object.values(workoutMap).forEach((workout) => {
@@ -44,12 +44,17 @@ export function StatsView() {
     return groups;
   }, [workoutMap]);
 
+  const sortedGroups = [...exerciseGroups].sort(([a], [b]) => (a > b ? 1 : -1));
+
+  // TODO: group by muscle group
+  // TODO: order alphabetically
+
   return (
     <Page>
       <Header text="Stats" />
 
       <List>
-        {[...exercisesByGroup].map(([name, exercises]) => (
+        {sortedGroups.map(([name, exercises]) => (
           <Card
             key={name}
             title={name}
@@ -62,20 +67,7 @@ export function StatsView() {
                 <Text>Highest weight: {findHighest(exercises).weight} kg</Text>
               </div>
             }
-            rightContent={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="size-6"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            }
+            rightContent={<ForwardIcon />}
             onCardClick={() => navigate(`/stats/${name}`)}
           />
         ))}

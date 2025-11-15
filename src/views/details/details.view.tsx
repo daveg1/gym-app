@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Text, NavButton, Footer, Page } from "../../components/ui";
 import { DetailsHeader } from "./components/details-header";
 import { DetailsList } from "./components/details-list";
+import { BackIcon } from "../../components/icons";
 
 export function DetailsView() {
   const { getById } = useWorkoutStore();
@@ -42,18 +43,7 @@ export function DetailsView() {
         <Text>Total weight: {totalKg.toLocaleString()} kg</Text>
 
         <NavButton to="/">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="mt-0.5 size-5"
-          >
-            <path
-              fillRule="evenodd"
-              d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <BackIcon />
           Go back
         </NavButton>
       </Footer>

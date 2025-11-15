@@ -1,26 +1,40 @@
 # Gym tracker
 
-Features:
+## Features:
 
-- Start/end session
-- tracking sets by muscle group with weight x reps
-- see total weight lifted in session
+- Track workout sessions
+- Review previous workouts
+- Keep a planner for routines
+- View stats on certain exercises
 
-## TODO
+## Ideas
 
-## UI
+### General
 
-- Navbar for different screens
-  - ☑️ Dashboard (Home)
-  - ☑️ Planner
-  - ❌ Stats
-- Button sizes
+- Make some core UI elements non-selectable (e.g. Header, Button)
+- Change copy from highest to heaviest weight
+
+### Exercises
+
+- Exercises as objects
+  - id
+  - muscle group
+  - notes/description
+- store in separate table
 
 ### Workouts
 
 - Notes for exercises (like a description)
+- reorder exercises
+- [bug] fix exercise renaming
+
+### Plans
+
+- Edit plans
+- Collapse plans
+- Reorder plans
+- Change "Plans" term to "Notes" ?
 
 ### Stats
 
-- Aggregate of exercises
-- Show history of a certain exercise
+- Change scaling of yAxis to be percentage based instead of +-20kg

@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useState } from "react";
+import { CaretDownIcon, CaretUpIcon } from "../icons";
 
 interface Props {
   title: string;
@@ -47,22 +48,8 @@ export function Card({
           onClick={() => isCollapsible && setIsExpanded((v) => !v)}
         >
           <div className="flex gap-2">
-            {isCollapsible && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className={clsx("size-6", isExpanded && "rotate-180")}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                />
-              </svg>
-            )}
+            {isCollapsible &&
+              (isExpanded ? <CaretDownIcon /> : <CaretUpIcon />)}
 
             <h2
               className={clsx(

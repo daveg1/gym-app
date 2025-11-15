@@ -4,6 +4,7 @@ import { Page, Header, Footer, NavButton } from "../../components/ui";
 import { useWorkoutStore } from "../../hooks";
 import { LineChart } from "@mui/x-charts";
 import { SectionCard } from "../../components/ui/section-card";
+import { BackIcon } from "../../components/icons";
 
 export function StatsDetailsView() {
   const { workoutMap } = useWorkoutStore();
@@ -29,21 +30,11 @@ export function StatsDetailsView() {
   return (
     <Page>
       <Header
-        text={`${exerciseName} stats`}
+        text="Stats"
+        caption={exerciseName}
         leftSide={
           <NavButton to="/stats">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="size-4"
-            >
-              <path
-                fillRule="evenodd"
-                d="M14 8a.75.75 0 0 1-.75.75H4.56l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <BackIcon />
           </NavButton>
         }
       />
