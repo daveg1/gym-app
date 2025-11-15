@@ -1,4 +1,4 @@
-import { PlusIcon } from "../../../components/icons";
+import { PlayIcon, PlusIcon } from "../../../components/icons";
 import { Header, NavButton } from "../../../components/ui";
 import { WORKOUT_SESSION_KEY } from "../../../constants";
 
@@ -10,18 +10,7 @@ export function DashboardHeader() {
       text="Your workouts"
       rightSide={
         <NavButton to="/workout">
-          {hasSession ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-5"
-            >
-              <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z" />
-            </svg>
-          ) : (
-            <PlusIcon />
-          )}
+          {hasSession ? <PlayIcon /> : <PlusIcon />}
         </NavButton>
       }
     />
