@@ -21,7 +21,6 @@
 
 - Notes for exercises (like a description)
 - reorder exercises
-- [bug] fix exercise renaming
 
 ### Plans
 
