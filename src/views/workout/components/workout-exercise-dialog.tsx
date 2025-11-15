@@ -1,6 +1,11 @@
 import { useMemo, useState } from "react";
-import { Button, RadioBox, SelectBox, TextBox } from "../../../components/ui";
-import { Dialog } from "../../../components/ui/modal/dialog";
+import {
+  Button,
+  RadioBox,
+  SelectBox,
+  TextBox,
+  Dialog,
+} from "../../../components/ui";
 import { useExerciseStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
 import { muscleGroupValues } from "../../../models";
@@ -30,28 +35,23 @@ export function WorkoutExerciseDialog() {
     const data = new FormData(e.currentTarget);
 
     if (radioGroup === "existing") {
-      // for now copy the exercise
-      // but in future store the id
       const existingId = `${data.get("exercise-existing")}`;
-      const exercise = exerciseMap[existingId];
-      addExercise(exercise);
+      addExercise(existingId);
     } else {
       const name = `${data.get("exercise-created")}`.trim();
       const muscle = `${data.get("exercise-muscle")}`.trim();
 
-      // TODO: user feedback
+      // TODO: user feedback (e.g. toast)
       if (!name || !muscle) return;
       if (doesExist(name)) return;
 
       const exercise = { id: crypto.randomUUID(), name, muscle, sets: [] };
       createExercise(exercise);
-      addExercise(exercise);
+      addExercise(exercise.id);
     }
 
     dialogRef.hideDialog();
     e.currentTarget.reset();
-
-    // TODO: save in exercise store
   };
 
   // TODO: Create a custom text box which shows suggestions as you type
