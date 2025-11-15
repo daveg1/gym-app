@@ -1,4 +1,4 @@
-import { ResumeIcon, PlusIcon } from "../../../components/icons";
+import { ResumeIcon, AddIcon } from "../../../components/icons";
 import { Header, NavButton } from "../../../components/ui";
 import { WORKOUT_SESSION_KEY } from "../../../constants";
 
@@ -10,7 +10,7 @@ export function DashboardHeader() {
       text="Your workouts"
       rightSide={
         <NavButton to="/workout">
-          {hasSession ? <ResumeIcon /> : <PlusIcon />}
+          {hasSession ? <ResumeIcon /> : <AddIcon />}
         </NavButton>
       }
     />

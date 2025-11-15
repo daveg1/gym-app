@@ -1,4 +1,4 @@
-import { PlusIcon } from "../../components/icons";
+import { AddIcon } from "../../components/icons";
 import { NavBar } from "../../components/shared";
 import {
   Page,
@@ -27,7 +27,7 @@ export function PlannerView() {
         text="Planner"
         rightSide={
           <Button onClick={() => openPlanDialog()}>
-            <PlusIcon />
+            <AddIcon />
           </Button>
         }
       />

@@ -1,6 +1,6 @@
 import { memo, useRef } from "react";
 import type { ISet } from "../../models/gym";
-import { PlusIcon } from "../icons";
+import { AddIcon } from "../icons";
 
 interface Props {
   setNo: number;
@@ -72,7 +72,7 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
           />
         </svg> */}
 
-        <PlusIcon size="l" />
+        <AddIcon size="l" />
       </button>
     </div>
   );

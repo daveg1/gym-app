@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import type { IconProps } from "./icon-props";
 
-export function PlusIcon({ size }: IconProps) {
+export function AddIcon({ size }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
