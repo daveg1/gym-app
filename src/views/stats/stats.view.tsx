@@ -53,23 +53,29 @@ export function StatsView() {
       <Header text="Stats" />
 
       <List hasFade>
-        {sortedGroups.map(([name, exercises]) => (
-          <Card
-            key={name}
-            title={name}
-            mainContent={
-              <div className="flex flex-col">
-                <Text>
-                  Done {exercises.length} time
-                  {exercises.length === 1 ? "" : "s"}
-                </Text>
-                <Text>Heaviest weight: {findHighest(exercises).weight} kg</Text>
-              </div>
-            }
-            rightContent={<ForwardIcon />}
-            onCardClick={() => navigate(`/stats/${name}`)}
-          />
-        ))}
+        {sortedGroups.length ? (
+          sortedGroups.map(([name, exercises]) => (
+            <Card
+              key={name}
+              title={name}
+              mainContent={
+                <div className="flex flex-col">
+                  <Text>
+                    Done {exercises.length} time
+                    {exercises.length === 1 ? "" : "s"}
+                  </Text>
+                  <Text>
+                    Heaviest weight: {findHighest(exercises).weight} kg
+                  </Text>
+                </div>
+              }
+              rightContent={<ForwardIcon />}
+              onCardClick={() => navigate(`/stats/${name}`)}
+            />
+          ))
+        ) : (
+          <Text>No exercises logged yet.</Text>
+        )}
       </List>
 
       <Footer>
