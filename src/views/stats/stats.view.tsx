@@ -64,7 +64,7 @@ export function StatsView() {
                   Done {exercises.length} time
                   {exercises.length === 1 ? "" : "s"}
                 </Text>
-                <Text>Highest weight: {findHighest(exercises).weight} kg</Text>
+                <Text>Heaviest weight: {findHighest(exercises).weight} kg</Text>
               </div>
             }
             rightContent={<ForwardIcon />}

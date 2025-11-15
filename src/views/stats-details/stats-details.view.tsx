@@ -42,7 +42,7 @@ export function StatsDetailsView() {
       <div className="flex h-full flex-col gap-4 px-6">
         <SectionCard
           title="Weight progression"
-          caption="Highest weight per session"
+          caption="Heaviest weight across sessions"
         >
           <LineChart
             height={280}

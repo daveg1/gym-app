@@ -9,10 +9,6 @@
 
 ## Ideas
 
-### General
-
-- Change copy from highest to heaviest weight
-
 ### Exercises
 
 - Exercises as objects
