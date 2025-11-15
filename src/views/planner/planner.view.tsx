@@ -40,7 +40,11 @@ export function PlannerView() {
           <Card
             key={plan.timestamp}
             title={plan.title}
-            mainContent={<Text pre>{plan.description}</Text>}
+            mainContent={
+              <Text pre selectable>
+                {plan.description}
+              </Text>
+            }
           />
         ))}
       </List>
