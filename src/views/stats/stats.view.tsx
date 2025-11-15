@@ -51,7 +51,7 @@ export function StatsView() {
 
   return (
     <Page>
-      <Header text="Stats" />
+      <Header text="Stats" caption="By muscle group" />
 
       <List>
         {sortedGroups.map(([name, exercises]) => (

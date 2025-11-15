@@ -26,7 +26,7 @@ export function Header({
       <div className="flex flex-col">
         <h2
           className={clsx(
-            "text-3xl font-semibold",
+            "text-3xl leading-none font-semibold",
             isEditing && "rounded outline outline-offset-4 outline-amber-400",
           )}
         >
