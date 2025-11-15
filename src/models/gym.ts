@@ -1,17 +1,17 @@
 export const muscleGroupValues = [
+  "Abs",
   "Back",
-  "Traps",
-  "Chest",
-  "Shoulders",
-  "Triceps",
   "Biceps",
-  "Core",
-  "Forearms",
-  "Quads",
   "Calves",
+  "Chest",
+  "Forearms",
+  "Glutes",
   "Hamstrings",
   "Hips",
-  "Glutes",
+  "Shoulders",
+  "Traps",
+  "Triceps",
+  "Quads",
 ] as const;
 
 export type MuscleGroups = (typeof muscleGroupValues)[number];
