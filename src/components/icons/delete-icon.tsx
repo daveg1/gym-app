@@ -9,7 +9,9 @@ export function DeleteIcon({ size }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={clsx(size === "s" ? "size-4" : "size-6")}
+      className={clsx(
+        size === "s" ? "size-4" : size === "l" ? "size-6" : "size-5",
+      )}
     >
       <path
         strokeLinecap="round"

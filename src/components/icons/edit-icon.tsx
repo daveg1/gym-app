@@ -1,4 +1,7 @@
-export function EditIcon() {
+import type { IconProps } from "./icon-props";
+import clsx from "clsx";
+
+export function EditIcon({ size }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +9,9 @@ export function EditIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-5"
+      className={clsx(
+        size === "s" ? "size-4" : size === "l" ? "size-6" : "size-5",
+      )}
     >
       <path
         strokeLinecap="round"
