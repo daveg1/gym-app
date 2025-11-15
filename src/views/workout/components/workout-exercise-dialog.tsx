@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
-import { Button, Text } from "../../../components/ui";
+import { Button, RadioBox, SelectBox, TextBox } from "../../../components/ui";
 import { Dialog } from "../../../components/ui/dialog";
 import { useExerciseStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
 import { muscleGroupValues } from "../../../models/gym";
-import clsx from "clsx";
 
 const FormGroups = {
   existing: "existing",
@@ -56,86 +55,66 @@ export function WorkoutExerciseDialog() {
   };
 
   // TODO: Create a custom text box which shows suggestions as you type
-  // TODO: create separate form components
 
   return (
     <Dialog title="Add exercise" ref={dialogRef}>
       <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
         <section className="flex flex-col gap-2">
-          <label
-            className={clsx("flex gap-1", !suggestions.length && "opacity-50")}
-          >
-            <input
-              name="exercise-type"
-              type="radio"
-              checked={radioGroup === FormGroups.existing}
-              value={FormGroups.existing}
-              onChange={(e) =>
-                setRadioGroup(e.currentTarget.value as keyof typeof FormGroups)
-              }
-              disabled={!suggestions.length}
-            />
-            <Text>Choose an existing one</Text>
-          </label>
+          <RadioBox
+            className={!suggestions.length ? "opacity-50" : ""}
+            name="exercise-type"
+            label="Choose an existing one"
+            checked={radioGroup === FormGroups.existing}
+            value={FormGroups.existing}
+            onChange={(e) =>
+              setRadioGroup(e.currentTarget.value as keyof typeof FormGroups)
+            }
+            disabled={!suggestions.length}
+          />
 
-          <select
+          <SelectBox
+            data={
+              suggestions.length
+                ? suggestions.map((item) => ({
+                    label: item.name,
+                    value: item.id,
+                  }))
+                : [{ label: "No exercises yet", value: "" }]
+            }
             name="exercise-existing"
-            className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50"
             disabled={radioGroup !== FormGroups.existing || !suggestions.length}
-          >
-            {suggestions.length ? (
-              suggestions.map((ex) => (
-                <option key={ex.id} value={ex.id}>
-                  {ex.name}
-                </option>
-              ))
-            ) : (
-              <option>No exercises yet</option>
-            )}
-          </select>
+          />
         </section>
 
         <section className="flex flex-col gap-2">
-          <label className="flex gap-1">
-            <input
-              name="exercise-type"
-              type="radio"
-              checked={radioGroup === FormGroups.created}
-              value={FormGroups.created}
-              onChange={(e) =>
-                setRadioGroup(e.currentTarget.value as keyof typeof FormGroups)
-              }
-            />
-            <Text>Or create a new one:</Text>
-          </label>
+          <RadioBox
+            name="exercise-type"
+            label="Or create a new one:"
+            checked={radioGroup === FormGroups.created}
+            value={FormGroups.created}
+            onChange={(e) =>
+              setRadioGroup(e.currentTarget.value as keyof typeof FormGroups)
+            }
+          />
 
           <fieldset className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <Text size="s">Exercise name</Text>
-              <input
-                name="exercise-created"
-                className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50"
-                type="text"
-                placeholder="E.g. Bench press"
-                autoFocus
-                disabled={radioGroup !== FormGroups.created}
-              />
-            </div>
+            <TextBox
+              label="Exercise name"
+              name="exercise-created"
+              placeholder="E.g. Bench press"
+              autoFocus
+              disabled={radioGroup !== FormGroups.created}
+            />
 
-            <div className="flex flex-col gap-2">
-              <Text size="s">Muscle group</Text>
-              <select
-                name="exercise-muscle"
-                className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50"
-                disabled={radioGroup !== FormGroups.created}
-              >
-                {muscleGroupValues.map((muscle) => (
-                  <option key={muscle} value={muscle}>
-                    {muscle}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <SelectBox
+              label="Muscle group"
+              data={muscleGroupValues.map((group) => ({
+                label: group,
+                value: group,
+              }))}
+              name="exercise-muscle"
+              disabled={radioGroup !== FormGroups.created}
+            />
           </fieldset>
         </section>
 
