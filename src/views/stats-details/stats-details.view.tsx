@@ -29,7 +29,8 @@ export function StatsDetailsView() {
   return (
     <Page>
       <Header
-        text={`${exerciseName} stats`}
+        text="Stats"
+        caption={exerciseName}
         leftSide={
           <NavButton to="/stats">
             <svg
