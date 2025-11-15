@@ -11,7 +11,6 @@
 
 ### General
 
-- Make some core UI elements non-selectable (e.g. Header, Button)
 - Change copy from highest to heaviest weight
 
 ### Exercises
