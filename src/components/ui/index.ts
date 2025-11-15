@@ -14,5 +14,6 @@ export * from "./layout/header";
 export * from "./layout/list";
 export * from "./layout/page";
 
+export * from "./modal/dialog";
 export * from "./modal/overflow-menu";
 export * from "./modal/overflow-menu-item";
