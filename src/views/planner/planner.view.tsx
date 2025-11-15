@@ -49,7 +49,7 @@ export function PlannerView() {
         ))}
       </List>
 
-      <Footer noPadding>
+      <Footer>
         <NavBar />
       </Footer>
     </Page>

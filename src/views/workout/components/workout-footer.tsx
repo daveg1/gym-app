@@ -31,7 +31,7 @@ export function WorkoutFooter() {
   };
 
   return (
-    <Footer>
+    <Footer hasPadding>
       {/* <div className="grid grid-cols-2 gap-[inherit]"> */}
       <Button text="Add exercise" onClick={() => dialogRef.showDialog()} />
       <Button text="Finish" onClick={() => onFinish()} />

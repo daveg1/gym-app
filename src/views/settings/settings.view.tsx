@@ -95,7 +95,7 @@ export function SettingsView() {
         </SectionCard>
       </List>
 
-      <Footer noPadding>
+      <Footer>
         <NavBar />
       </Footer>
     </Page>

@@ -72,7 +72,7 @@ export function StatsView() {
         ))}
       </List>
 
-      <Footer noPadding>
+      <Footer>
         <NavBar />
       </Footer>
     </Page>

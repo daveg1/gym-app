@@ -1,8 +1,13 @@
 import { useNavigate } from "react-router";
-import { Button, Header } from "../../../components/ui";
+import { Button, Header, NavButton } from "../../../components/ui";
 import { useWorkoutStore } from "../../../hooks";
 import { formatDate } from "../../../utils";
-import { DeleteIcon, EditIcon, SaveIcon } from "../../../components/icons";
+import {
+  BackIcon,
+  DeleteIcon,
+  EditIcon,
+  SaveIcon,
+} from "../../../components/icons";
 
 interface Props {
   workoutId: string;
@@ -40,6 +45,11 @@ export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
       onClick={handleEditTitle}
       text={workout.name ?? "Workout"}
       caption={formatDate(workout.timestamp)}
+      leftSide={
+        <NavButton to="/">
+          <BackIcon />
+        </NavButton>
+      }
       rightSide={
         <menu className="flex gap-4">
           {isEditing && (

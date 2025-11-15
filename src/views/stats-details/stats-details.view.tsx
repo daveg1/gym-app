@@ -60,7 +60,7 @@ export function StatsDetailsView() {
         </SectionCard>
       </div>
 
-      <Footer noPadding>
+      <Footer>
         <NavBar />
       </Footer>
     </Page>
