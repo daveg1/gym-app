@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Button, RadioBox, SelectBox, TextBox } from "../../../components/ui";
-import { Dialog } from "../../../components/ui/dialog";
+import { Dialog } from "../../../components/ui/modal/dialog";
 import { useExerciseStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
 import { muscleGroupValues } from "../../../models/gym";

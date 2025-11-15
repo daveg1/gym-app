@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import type { IExercise, IWorkout } from "../../models/gym";
 import { WORKOUT_SESSION_KEY } from "../../constants";
-import { useDialogRef, type DialogRef } from "../../components/ui/dialog";
+import { useDialogRef, type DialogRef } from "../../components/ui/modal/dialog";
 
 interface IContext {
   workout: IWorkout;

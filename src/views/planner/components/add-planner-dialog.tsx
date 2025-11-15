@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Button, LongTextBox, TextBox } from "../../../components/ui";
-import { Dialog, type DialogRef } from "../../../components/ui/dialog";
+import { Dialog, type DialogRef } from "../../../components/ui/modal/dialog";
 import type { IPlan } from "../../../models/planner";
 
 interface Props {

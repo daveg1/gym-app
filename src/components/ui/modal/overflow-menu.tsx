@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "./button";
-import { OverflowMenuIcon } from "../icons";
+import { Button } from "../button/button";
+import { OverflowMenuIcon } from "../../icons";
 
 interface Props {
   items: React.ReactNode;
