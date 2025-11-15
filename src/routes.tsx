@@ -5,6 +5,7 @@ import { DashboardView } from "./views/dashboard/dashboard.view";
 import { PlannerView } from "./views/planner/planner.view";
 import { StatsView } from "./views/stats/stats.view";
 import { StatsDetailsView } from "./views/stats-details/stats-details.view";
+import { SettingsView } from "./views/settings/settings.view";
 
 export function Routes() {
   return (
@@ -15,6 +16,7 @@ export function Routes() {
       <Route path="stats/:exerciseName" element={<StatsDetailsView />} />
       <Route path="workout" element={<WorkoutView />} />
       <Route path="details/:sessionId" element={<DetailsView />} />
+      <Route path="settings" element={<SettingsView />} />
     </RRoutes>
   );
 }

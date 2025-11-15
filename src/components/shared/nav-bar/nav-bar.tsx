@@ -1,4 +1,4 @@
-import { HomeIcon, PlannerIcon, StatsIcon } from "../../icons";
+import { HomeIcon, PlannerIcon, SettingsIcon, StatsIcon } from "../../icons";
 import { NavBarItem } from "./nav-bar-item";
 
 interface INavItem {
@@ -23,6 +23,11 @@ export function NavBar() {
       to: "/stats",
       label: "Stats",
       icon: <StatsIcon />,
+    },
+    {
+      to: "/settings",
+      label: "Settings",
+      icon: <SettingsIcon />,
     },
   ];
 
