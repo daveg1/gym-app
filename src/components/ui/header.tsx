@@ -23,7 +23,7 @@ export function Header({
     <header className="flex min-h-12 items-center gap-4 px-6" {...htmlProps}>
       {leftSide && <aside>{leftSide}</aside>}
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col">
         <h2
           className={clsx(
             "text-3xl font-semibold",
