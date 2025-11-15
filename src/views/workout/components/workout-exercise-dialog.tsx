@@ -8,7 +8,11 @@ import {
 } from "../../../components/ui";
 import { useExerciseStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
-import { muscleGroupValues } from "../../../models";
+import {
+  muscleGroupValues,
+  type IExercise,
+  type MuscleGroups,
+} from "../../../models";
 
 const FormGroups = {
   existing: "existing",
@@ -45,7 +49,11 @@ export function WorkoutExerciseDialog() {
       if (!name || !muscle) return;
       if (doesExist(name)) return;
 
-      const exercise = { id: crypto.randomUUID(), name, muscle, sets: [] };
+      const exercise: IExercise = {
+        id: crypto.randomUUID(),
+        name,
+        muscleGroup: muscle as MuscleGroups,
+      };
       createExercise(exercise);
       addExercise(exercise.id);
     }

@@ -1,14 +1,14 @@
 import { createContext, useContext, useState } from "react";
-import type { IExercise, IWorkout } from "../../models";
+import type { IWorkout } from "../../models";
 import { TEMP_SESSION_KEY } from "../../constants";
 import { useDialogRef, type DialogRef } from "../../components/ui/modal/dialog";
 
 interface IContext {
   workout: IWorkout;
   updateWorkout: (changes: Partial<IWorkout>) => void;
-  addExercise: (exercise: IExercise) => void;
-  updateExercise: (changes: Partial<IExercise>) => void;
-  deleteExercise: (id: IExercise["id"]) => void;
+  addExercise: (id: string) => void;
+  // updateExercise: (changes: Partial<IExercise>) => void;
+  deleteExercise: (id: string) => void;
   isEditing: boolean;
   dialogRef: DialogRef;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -48,28 +48,29 @@ export function WorkoutContextProvider({
     });
   };
 
-  const addExercise = (value: IExercise) => {
+  const addExercise = (id: string) => {
     setWorkout((current) => {
       const data = { ...current };
-      data.exercises = [...data.exercises, value];
+      data.exercises = [...data.exercises, { id, sets: [] }];
       serialise(data);
       return data;
     });
   };
 
-  const updateExercise = (changes: Partial<IExercise>) => {
-    setWorkout((current) => {
-      const data = { ...current };
-      const index = data.exercises.findIndex((ex) => ex.id === changes.id);
-      const exercisesCopy = [...data.exercises];
-      exercisesCopy[index] = { ...exercisesCopy[index], ...changes };
-      data.exercises = exercisesCopy;
-      serialise(data);
-      return data;
-    });
-  };
+  // const updateExercise = (changes: Partial<IExercise>) => {
+  // TODO: move this method to exercise store and reflect changes to UI
+  // setWorkout((current) => {
+  //   const data = { ...current };
+  //   const index = data.exercises.findIndex((ex) => ex.id === changes.id);
+  //   const exercisesCopy = [...data.exercises];
+  //   exercisesCopy[index] = { ...exercisesCopy[index], ...changes };
+  //   data.exercises = exercisesCopy;
+  //   serialise(data);
+  //   return data;
+  // });
+  // };
 
-  const deleteExercise = (id: IExercise["id"]) => {
+  const deleteExercise = (id: string) => {
     setWorkout((current) => {
       const data = { ...current };
       const index = data.exercises.findIndex((ex) => ex.id === id);
@@ -92,7 +93,7 @@ export function WorkoutContextProvider({
     workout,
     updateWorkout,
     addExercise,
-    updateExercise,
+    // updateExercise,
     deleteExercise,
     isEditing,
     dialogRef,
