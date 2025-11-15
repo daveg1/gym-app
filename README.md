@@ -32,3 +32,5 @@
 ### Stats
 
 - Change scaling of yAxis to be percentage based instead of +-20kg
+- Multiply take total weight moved per exercise (aggregate sets of reps \* weight)
+- Add muscle heatmap
