@@ -10,11 +10,7 @@ export function DashboardView() {
 
   const workouts = useMemo(() => {
     return Object.values(workoutMap).sort((a, b) => {
-      return a.timestamp > b.timestamp
-        ? -1
-        : a.timestamp < b.timestamp
-          ? 11
-          : 0;
+      return a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0;
     });
   }, [workoutMap]);
 
@@ -27,7 +23,6 @@ export function DashboardView() {
           workouts.map((workout, index) =>
             index === 0 ? (
               <Fragment key={workout.id}>
-                <Text>Latest</Text>
                 <DashboardItem workout={workout} />
                 {workouts.length > 1 && <Text>Previous</Text>}
               </Fragment>
