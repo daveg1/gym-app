@@ -23,7 +23,7 @@ export function useWorkoutStore() {
     return workoutMap[workoutId];
   }
 
-  async function deleteById(workoutId: string) {
+  function deleteById(workoutId: string) {
     setWorkoutMap((current) => {
       const copy = { ...current };
       delete copy[workoutId];
@@ -32,10 +32,16 @@ export function useWorkoutStore() {
     });
   }
 
+  function importWorkouts(workoutMap: IWorkoutMap) {
+    setWorkoutMap(workoutMap);
+    serialise(workoutMap);
+  }
+
   return {
     workoutMap,
     addOrSaveWorkout,
     getById,
     deleteById,
+    importWorkouts,
   };
 }
