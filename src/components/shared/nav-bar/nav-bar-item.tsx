@@ -19,7 +19,7 @@ export function NavBarItem({ to, label, icon }: Props) {
       }
     >
       {icon}
-      {label && <span>{label}</span>}
+      {label && <span className="text-base">{label}</span>}
     </NavLink>
   );
 }

@@ -71,7 +71,7 @@ export function DetailsList({ workout, isEditing }: Props) {
   };
 
   return (
-    <List>
+    <List hasFade>
       {workout.exercises.length ? (
         workout.exercises.map((exercise, index) => (
           <Exercise

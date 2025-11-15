@@ -52,7 +52,7 @@ export function StatsView() {
     <Page>
       <Header text="Stats" caption="By muscle group" />
 
-      <List>
+      <List hasFade>
         {sortedGroups.map(([name, exercises]) => (
           <Card
             key={name}

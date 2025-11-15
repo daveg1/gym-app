@@ -19,5 +19,10 @@ export function usePlannerStore() {
     setPlans(data);
   };
 
-  return { plans, addPlan };
+  function importPlans(plans: IPlan[]) {
+    setPlans(plans);
+    serialise(plans);
+  }
+
+  return { plans, addPlan, importPlans };
 }
