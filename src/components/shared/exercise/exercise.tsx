@@ -1,20 +1,21 @@
 import { memo, useEffect, useRef } from "react";
-import type { IExercise, ISet } from "../../../models";
+import type { IExercise, ISet, IWorkoutExercise } from "../../../models";
 import { Card } from "../../ui";
 import { ExerciseBody } from "./exercise-body";
 import { ExerciseHeaderOptions } from "./exercise-header-options";
 import { ExerciseFooter } from "./exercise-footer";
+import { useExerciseStore } from "../../../hooks";
 
 interface Props {
-  data: IExercise;
+  data: IWorkoutExercise;
   hideSetForm?: boolean;
   isEditing?: boolean;
   defaultOpen?: boolean;
   onAddSet?(set: ISet): void;
-  onEditExercise?(id: IExercise["id"], changes: Partial<IExercise>): void;
-  onDeleteExercise?(id: IExercise["id"]): void;
-  onEditSet?(id: IExercise["id"], setNo: number, changes: Partial<ISet>): void;
-  onDeleteSet?(id: IExercise["id"], setNo: number): void;
+  onEditExercise?(exerciseId: string, changes: Partial<IExercise>): void;
+  onDeleteExercise?(exerciseId: string): void;
+  onEditSet?(exerciseId: string, setNo: number, changes: Partial<ISet>): void;
+  onDeleteSet?(exerciseId: string, setNo: number): void;
 }
 
 export const Exercise = memo(
@@ -30,6 +31,8 @@ export const Exercise = memo(
     onDeleteSet,
   }: Readonly<Props>) => {
     const ref = useRef<HTMLElement>(null);
+    const { exerciseMap } = useExerciseStore();
+    const exercise = exerciseMap[data.id];
 
     useEffect(() => {
       if (ref.current) {
@@ -37,12 +40,13 @@ export const Exercise = memo(
       }
     }, []);
 
+    // TODO: handle changes via exerciseMap
     const handleEditTitle = (
       e: React.MouseEvent<HTMLHeadingElement, MouseEvent>,
     ) => {
       if (isEditing) {
         e.stopPropagation();
-        const name = prompt("Enter a new name", data.name)?.trim();
+        const name = prompt("Enter a new name", exercise.name)?.trim();
         if (!name) return;
         onEditExercise?.(data.id, { name });
       }
@@ -68,7 +72,7 @@ export const Exercise = memo(
     return (
       <Card
         isCollapsible
-        title={data.name}
+        title={exercise.name}
         defaultOpen={defaultOpen}
         isEditing={isEditing}
         onTitleClick={handleEditTitle}

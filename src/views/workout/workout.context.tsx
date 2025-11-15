@@ -1,16 +1,22 @@
 import { createContext, useContext, useState } from "react";
-import type { IWorkout } from "../../models";
+import type { ISet, IWorkout, IWorkoutExercise } from "../../models";
 import { TEMP_SESSION_KEY } from "../../constants";
 import { useDialogRef, type DialogRef } from "../../components/ui/modal/dialog";
 
 interface IContext {
   workout: IWorkout;
   updateWorkout: (changes: Partial<IWorkout>) => void;
-  addExercise: (id: string) => void;
-  // updateExercise: (changes: Partial<IExercise>) => void;
-  deleteExercise: (id: string) => void;
-  isEditing: boolean;
+
+  addExercise(id: string): void;
+  updateExercise(changes: Partial<IWorkoutExercise>): void;
+  deleteExercise(id: string): void;
+
+  addSet(set: ISet, exercise: IWorkoutExercise): void;
+  editSet(exerciseId: string, setNo: number, changes: Partial<ISet>): void;
+  deleteSet(exerciseId: string, setNo: number): void;
+
   dialogRef: DialogRef;
+  isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   clearSession: () => void;
 }
@@ -30,6 +36,8 @@ export function WorkoutContextProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const dialogRef = useDialogRef();
+  const [isEditing, setIsEditing] = useState(false);
   const [workout, setWorkout] = useState<IWorkout>({
     ...{
       exercises: [],
@@ -48,6 +56,10 @@ export function WorkoutContextProvider({
     });
   };
 
+  /**
+   * Exercises
+   */
+
   const addExercise = (id: string) => {
     setWorkout((current) => {
       const data = { ...current };
@@ -57,18 +69,17 @@ export function WorkoutContextProvider({
     });
   };
 
-  // const updateExercise = (changes: Partial<IExercise>) => {
-  // TODO: move this method to exercise store and reflect changes to UI
-  // setWorkout((current) => {
-  //   const data = { ...current };
-  //   const index = data.exercises.findIndex((ex) => ex.id === changes.id);
-  //   const exercisesCopy = [...data.exercises];
-  //   exercisesCopy[index] = { ...exercisesCopy[index], ...changes };
-  //   data.exercises = exercisesCopy;
-  //   serialise(data);
-  //   return data;
-  // });
-  // };
+  const updateExercise = (changes: Partial<IWorkoutExercise>) => {
+    setWorkout((current) => {
+      const data = { ...current };
+      const index = data.exercises.findIndex((ex) => ex.id === changes.id);
+      const exercisesCopy = [...data.exercises];
+      exercisesCopy[index] = { ...exercisesCopy[index], ...changes };
+      data.exercises = exercisesCopy;
+      serialise(data);
+      return data;
+    });
+  };
 
   const deleteExercise = (id: string) => {
     setWorkout((current) => {
@@ -82,21 +93,56 @@ export function WorkoutContextProvider({
     });
   };
 
+  /**
+   * Sets
+   */
+
+  function addSet(newSet: ISet, exercise: IWorkoutExercise) {
+    exercise.sets = [...exercise.sets, newSet];
+    updateExercise(exercise);
+  }
+
+  function editSet(exerciseId: string, setNo: number, changes: Partial<ISet>) {
+    const index = workout.exercises.findIndex((ex) => ex.id === exerciseId);
+    Object.assign(workout.exercises[index].sets[setNo], changes);
+    updateExercise(workout.exercises[index]);
+  }
+
+  function deleteSet(exerciseId: string, setNo: number) {
+    const index = workout.exercises.findIndex((ex) => ex.id === exerciseId);
+    const setIndex = workout.exercises[index].sets.findIndex(
+      (_, index) => index === setNo,
+    );
+
+    if (setIndex > -1) {
+      const setsCopy = [...workout.exercises[index].sets];
+      setsCopy.splice(setIndex, 1);
+
+      const exercisesCopy = [...workout.exercises];
+      exercisesCopy[index].sets = setsCopy;
+
+      updateExercise(exercisesCopy[index]);
+    }
+  }
+
   const clearSession = () => {
     localStorage.removeItem(TEMP_SESSION_KEY);
   };
 
-  const [isEditing, setIsEditing] = useState(false);
-  const dialogRef = useDialogRef();
-
   const value = {
     workout,
     updateWorkout,
+
     addExercise,
-    // updateExercise,
+    updateExercise,
     deleteExercise,
-    isEditing,
+
+    addSet,
+    editSet,
+    deleteSet,
+
     dialogRef,
+    isEditing,
     setIsEditing,
     clearSession,
   };
@@ -106,6 +152,7 @@ export function WorkoutContextProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useWorkoutContext() {
   return useContext(WorkoutContext);
 }

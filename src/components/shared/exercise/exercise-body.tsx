@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import type { IExercise, ISet } from "../../../models";
+import type { ISet, IWorkoutExercise } from "../../../models";
 import { Text } from "../../ui";
 import { DeleteIcon } from "../../icons";
 
 interface Props {
-  data: IExercise;
+  data: IWorkoutExercise;
   isEditing?: boolean;
   hideSetForm?: boolean;
   onPropertyClick?(index: number, prop: keyof ISet): void; // todo: change index to id?
