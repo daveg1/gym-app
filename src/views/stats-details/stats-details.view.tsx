@@ -4,7 +4,7 @@ import { Page, Header, Footer, NavButton } from "../../components/ui";
 import { useWorkoutStore } from "../../hooks";
 import { LineChart } from "@mui/x-charts";
 import { SectionCard } from "../../components/ui/section-card";
-import { ArrowLeftIcon } from "../../components/icons";
+import { BackIcon } from "../../components/icons";
 
 export function StatsDetailsView() {
   const { workoutMap } = useWorkoutStore();
@@ -34,7 +34,7 @@ export function StatsDetailsView() {
         caption={exerciseName}
         leftSide={
           <NavButton to="/stats">
-            <ArrowLeftIcon />
+            <BackIcon />
           </NavButton>
         }
       />
