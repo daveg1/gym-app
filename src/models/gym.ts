@@ -1,17 +1,20 @@
-// export const MuscleGroupValues = [
-//   "Back",
-//   "Chest",
-//   "Shoulders",
-//   "Triceps",
-//   "Biceps",
-//   "Core",
-//   "Forearms",
-//   "Quads",
-//   "Calves",
-//   "Hamstring",
-// ] as const;
+export const muscleGroupValues = [
+  "Back",
+  "Traps",
+  "Chest",
+  "Shoulders",
+  "Triceps",
+  "Biceps",
+  "Core",
+  "Forearms",
+  "Quads",
+  "Calves",
+  "Hamstrings",
+  "Hips",
+  "Glutes",
+] as const;
 
-// export type MuscleGroups = (typeof MuscleGroupValues)[number];
+export type MuscleGroups = (typeof muscleGroupValues)[number];
 
 export interface ISet {
   reps: number;
@@ -22,7 +25,10 @@ export interface IExercise {
   id: string;
   name: string;
   sets: ISet[];
+  muscleGroup?: MuscleGroups;
 }
+
+export type IExerciseMap = Record<string, IExercise>;
 
 export interface IWorkout {
   id: string;
