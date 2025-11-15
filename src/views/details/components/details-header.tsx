@@ -21,7 +21,7 @@ export function DetailsHeader({ workoutId, isEditing, setIsEditing }: Props) {
   const handleEditTitle = () => {
     if (!isEditing) return;
 
-    const newTitle = prompt("Edit title", workout.name);
+    const newTitle = prompt("Edit title", workout.name)?.trim();
     if (newTitle) {
       addOrSaveWorkout({ ...workout, name: newTitle });
     }

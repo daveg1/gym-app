@@ -42,7 +42,7 @@ export const Exercise = memo(
     ) => {
       if (isEditing) {
         e.stopPropagation();
-        const name = prompt("Enter a new name", data.name);
+        const name = prompt("Enter a new name", data.name)?.trim();
         if (!name) return;
         onEditExercise?.(data.id, { name });
       }
@@ -53,7 +53,10 @@ export const Exercise = memo(
       prop: keyof ISet,
     ) => {
       if (!isEditing) return;
-      const value = prompt(`Update the ${prop}`, `${data.sets[index][prop]}`);
+      const value = prompt(
+        `Update the ${prop}`,
+        `${data.sets[index][prop]}`,
+      )?.trim();
       if (!value) return;
       onEditSet?.(data.id, index, { [prop]: value });
     };
