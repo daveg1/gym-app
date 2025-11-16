@@ -89,7 +89,7 @@ export function StatsView() {
                       </div>
                     }
                     rightContent={<ForwardIcon />}
-                    onCardClick={() => navigate(`/stats/${name}`)}
+                    onCardClick={() => navigate(`/stats/${exercise.id}`)}
                   />
                 ))}
             </section>
