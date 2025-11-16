@@ -25,5 +25,10 @@ export function useExerciseStore() {
     return Object.entries(exerciseMap).find((ex) => ex[1].name === targetName);
   }
 
-  return { exerciseMap, createExercise, doesExist };
+  function importExercises(exercises: IExerciseMap) {
+    setExerciseMap(exercises);
+    serialise(exercises);
+  }
+
+  return { exerciseMap, createExercise, doesExist, importExercises };
 }

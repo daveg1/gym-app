@@ -10,18 +10,24 @@ import {
   Text,
 } from "../../components/ui";
 import { SectionCard } from "../../components/ui/section-card";
-import { usePlannerStore, useWorkoutStore } from "../../hooks";
-import type { IWorkoutMap } from "../../models";
+import {
+  useExerciseStore,
+  usePlannerStore,
+  useWorkoutStore,
+} from "../../hooks";
+import type { IExerciseMap, IWorkoutMap } from "../../models";
 import type { IPlan } from "../../models/planner";
 
 interface DataFormat {
   workouts: IWorkoutMap;
   plans: IPlan[];
+  exercises: IExerciseMap;
 }
 
 export function SettingsView() {
   const { workoutMap, importWorkouts } = useWorkoutStore();
   const { plans, importPlans } = usePlannerStore();
+  const { exerciseMap, importExercises } = useExerciseStore();
 
   const handleImport = () => {
     const code = prompt("Enter your export code:")?.trim();
@@ -31,11 +37,13 @@ export function SettingsView() {
       const decoded = JSON.parse(atob(code)) as DataFormat;
       const isValid = confirm(`Does this look right?
         Workouts: ${Object.values(decoded.workouts).length}
-        Planner items: ${decoded.plans.length}`);
+        Planner items: ${decoded.plans.length}
+        Exercises: ${Object.values(decoded.exercises).length}`);
 
       if (isValid) {
         importWorkouts(decoded.workouts);
         importPlans(decoded.plans);
+        importExercises(decoded.exercises);
       }
     } catch {
       console.log("failed...");
@@ -43,7 +51,11 @@ export function SettingsView() {
   };
 
   const handleExport = () => {
-    const out: DataFormat = { workouts: workoutMap, plans };
+    const out: DataFormat = {
+      workouts: workoutMap,
+      plans,
+      exercises: exerciseMap,
+    };
     const base64 = btoa(JSON.stringify(out));
 
     try {
