@@ -9,14 +9,6 @@
 
 ## Ideas
 
-### Exercises
-
-- Exercises as objects
-  - id
-  - muscle group
-  - notes/description
-- store in separate table
-
 ### Workouts
 
 - Notes for exercises (like a description)

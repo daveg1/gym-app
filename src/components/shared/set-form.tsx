@@ -1,6 +1,7 @@
 import { memo, useRef } from "react";
-import type { ISet } from "../../models/gym";
+import type { ISet } from "../../models";
 import { AddIcon } from "../icons";
+import { TextBox } from "../ui";
 
 interface Props {
   setNo: number;
@@ -34,19 +35,11 @@ export const SetForm = memo(({ setNo, onSubmit }: Readonly<Props>) => {
       >
         <p className="leading-10">{setNo}</p>
 
-        <input
-          className="h-full rounded bg-gray-200 px-2 outline outline-gray-600 focus:outline-4 focus:outline-amber-400"
-          type="number"
-          name="reps"
-          min={0}
-          defaultValue={1}
-          required
-        />
+        <TextBox name="reps" type="number" min={0} defaultValue={6} required />
 
-        <input
-          className="h-full rounded bg-gray-200 px-2 outline outline-gray-600 focus:outline-4 focus:outline-amber-400"
-          type="number"
+        <TextBox
           name="weight"
+          type="number"
           min={0}
           defaultValue={10}
           required

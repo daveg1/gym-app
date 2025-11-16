@@ -1,10 +1,10 @@
 import { useLocation } from "react-router";
 import { useWorkoutStore } from "../../hooks";
 import { useMemo, useState } from "react";
-import { Text, NavButton, Footer, Page } from "../../components/ui";
+import { Text, Footer, Page } from "../../components/ui";
 import { DetailsHeader } from "./components/details-header";
 import { DetailsList } from "./components/details-list";
-import { BackIcon } from "../../components/icons";
+import { NavBar } from "../../components/shared";
 
 export function DetailsView() {
   const { getById } = useWorkoutStore();
@@ -39,13 +39,12 @@ export function DetailsView() {
 
       <DetailsList workout={workout} isEditing={isEditing} />
 
-      <Footer border className="gap-4">
-        <Text>Total weight: {totalKg.toLocaleString()} kg</Text>
+      <Footer>
+        <div className="px-6 py-2">
+          <Text>Total weight: {totalKg.toLocaleString()} kg</Text>
+        </div>
 
-        <NavButton to="/">
-          <BackIcon />
-          Go back
-        </NavButton>
+        <NavBar />
       </Footer>
     </Page>
   );

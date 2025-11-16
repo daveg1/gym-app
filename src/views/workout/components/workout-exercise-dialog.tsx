@@ -1,72 +1,130 @@
-import { useMemo } from "react";
-import { Button, Text } from "../../../components/ui";
-import { Dialog } from "../../../components/ui/dialog";
-import { useWorkoutStore } from "../../../hooks";
+import { useMemo, useState } from "react";
+import {
+  Button,
+  RadioBox,
+  SelectBox,
+  TextBox,
+  Dialog,
+} from "../../../components/ui";
+import { useExerciseStore } from "../../../hooks";
 import { useWorkoutContext } from "../workout.context";
+import {
+  muscleGroupValues,
+  type IExercise,
+  type MuscleGroups,
+} from "../../../models";
+
+const FormGroups = {
+  existing: "existing",
+  created: "created",
+} as const;
 
 export function WorkoutExerciseDialog() {
   const { dialogRef, addExercise } = useWorkoutContext();
-  const { workoutMap } = useWorkoutStore();
+  const { exerciseMap, createExercise, doesExist } = useExerciseStore();
   const suggestions = useMemo(
-    () => [
-      ...new Set(
-        Object.values(workoutMap).flatMap((workout) =>
-          workout.exercises.map((ex) => ex.name),
-        ),
-      ),
-    ],
-    [workoutMap],
+    () =>
+      Object.values(exerciseMap)
+        .flatMap((exercise) => exercise)
+        .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)),
+    [exerciseMap],
   );
 
-  // TODO: store exercises in separate storage key and query that
-  // TODO: to ensure consistency
+  const [radioGroup, setRadioGroup] = useState<keyof typeof FormGroups>(
+    suggestions.length ? FormGroups.existing : FormGroups.created,
+  );
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
 
-    const suggested = `${data.get("exercise-suggested")}`;
-    const created = `${data.get("exercise-created")}`;
+    if (radioGroup === "existing") {
+      const existingId = `${data.get("exercise-existing")}`;
+      addExercise(existingId);
+    } else {
+      const name = `${data.get("exercise-created")}`.trim();
+      const muscle = `${data.get("exercise-muscle")}`.trim();
 
-    const name = created ? created : suggested;
-    addExercise({ id: crypto.randomUUID(), name, sets: [] });
+      // TODO: user feedback (e.g. toast)
+      if (!name || !muscle) return;
+      if (doesExist(name)) return;
+
+      const exercise: IExercise = {
+        id: crypto.randomUUID(),
+        name,
+        muscleGroup: muscle as MuscleGroups,
+      };
+      createExercise(exercise);
+      addExercise(exercise.id);
+    }
+
     dialogRef.hideDialog();
+    e.currentTarget.reset();
   };
 
   // TODO: Create a custom text box which shows suggestions as you type
 
   return (
     <Dialog title="Add exercise" ref={dialogRef}>
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-2">
-          <Text>Choose an existing one:</Text>
-          <select
-            name="exercise-suggested"
-            className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50"
+      <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+        <section className="flex flex-col gap-2">
+          <RadioBox
+            className={!suggestions.length ? "opacity-50" : ""}
+            name="exercise-type"
+            label="Choose an existing one"
+            checked={radioGroup === FormGroups.existing}
+            value={FormGroups.existing}
+            onChange={(e) =>
+              setRadioGroup(e.currentTarget.value as keyof typeof FormGroups)
+            }
             disabled={!suggestions.length}
-          >
-            {suggestions.length ? (
-              suggestions.map((sug) => (
-                <option key={sug} value={sug}>
-                  {sug}
-                </option>
-              ))
-            ) : (
-              <option>No exercises yet</option>
-            )}
-          </select>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <Text>Or create a new one:</Text>
-          <input
-            name="exercise-created"
-            className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400"
-            type="text"
-            placeholder="E.g. Bench press"
-            autoFocus
           />
-          <Text size="s">Leave blank to use one from dropdown</Text>
-        </div>
+
+          <SelectBox
+            data={
+              suggestions.length
+                ? suggestions.map((item) => ({
+                    label: item.name,
+                    value: item.id,
+                  }))
+                : [{ label: "No exercises yet", value: "" }]
+            }
+            name="exercise-existing"
+            disabled={radioGroup !== FormGroups.existing || !suggestions.length}
+          />
+        </section>
+
+        <section className="flex flex-col gap-2">
+          <RadioBox
+            name="exercise-type"
+            label="Or create a new one:"
+            checked={radioGroup === FormGroups.created}
+            value={FormGroups.created}
+            onChange={(e) =>
+              setRadioGroup(e.currentTarget.value as keyof typeof FormGroups)
+            }
+          />
+
+          <fieldset className="flex flex-col gap-4">
+            <TextBox
+              label="Exercise name"
+              name="exercise-created"
+              placeholder="E.g. Bench press"
+              autoFocus
+              disabled={radioGroup !== FormGroups.created}
+            />
+
+            <SelectBox
+              label="Muscle group"
+              data={muscleGroupValues.map((group) => ({
+                label: group,
+                value: group,
+              }))}
+              name="exercise-muscle"
+              disabled={radioGroup !== FormGroups.created}
+            />
+          </fieldset>
+        </section>
 
         <Button>Save</Button>
       </form>

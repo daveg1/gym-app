@@ -1,21 +1,23 @@
 import { useLocation } from "react-router";
 import { NavBar } from "../../components/shared";
 import { Page, Header, Footer, NavButton } from "../../components/ui";
-import { useWorkoutStore } from "../../hooks";
+import { useExerciseStore, useWorkoutStore } from "../../hooks";
 import { LineChart } from "@mui/x-charts";
 import { SectionCard } from "../../components/ui/section-card";
 import { BackIcon } from "../../components/icons";
 
 export function StatsDetailsView() {
   const { workoutMap } = useWorkoutStore();
+  const { exerciseMap } = useExerciseStore();
   const location = useLocation();
-  const exerciseName = decodeURI(location.pathname.split("/stats/")[1]);
+  const exerciseId = decodeURI(location.pathname.split("/stats/")[1]);
+  const exerciseObj = exerciseMap[exerciseId];
 
   // TODO: limit dataset to this month
   // TODO: add prev button for previous months
   const exercises = Object.values(workoutMap)
     .slice(-5)
-    .flatMap((w) => w.exercises.filter((ex) => ex.name === exerciseName));
+    .flatMap((w) => w.exercises.filter((ex) => ex.id === exerciseId));
   const sets = exercises.map((ex) =>
     ex.sets.reduce(
       (a, { weight: b }) => (+b > a ? +b : a),
@@ -31,7 +33,7 @@ export function StatsDetailsView() {
     <Page>
       <Header
         text="Stats"
-        caption={exerciseName}
+        caption={exerciseObj.name}
         leftSide={
           <NavButton to="/stats">
             <BackIcon />
@@ -60,7 +62,7 @@ export function StatsDetailsView() {
         </SectionCard>
       </div>
 
-      <Footer noPadding>
+      <Footer>
         <NavBar />
       </Footer>
     </Page>

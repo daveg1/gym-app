@@ -1,4 +1,7 @@
-export function SaveIcon() {
+import clsx from "clsx";
+import type { IconProps } from "./icon-props";
+
+export function SaveIcon({ size }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +9,9 @@ export function SaveIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-6"
+      className={clsx(
+        size === "s" ? "size-4" : size === "l" ? "size-6" : "size-5",
+      )}
     >
       <path
         strokeLinecap="round"

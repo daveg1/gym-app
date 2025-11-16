@@ -13,7 +13,7 @@ export function Routes() {
       <Route index element={<DashboardView />} />
       <Route path="planner" element={<PlannerView />} />
       <Route path="stats" element={<StatsView />} />
-      <Route path="stats/:exerciseName" element={<StatsDetailsView />} />
+      <Route path="stats/:exerciseId" element={<StatsDetailsView />} />
       <Route path="workout" element={<WorkoutView />} />
       <Route path="details/:sessionId" element={<DetailsView />} />
       <Route path="settings" element={<SettingsView />} />

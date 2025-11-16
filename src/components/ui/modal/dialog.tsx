@@ -22,8 +22,8 @@ export function Dialog({ title, ref, children }: Props) {
         onClick={() => ref.hideDialog()}
       ></div>
 
-      <div className="fixed z-50 mt-[25%] w-full">
-        <section className="mx-4 flex flex-col gap-2 rounded-xl bg-white p-4 shadow-md">
+      <div className="fixed z-50 mt-[12svh] w-full max-w-2xl px-4">
+        <section className="flex w-full flex-col gap-2 rounded-xl bg-white p-4 shadow-md">
           <header>
             <h2 className="text-xl font-semibold">{title}</h2>
           </header>

@@ -1,8 +1,8 @@
-import type { IExercise, ISet } from "../../../models/gym";
+import type { ISet, IWorkoutExercise } from "../../../models";
 import { SetForm } from "../set-form";
 
 interface Props {
-  data: IExercise;
+  data: IWorkoutExercise;
   onAddSet?(value: ISet): void;
 }
 

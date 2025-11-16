@@ -9,7 +9,7 @@ import {
   Text,
   Card,
 } from "../../components/ui";
-import { useDialogRef } from "../../components/ui/dialog";
+import { useDialogRef } from "../../components/ui/modal/dialog";
 import { usePlannerStore } from "../../hooks";
 import { AddPlannerDialog } from "./components/add-planner-dialog";
 
@@ -49,7 +49,7 @@ export function PlannerView() {
         ))}
       </List>
 
-      <Footer noPadding>
+      <Footer>
         <NavBar />
       </Footer>
     </Page>

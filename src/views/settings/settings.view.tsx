@@ -1,9 +1,17 @@
 import { ExportIcon, ImportIcon } from "../../components/icons";
 import { NavBar } from "../../components/shared";
-import { Button, Footer, Header, List, Page, Text } from "../../components/ui";
+import {
+  Button,
+  Footer,
+  Header,
+  List,
+  Page,
+  SelectBox,
+  Text,
+} from "../../components/ui";
 import { SectionCard } from "../../components/ui/section-card";
 import { usePlannerStore, useWorkoutStore } from "../../hooks";
-import type { IWorkoutMap } from "../../models/gym";
+import type { IWorkoutMap } from "../../models";
 import type { IPlan } from "../../models/planner";
 
 interface DataFormat {
@@ -75,17 +83,19 @@ export function SettingsView() {
         </SectionCard>
 
         <SectionCard title="Preferences">
-          <div className="flex flex-col gap-3 pt-3">
-            <Text size="s">Units</Text>
-            <select className="h-10 rounded bg-gray-50 px-2 outline outline-gray-400 placeholder:text-gray-400 focus:outline-4 focus:outline-amber-400 disabled:opacity-50">
-              <option value="metric">Metric (kg)</option>
-              <option value="imperial">Imperial (lbs)</option>
-            </select>
+          <div className="pt-3">
+            <SelectBox
+              label="Units"
+              data={[
+                { label: "Metric (kg)", value: "metric" },
+                { label: "Imperial (lbs)", value: "imperial" },
+              ]}
+            />
           </div>
         </SectionCard>
       </List>
 
-      <Footer noPadding>
+      <Footer>
         <NavBar />
       </Footer>
     </Page>

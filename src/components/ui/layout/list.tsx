@@ -6,7 +6,7 @@ interface Props {
 export function List({ hasFade, children }: Props) {
   return (
     <div className="relative h-full overflow-hidden">
-      <div className="flex h-full flex-col gap-4 overflow-y-auto px-6 pb-2">
+      <div className="flex h-full flex-col gap-4 overflow-y-auto px-6 py-2">
         {children}
       </div>
       {hasFade && (

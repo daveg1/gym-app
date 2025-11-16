@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { Exercise } from "../../../components/shared";
 import { List, Text } from "../../../components/ui";
 import { useWorkoutStore } from "../../../hooks";
-import type { IExercise, ISet, IWorkout } from "../../../models/gym";
+import type { IExercise, ISet, IWorkout } from "../../../models";
 
 interface Props {
   workout: IWorkout;
@@ -14,18 +14,22 @@ export function DetailsList({ workout, isEditing }: Props) {
   const navigate = useNavigate();
 
   const handleEditExercise = (
-    id: IExercise["id"],
+    exerciseId: string,
     changes: Partial<IExercise>,
   ) => {
-    const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+    const exerciseIndex = workout.exercises.findIndex(
+      (ex) => ex.id === exerciseId,
+    );
     Object.assign(workout.exercises[exerciseIndex], changes);
     addOrSaveWorkout({ ...workout });
   };
 
-  const handleDeleteExercise = (id: IExercise["id"]) => {
+  const handleDeleteExercise = (exerciseId: string) => {
     if (confirm(`Delete exercise?`)) {
       if (workout.exercises.length > 1) {
-        const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+        const exerciseIndex = workout.exercises.findIndex(
+          (ex) => ex.id === exerciseId,
+        );
         workout.exercises.splice(exerciseIndex, 1);
         addOrSaveWorkout({ ...workout });
       } else {
@@ -42,17 +46,21 @@ export function DetailsList({ workout, isEditing }: Props) {
   };
 
   const handleEditSet = (
-    id: IExercise["id"],
+    exerciseId: string,
     setNo: number,
     changes: Partial<ISet>,
   ) => {
-    const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+    const exerciseIndex = workout.exercises.findIndex(
+      (ex) => ex.id === exerciseId,
+    );
     Object.assign(workout.exercises[exerciseIndex].sets[setNo], changes);
     addOrSaveWorkout({ ...workout });
   };
 
-  const handleDeleteSet = (id: IExercise["id"], setNo: number) => {
-    const exerciseIndex = workout.exercises.findIndex((ex) => ex.id === id);
+  const handleDeleteSet = (exerciseId: string, setNo: number) => {
+    const exerciseIndex = workout.exercises.findIndex(
+      (ex) => ex.id === exerciseId,
+    );
     const setIndex = workout.exercises[exerciseIndex].sets.findIndex(
       (_, index) => index === setNo,
     );

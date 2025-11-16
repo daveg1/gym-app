@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "./button";
-import { OverflowMenuIcon } from "../icons";
+import { Button } from "../button/button";
+import { OverflowMenuIcon } from "../../icons";
 
 interface Props {
   items: React.ReactNode;
@@ -21,6 +21,7 @@ export function OverflowMenu({ items, disabled }: Props) {
 
       <div className="relative z-50">
         <Button
+          icon
           disabled={disabled}
           onClick={(e) => {
             e.stopPropagation();

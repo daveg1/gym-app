@@ -1,16 +1,22 @@
 import { createContext, useContext, useState } from "react";
-import type { IExercise, IWorkout } from "../../models/gym";
-import { WORKOUT_SESSION_KEY } from "../../constants";
-import { useDialogRef, type DialogRef } from "../../components/ui/dialog";
+import type { ISet, IWorkout, IWorkoutExercise } from "../../models";
+import { TEMP_SESSION_KEY } from "../../constants";
+import { useDialogRef, type DialogRef } from "../../components/ui/modal/dialog";
 
 interface IContext {
   workout: IWorkout;
   updateWorkout: (changes: Partial<IWorkout>) => void;
-  addExercise: (exercise: IExercise) => void;
-  updateExercise: (changes: Partial<IExercise>) => void;
-  deleteExercise: (id: IExercise["id"]) => void;
-  isEditing: boolean;
+
+  addExercise(id: string): void;
+  updateExercise(changes: Partial<IWorkoutExercise>): void;
+  deleteExercise(id: string): void;
+
+  addSet(set: ISet, exercise: IWorkoutExercise): void;
+  editSet(exerciseId: string, setNo: number, changes: Partial<ISet>): void;
+  deleteSet(exerciseId: string, setNo: number): void;
+
   dialogRef: DialogRef;
+  isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   clearSession: () => void;
 }
@@ -18,13 +24,11 @@ interface IContext {
 const WorkoutContext = createContext<IContext>(null!);
 
 const serialise = (data: IWorkout) => {
-  localStorage.setItem(WORKOUT_SESSION_KEY, JSON.stringify(data));
+  localStorage.setItem(TEMP_SESSION_KEY, JSON.stringify(data));
 };
 
 const deserialise = (): IWorkout => {
-  return JSON.parse(
-    localStorage.getItem(WORKOUT_SESSION_KEY) ?? "{}",
-  ) as IWorkout;
+  return JSON.parse(localStorage.getItem(TEMP_SESSION_KEY) ?? "{}") as IWorkout;
 };
 
 export function WorkoutContextProvider({
@@ -32,6 +36,8 @@ export function WorkoutContextProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const dialogRef = useDialogRef();
+  const [isEditing, setIsEditing] = useState(false);
   const [workout, setWorkout] = useState<IWorkout>({
     ...{
       exercises: [],
@@ -50,16 +56,20 @@ export function WorkoutContextProvider({
     });
   };
 
-  const addExercise = (value: IExercise) => {
+  /**
+   * Exercises
+   */
+
+  const addExercise = (id: string) => {
     setWorkout((current) => {
       const data = { ...current };
-      data.exercises = [...data.exercises, value];
+      data.exercises = [...data.exercises, { id, sets: [] }];
       serialise(data);
       return data;
     });
   };
 
-  const updateExercise = (changes: Partial<IExercise>) => {
+  const updateExercise = (changes: Partial<IWorkoutExercise>) => {
     setWorkout((current) => {
       const data = { ...current };
       const index = data.exercises.findIndex((ex) => ex.id === changes.id);
@@ -71,7 +81,7 @@ export function WorkoutContextProvider({
     });
   };
 
-  const deleteExercise = (id: IExercise["id"]) => {
+  const deleteExercise = (id: string) => {
     setWorkout((current) => {
       const data = { ...current };
       const index = data.exercises.findIndex((ex) => ex.id === id);
@@ -83,21 +93,56 @@ export function WorkoutContextProvider({
     });
   };
 
-  const clearSession = () => {
-    localStorage.removeItem(WORKOUT_SESSION_KEY);
-  };
+  /**
+   * Sets
+   */
 
-  const [isEditing, setIsEditing] = useState(false);
-  const dialogRef = useDialogRef();
+  function addSet(newSet: ISet, exercise: IWorkoutExercise) {
+    exercise.sets = [...exercise.sets, newSet];
+    updateExercise(exercise);
+  }
+
+  function editSet(exerciseId: string, setNo: number, changes: Partial<ISet>) {
+    const index = workout.exercises.findIndex((ex) => ex.id === exerciseId);
+    Object.assign(workout.exercises[index].sets[setNo], changes);
+    updateExercise(workout.exercises[index]);
+  }
+
+  function deleteSet(exerciseId: string, setNo: number) {
+    const index = workout.exercises.findIndex((ex) => ex.id === exerciseId);
+    const setIndex = workout.exercises[index].sets.findIndex(
+      (_, index) => index === setNo,
+    );
+
+    if (setIndex > -1) {
+      const setsCopy = [...workout.exercises[index].sets];
+      setsCopy.splice(setIndex, 1);
+
+      const exercisesCopy = [...workout.exercises];
+      exercisesCopy[index].sets = setsCopy;
+
+      updateExercise(exercisesCopy[index]);
+    }
+  }
+
+  const clearSession = () => {
+    localStorage.removeItem(TEMP_SESSION_KEY);
+  };
 
   const value = {
     workout,
     updateWorkout,
+
     addExercise,
     updateExercise,
     deleteExercise,
-    isEditing,
+
+    addSet,
+    editSet,
+    deleteSet,
+
     dialogRef,
+    isEditing,
     setIsEditing,
     clearSession,
   };
@@ -107,6 +152,7 @@ export function WorkoutContextProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useWorkoutContext() {
   return useContext(WorkoutContext);
 }
