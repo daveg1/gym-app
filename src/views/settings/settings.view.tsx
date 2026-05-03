@@ -23,6 +23,8 @@ export function SettingsView() {
       await doImport(files[0]);
     } catch (error) {
       console.log(error);
+    } finally {
+      fileInputRef.current.value = "";
     }
   };
 
