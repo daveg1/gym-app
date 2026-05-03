@@ -1,15 +1,7 @@
 import { useRef } from "react";
 import { ExportIcon, ImportIcon } from "../../components/icons";
 import { NavBar } from "../../components/shared";
-import {
-  Button,
-  Footer,
-  Header,
-  List,
-  Page,
-  SelectBox,
-  Text,
-} from "../../components/ui";
+import { Button, Footer, Header, List, Page, Text } from "../../components/ui";
 import { SectionCard } from "../../components/ui/section-card";
 import { useStorage } from "../../hooks";
 
@@ -76,18 +68,6 @@ export function SettingsView() {
               <ExportIcon />
               <span>Export data</span>
             </Button>
-          </div>
-        </SectionCard>
-
-        <SectionCard title="Preferences">
-          <div className="pt-3">
-            <SelectBox
-              label="Units"
-              data={[
-                { label: "Metric (kg)", value: "metric" },
-                { label: "Imperial (lbs)", value: "imperial" },
-              ]}
-            />
           </div>
         </SectionCard>
       </List>
