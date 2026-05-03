@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ExportIcon, ImportIcon } from "../../components/icons";
 import { NavBar } from "../../components/shared";
 import {
@@ -10,58 +11,34 @@ import {
   Text,
 } from "../../components/ui";
 import { SectionCard } from "../../components/ui/section-card";
-import {
-  useExerciseStore,
-  usePlannerStore,
-  useWorkoutStore,
-} from "../../hooks";
-import type { IExerciseMap, IWorkoutMap } from "../../models";
-import type { IPlan } from "../../models/planner";
-
-interface DataFormat {
-  workouts: IWorkoutMap;
-  plans: IPlan[];
-  exercises: IExerciseMap;
-}
+import { useStorage } from "../../hooks";
 
 export function SettingsView() {
-  const { workoutMap, importWorkouts } = useWorkoutStore();
-  const { plans, importPlans } = usePlannerStore();
-  const { exerciseMap, importExercises } = useExerciseStore();
+  const { doExport, doImport } = useStorage();
+  const fileInputRef = useRef<HTMLInputElement>(null!);
 
-  const handleImport = () => {
-    const code = prompt("Enter your export code:")?.trim();
-    if (!code) return;
+  const openImportFile = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImport = async () => {
+    const files = fileInputRef.current.files;
+    if (!files || files.length < 1) {
+      return; // todo: user feedback
+    }
 
     try {
-      const decoded = JSON.parse(atob(code)) as DataFormat;
-      const isValid = confirm(`Does this look right?
-        Workouts: ${Object.values(decoded.workouts).length}
-        Planner items: ${decoded.plans.length}
-        Exercises: ${Object.values(decoded.exercises).length}`);
-
-      if (isValid) {
-        importWorkouts(decoded.workouts);
-        importPlans(decoded.plans);
-        importExercises(decoded.exercises);
-      }
-    } catch {
-      console.log("failed...");
+      await doImport(files[0]);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleExport = () => {
-    const out: DataFormat = {
-      workouts: workoutMap,
-      plans,
-      exercises: exerciseMap,
-    };
-    const base64 = btoa(JSON.stringify(out));
-
+  const handleExport = async () => {
     try {
-      navigator.clipboard.writeText(base64).then((a) => console.log(a));
+      await doExport();
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -78,11 +55,19 @@ export function SettingsView() {
 
             <Button
               className="flex items-center justify-center gap-2"
-              onClick={() => handleImport()}
+              onClick={() => openImportFile()}
             >
               <ImportIcon />
               <span>Import data</span>
             </Button>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="sr-only"
+              hidden
+              onChange={() => handleImport()}
+            />
 
             <Button
               className="flex items-center justify-center gap-2"
