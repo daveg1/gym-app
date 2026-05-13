@@ -14,7 +14,7 @@ export function StatsDetailsView() {
   const exerciseId = decodeURI(location.pathname.split("/stats/")[1]);
   const exerciseObj = exerciseMap[exerciseId];
 
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
   // TODO: limit dataset to this month
   // TODO: add prev button for previous months
@@ -38,8 +38,7 @@ export function StatsDetailsView() {
 
   function handleGraphClick(data: ChartsAxisData | null) {
     const index = data?.dataIndex;
-    if (!index) return;
-    setSelectedIndex(index);
+    setSelectedIndex(index === null || index === undefined ? -1 : index);
   }
 
   return (
@@ -75,8 +74,8 @@ export function StatsDetailsView() {
           />
         </SectionCard>
 
-        {selectedIndex && (
-          <SectionCard title={"Sets for " + selectedIndex}>
+        {selectedIndex > -1 && (
+          <SectionCard title={"Sets for " + (selectedIndex + 1)}>
             {exercises[selectedIndex].sets.map((set, index) => (
               <div key={index}>
                 <span>{set.reps} reps</span>
