@@ -16,7 +16,7 @@ export function StatsDetailsView() {
   // TODO: limit dataset to this month
   // TODO: add prev button for previous months
   const exercises = Object.values(workoutMap)
-    .slice(-5)
+    // .slice(-5)
     .flatMap((w) => w.exercises.filter((ex) => ex.id === exerciseId));
   const sets = exercises.map((ex) =>
     ex.sets.reduce(
@@ -24,10 +24,14 @@ export function StatsDetailsView() {
       Number.MIN_SAFE_INTEGER,
     ),
   );
+
+  const MARGIN_PERCENT = 0.3;
   const min =
-    sets.reduce((a, b) => (b < a ? b : a), Number.MAX_SAFE_INTEGER) - 20;
+    sets.reduce((a, b) => (b < a ? b : a), Number.MAX_SAFE_INTEGER) *
+    (1 - MARGIN_PERCENT);
   const max =
-    sets.reduce((a, b) => (b > a ? b : a), Number.MIN_SAFE_INTEGER) + 20;
+    sets.reduce((a, b) => (b > a ? b : a), Number.MIN_SAFE_INTEGER) *
+    (1 + MARGIN_PERCENT);
 
   return (
     <Page>
