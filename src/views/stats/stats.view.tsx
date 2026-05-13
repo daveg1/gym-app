@@ -83,13 +83,14 @@ export function StatsView() {
       <List hasFade>
         {Object.keys(muscleGroups).length ? (
           Object.entries(muscleGroups).map(([muscle, exercises]) => (
-            <section key={muscle} className="flex flex-col gap-2">
-              <h2 className="text-xl font-semibold">{muscle}</h2>
-
-              {sortedExercises(exercises).map((exercise) => (
+            <Card
+              title={muscle}
+              isCollapsible
+              defaultOpen={false}
+              mainContent={sortedExercises(exercises).map((exercise) => (
                 <ExerciseCard exercise={exercise} />
               ))}
-            </section>
+            />
           ))
         ) : (
           <Text>No exercises logged yet.</Text>
@@ -108,6 +109,7 @@ const ExerciseCard = memo(({ exercise }: { exercise: ExerciseGroups[0] }) => {
 
   return (
     <Card
+      className="bg-gray-200/75"
       key={exercise.id}
       title={exercise.name}
       mainContent={
