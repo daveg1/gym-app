@@ -4,6 +4,7 @@ import { useExerciseStore, useWorkoutStore } from "../../hooks";
 import type { IExercise, IExerciseMap, IWorkoutMap } from "../../models";
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
+import { useMemo } from "react";
 
 // const findHighest = (exercises: IWorkoutExercise[]) => {
 //   let highest = -1;
@@ -57,7 +58,15 @@ export function StatsView() {
   const { workoutMap } = useWorkoutStore();
   const { exerciseMap } = useExerciseStore();
 
-  const muscleGroups = groupAndSort(workoutMap, exerciseMap);
+  const muscleGroups = useMemo(
+    () => groupAndSort(workoutMap, exerciseMap),
+    [workoutMap, exerciseMap],
+  );
+
+  const sortedExercises = (exercises: ExerciseGroups) =>
+    Object.values(exercises).sort((a, b) =>
+      a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
+    );
 
   return (
     <Page>
@@ -69,29 +78,25 @@ export function StatsView() {
             <section key={muscle} className="flex flex-col gap-2">
               <h2 className="text-xl font-semibold">{muscle}</h2>
 
-              {Object.values(exercises)
-                .sort((a, b) =>
-                  a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
-                )
-                .map((exercise) => (
-                  <Card
-                    key={exercise.id}
-                    title={exercise.name}
-                    mainContent={
-                      <div className="flex flex-col">
-                        <Text>
-                          Done {exercise.count} time
-                          {exercise.count === 1 ? "" : "s"}
-                        </Text>
-                        {/* <Text>
+              {sortedExercises(exercises).map((exercise) => (
+                <Card
+                  key={exercise.id}
+                  title={exercise.name}
+                  mainContent={
+                    <div className="flex flex-col">
+                      <Text>
+                        {exercise.count}{" "}
+                        {exercise.count === 1 ? "entry" : "entries"}
+                      </Text>
+                      {/* <Text>
                     Heaviest weight: {findHighest(exercises).weight} kg
                   </Text> */}
-                      </div>
-                    }
-                    rightContent={<ForwardIcon />}
-                    onCardClick={() => navigate(`/stats/${exercise.id}`)}
-                  />
-                ))}
+                    </div>
+                  }
+                  rightContent={<ForwardIcon />}
+                  onCardClick={() => navigate(`/stats/${exercise.id}`)}
+                />
+              ))}
             </section>
           ))
         ) : (
