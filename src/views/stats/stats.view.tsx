@@ -84,11 +84,12 @@ export function StatsView() {
         {Object.keys(muscleGroups).length ? (
           Object.entries(muscleGroups).map(([muscle, exercises]) => (
             <Card
+              key={muscle}
               title={muscle}
               isCollapsible
               defaultOpen={false}
               mainContent={sortedExercises(exercises).map((exercise) => (
-                <ExerciseCard exercise={exercise} />
+                <ExerciseCard key={exercise.id} exercise={exercise} />
               ))}
             />
           ))
