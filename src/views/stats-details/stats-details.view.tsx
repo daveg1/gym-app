@@ -16,11 +16,10 @@ export function StatsDetailsView() {
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
-  // TODO: limit dataset to this month
-  // TODO: add prev button for previous months
+  // TODO: option limit dataset to a given month
   const exercises = Object.values(workoutMap)
-    // .slice(-5)
-    .flatMap((w) => w.exercises.filter((ex) => ex.id === exerciseId));
+    .flatMap((w) => w.exercises.filter((ex) => ex.id === exerciseId))
+    .slice(-5);
   const sets = exercises.map((ex) =>
     ex.sets.reduce(
       (a, { weight: b }) => (+b > a ? +b : a),
