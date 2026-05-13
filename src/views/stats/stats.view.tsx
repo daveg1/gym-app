@@ -1,7 +1,12 @@
 import { Page, Footer, Header, List, Card, Text } from "../../components/ui";
 import { NavBar } from "../../components/shared";
 import { useExerciseStore, useWorkoutStore } from "../../hooks";
-import type { IExercise, IExerciseMap, IWorkoutMap } from "../../models";
+import {
+  muscleGroupValues,
+  type IExercise,
+  type IExerciseMap,
+  type IWorkoutMap,
+} from "../../models";
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
 import { useMemo } from "react";
@@ -50,7 +55,11 @@ function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
     muscleGroups[exercise.muscleGroup][exercise.id].count++;
   });
 
-  return muscleGroups;
+  return Object.fromEntries(
+    muscleGroupValues
+      .filter((group) => muscleGroups[group])
+      .map((group) => [group, muscleGroups[group]]),
+  );
 }
 
 export function StatsView() {
