@@ -63,6 +63,13 @@ export function StatsDetailsView() {
             margin={{ left: 0, top: 10 }}
             grid={{ vertical: true, horizontal: true }}
             title="Best set per workout"
+            xAxis={[
+              {
+                data: sets.map((_, i) => i + 1),
+                tickMinStep: 1,
+                valueFormatter: String,
+              },
+            ]}
             yAxis={[{ min, max }]}
             series={[
               {
