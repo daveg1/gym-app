@@ -9,7 +9,7 @@ import {
 } from "../../models";
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 // const findHighest = (exercises: IWorkoutExercise[]) => {
 //   let highest = -1;
@@ -63,7 +63,6 @@ function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
 }
 
 export function StatsView() {
-  const navigate = useNavigate();
   const { workoutMap } = useWorkoutStore();
   const { exerciseMap } = useExerciseStore();
 
@@ -88,20 +87,7 @@ export function StatsView() {
               <h2 className="text-xl font-semibold">{muscle}</h2>
 
               {sortedExercises(exercises).map((exercise) => (
-                <Card
-                  key={exercise.id}
-                  title={exercise.name}
-                  mainContent={
-                    <div className="flex flex-col">
-                      <Text>
-                        {exercise.count}{" "}
-                        {exercise.count === 1 ? "entry" : "entries"}
-                      </Text>
-                    </div>
-                  }
-                  rightContent={<ForwardIcon />}
-                  onCardClick={() => navigate(`/stats/${exercise.id}`)}
-                />
+                <ExerciseCard exercise={exercise} />
               ))}
             </section>
           ))
@@ -116,3 +102,23 @@ export function StatsView() {
     </Page>
   );
 }
+
+const ExerciseCard = memo(({ exercise }: { exercise: ExerciseGroups[0] }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Card
+      key={exercise.id}
+      title={exercise.name}
+      mainContent={
+        <div className="flex flex-col">
+          <Text>
+            {exercise.count} {exercise.count === 1 ? "entry" : "entries"}
+          </Text>
+        </div>
+      }
+      rightContent={<ForwardIcon />}
+      onCardClick={() => navigate(`/stats/${exercise.id}`)}
+    />
+  );
+});
