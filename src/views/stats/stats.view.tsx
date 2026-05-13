@@ -97,9 +97,6 @@ export function StatsView() {
                         {exercise.count}{" "}
                         {exercise.count === 1 ? "entry" : "entries"}
                       </Text>
-                      {/* <Text>
-                    Heaviest weight: {findHighest(exercises).weight} kg
-                  </Text> */}
                     </div>
                   }
                   rightContent={<ForwardIcon />}
