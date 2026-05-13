@@ -2,9 +2,10 @@ import { useLocation } from "react-router";
 import { NavBar } from "../../components/shared";
 import { Page, Header, Footer, NavButton } from "../../components/ui";
 import { useExerciseStore, useWorkoutStore } from "../../hooks";
-import { LineChart } from "@mui/x-charts";
+import { LineChart, type ChartsAxisData } from "@mui/x-charts";
 import { SectionCard } from "../../components/ui/section-card";
 import { BackIcon } from "../../components/icons";
+import { useState } from "react";
 
 export function StatsDetailsView() {
   const { workoutMap } = useWorkoutStore();
@@ -12,6 +13,8 @@ export function StatsDetailsView() {
   const location = useLocation();
   const exerciseId = decodeURI(location.pathname.split("/stats/")[1]);
   const exerciseObj = exerciseMap[exerciseId];
+
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   // TODO: limit dataset to this month
   // TODO: add prev button for previous months
@@ -32,6 +35,12 @@ export function StatsDetailsView() {
   const max =
     sets.reduce((a, b) => (b > a ? b : a), Number.MIN_SAFE_INTEGER) *
     (1 + MARGIN_PERCENT);
+
+  function handleGraphClick(data: ChartsAxisData | null) {
+    const index = data?.dataIndex;
+    if (!index) return;
+    setSelectedIndex(index);
+  }
 
   return (
     <Page>
@@ -62,8 +71,21 @@ export function StatsDetailsView() {
                 label: (loc) => (loc === "tooltip" ? "KG" : "Weight (kg)"),
               },
             ]}
+            onAxisClick={(_, data) => handleGraphClick(data)}
           />
         </SectionCard>
+
+        {selectedIndex && (
+          <SectionCard title={"Sets for " + selectedIndex}>
+            {exercises[selectedIndex].sets.map((set, index) => (
+              <div key={index}>
+                <span>{set.reps} reps</span>
+                <span> x </span>
+                <span>{set.weight} kg</span>
+              </div>
+            ))}
+          </SectionCard>
+        )}
       </div>
 
       <Footer>
