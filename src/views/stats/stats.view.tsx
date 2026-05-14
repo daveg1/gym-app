@@ -1,4 +1,12 @@
-import { Page, Footer, Header, List, Card, Text } from "../../components/ui";
+import {
+  Page,
+  Footer,
+  Header,
+  List,
+  Card,
+  Text,
+  SplitPanel,
+} from "../../components/ui";
 import { NavBar } from "../../components/shared";
 import { useExerciseStore, useWorkoutStore } from "../../hooks";
 import {
@@ -11,7 +19,6 @@ import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
 import { memo, useMemo, useState } from "react";
 import { MuscleGraph } from "../../components/shared/muscle-graph";
-import { SectionCard } from "../../components/ui/section-card";
 
 type MuscleGroupings = Record<string, ExerciseGroups>;
 type ExerciseGroups = Record<string, IExercise & { count: number }>;
@@ -49,6 +56,7 @@ function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
 export function StatsView() {
   const { workoutMap } = useWorkoutStore();
   const { exerciseMap } = useExerciseStore();
+  const [isSplitOpen, setIsSplitOpen] = useState(false);
 
   const muscleGroups = useMemo(
     () => groupAndSort(workoutMap, exerciseMap),
@@ -62,7 +70,8 @@ export function StatsView() {
 
   const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
 
-  function handleMuscleClick(muscle: string) {
+  function handleMuscleSelect(muscle: string) {
+    setIsSplitOpen(false);
     setSelectedMuscle(muscle);
   }
 
@@ -74,35 +83,45 @@ export function StatsView() {
         <MuscleGraph onMuscleSelect={handleMuscleSelect} />
 
         {selectedMuscle && (
-          <SectionCard title={selectedMuscle}>
-            <div>Go to exercises </div>
-          </SectionCard>
+          <Card
+            title={selectedMuscle}
+            mainContent={<div>View exercises</div>}
+            rightContent={<ForwardIcon />}
+            onCardClick={() => setIsSplitOpen((v) => !v)}
+          />
         )}
 
         {!selectedMuscle && (
-          <SectionCard title="No muscle selected">
-            <div>Tap on the model to view a muscle</div>
-          </SectionCard>
+          <Card
+            title="No muscle selected"
+            mainContent={<div>Tap on the model to view a muscle</div>}
+          />
         )}
       </List>
 
-      {/* <List hasFade>
-        {Object.keys(muscleGroups).length ? (
-          Object.entries(muscleGroups).map(([muscle, exercises]) => (
-            <Card
-              key={muscle}
-              title={muscle}
-              isCollapsible
-              defaultOpen={false}
-              mainContent={sortedExercises(exercises).map((exercise) => (
-                <ExerciseCard key={exercise.id} exercise={exercise} />
-              ))}
-            />
-          ))
-        ) : (
-          <Text>No exercises logged yet.</Text>
-        )}
-      </List> */}
+      {isSplitOpen && selectedMuscle && (
+        <SplitPanel
+          title={selectedMuscle}
+          mainContent={
+            <>
+              {!muscleGroups[selectedMuscle] && (
+                <div className="px-6">No exercises yet</div>
+              )}
+              {muscleGroups[selectedMuscle] && (
+                <List hasFade>
+                  {sortedExercises(muscleGroups[selectedMuscle]).map(
+                    (exercise) => (
+                      <ExerciseCard key={exercise.id} exercise={exercise} />
+                    ),
+                  )}
+                </List>
+              )}
+            </>
+          }
+          isOpen={isSplitOpen}
+          onClose={() => setIsSplitOpen(false)}
+        />
+      )}
 
       <Footer>
         <NavBar />
