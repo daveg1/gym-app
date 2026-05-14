@@ -71,7 +71,7 @@ export function StatsView() {
       <Header text="Stats" />
 
       <List>
-        <MuscleGraph onMuscleClick={handleMuscleClick} />
+        <MuscleGraph onMuscleSelect={handleMuscleSelect} />
 
         {selectedMuscle && (
           <SectionCard title={selectedMuscle}>

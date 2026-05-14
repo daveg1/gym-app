@@ -2,7 +2,7 @@ import { useRef } from "react";
 import type { MuscleGroups } from "../../models";
 
 interface Props {
-  onMuscleClick(muscle: MuscleGroups): void;
+  onMuscleSelect(muscle: MuscleGroups): void;
 }
 
 const colors = {
@@ -12,6 +12,7 @@ const colors = {
 export function MuscleGraph(props: Props) {
   const dragTargetRef = useRef<HTMLElement>(null);
 
+  // TODO: props.onMuscleSelect whilst dragging?
   function handleTouch(touches: React.TouchList) {
     const { clientX, clientY } = touches[0];
     const el = document.elementFromPoint(
@@ -55,7 +56,7 @@ export function MuscleGraph(props: Props) {
     >
       <g
         id="calves"
-        onTouchEnd={() => props.onMuscleClick("Calves")}
+        onTouchEnd={() => props.onMuscleSelect("Calves")}
         className="text-gray-300"
       >
         <path
@@ -70,7 +71,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="quads"
-        onTouchEnd={() => props.onMuscleClick("Quads")}
+        onTouchEnd={() => props.onMuscleSelect("Quads")}
         className="text-gray-300"
       >
         <path
@@ -85,7 +86,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="abdominals"
-        onTouchEnd={() => props.onMuscleClick("Abs")}
+        onTouchEnd={() => props.onMuscleSelect("Abs")}
         className="text-gray-300"
         fill="mw-red"
       >
@@ -206,7 +207,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="obliques"
-        onTouchEnd={() => props.onMuscleClick("Obliques")}
+        onTouchEnd={() => props.onMuscleSelect("Obliques")}
         className="text-gray-300"
       >
         <path
@@ -220,9 +221,10 @@ export function MuscleGraph(props: Props) {
         ></path>
       </g>
 
+      {/* TODO: try to split the hand lines from the total body outline so that the hover doesn't flicker */}
       <g
         id="hands"
-        onTouchEnd={() => props.onMuscleClick("Hands")}
+        onTouchEnd={() => props.onMuscleSelect("Hands")}
         className="text-gray-300"
       >
         <path
@@ -262,7 +264,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="forearms"
-        onTouchEnd={() => props.onMuscleClick("Forearms")}
+        onTouchEnd={() => props.onMuscleSelect("Forearms")}
         className="text-gray-300"
       >
         <path
@@ -277,7 +279,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="biceps"
-        onTouchEnd={() => props.onMuscleClick("Biceps")}
+        onTouchEnd={() => props.onMuscleSelect("Biceps")}
         className="text-gray-300"
       >
         <path
@@ -292,7 +294,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="front-shoulders"
-        onTouchEnd={() => props.onMuscleClick("Shoulders")}
+        onTouchEnd={() => props.onMuscleSelect("Shoulders")}
         className="text-gray-300"
       >
         <path
@@ -307,7 +309,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="chest"
-        onTouchEnd={() => props.onMuscleClick("Chest")}
+        onTouchEnd={() => props.onMuscleSelect("Chest")}
         className="text-gray-300"
       >
         <path
@@ -323,7 +325,7 @@ export function MuscleGraph(props: Props) {
 
       <g
         id="traps"
-        onTouchEnd={() => props.onMuscleClick("Traps")}
+        onTouchEnd={() => props.onMuscleSelect("Traps")}
         className="text-gray-300"
       >
         <path
