@@ -13,6 +13,8 @@
 
 - Notes for exercises (like a description)
 - reorder exercises
+- rename exercises
+- mark a set as "warmup" or "cooldown" (which don't affect stats)
 
 ### Plans
 
@@ -23,6 +25,6 @@
 
 ### Stats
 
-- Change scaling of yAxis to be percentage based instead of +-20kg
 - Multiply take total weight moved per exercise (aggregate sets of reps \* weight)
-- Add muscle heatmap
+- Add muscle graph
+  - Create heatmap on top of graph
