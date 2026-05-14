@@ -14,7 +14,7 @@ export function StatsDetailsView() {
   const exerciseId = decodeURI(location.pathname.split("/stats/")[1]);
   const exerciseObj = exerciseMap[exerciseId];
 
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   // TODO: option limit dataset to a given month
   const exercises = Object.values(workoutMap)
@@ -43,8 +43,7 @@ export function StatsDetailsView() {
   return (
     <Page>
       <Header
-        text="Stats"
-        caption={exerciseObj.name}
+        text={exerciseObj.name}
         leftSide={
           <NavButton to="/stats">
             <BackIcon />
@@ -80,7 +79,7 @@ export function StatsDetailsView() {
           />
         </SectionCard>
 
-        {selectedIndex > -1 && (
+        {selectedIndex > -1 && !!exercises.length && (
           <SectionCard title={"Sets for " + (selectedIndex + 1)}>
             {exercises[selectedIndex].sets.map((set, index) => (
               <div key={index}>

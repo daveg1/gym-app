@@ -68,6 +68,7 @@ export function StatsView() {
       a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
     );
 
+  // Persist across views
   const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
 
   function handleMuscleSelect(muscle: string) {
