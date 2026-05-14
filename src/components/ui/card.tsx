@@ -11,6 +11,7 @@ interface Props {
   defaultOpen?: boolean;
   isEditing?: boolean;
   isCollapsible?: boolean;
+  className?: string;
   onCardClick?(): void;
   onTitleClick?(e: React.MouseEvent<HTMLHeadingElement, MouseEvent>): void;
 }
@@ -24,6 +25,7 @@ export function Card({
   defaultOpen,
   isEditing,
   isCollapsible,
+  className,
   onCardClick,
   onTitleClick,
 }: Props) {
@@ -36,7 +38,7 @@ export function Card({
 
   return (
     <article
-      className="flex rounded-lg bg-gray-100"
+      className={clsx("flex rounded-lg bg-gray-100", className)}
       onClick={() => onCardClick?.()}
     >
       <div className="flex w-full flex-col">

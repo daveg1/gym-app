@@ -3,6 +3,7 @@ export * from "./back-icon";
 export * from "./cancel-icon";
 export * from "./caret-down-icon";
 export * from "./caret-up-icon";
+export * from "./close-icon";
 export * from "./delete-icon";
 export * from "./edit-icon";
 export * from "./export-icon";

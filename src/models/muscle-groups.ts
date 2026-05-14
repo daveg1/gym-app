@@ -7,6 +7,8 @@ export const muscleGroupValues = [
   "Forearms",
   "Glutes",
   "Hamstrings",
+  "Hands",
+  "Obliques",
   "Shoulders",
   "Thighs",
   "Traps",

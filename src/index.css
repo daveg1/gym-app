@@ -20,4 +20,19 @@
   .list-fade {
     background-image: linear-gradient(0, white 0%, white 40%, transparent);
   }
+
+  .animate-slide-up {
+    animation: slideUp 350ms ease-in-out;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }

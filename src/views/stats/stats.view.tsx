@@ -1,27 +1,24 @@
-import { Page, Footer, Header, List, Card, Text } from "../../components/ui";
+import {
+  Page,
+  Footer,
+  Header,
+  List,
+  Card,
+  Text,
+  SplitPanel,
+} from "../../components/ui";
 import { NavBar } from "../../components/shared";
 import { useExerciseStore, useWorkoutStore } from "../../hooks";
-import type { IExercise, IExerciseMap, IWorkoutMap } from "../../models";
+import {
+  muscleGroupValues,
+  type IExercise,
+  type IExerciseMap,
+  type IWorkoutMap,
+} from "../../models";
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
-
-// const findHighest = (exercises: IWorkoutExercise[]) => {
-//   let highest = -1;
-//   let highestSetNo = 0;
-//   let highestRef: IWorkoutExercise = exercises[0];
-
-//   for (const exercise of exercises) {
-//     for (let i = 0; i < exercise.sets.length; i++) {
-//       if (exercise.sets[i].weight > highest) {
-//         highest = exercise.sets[i].weight;
-//         highestRef = exercise;
-//         highestSetNo = i;
-//       }
-//     }
-//   }
-
-//   return highestRef.sets[highestSetNo];
-// };
+import { memo, useMemo, useState } from "react";
+import { MuscleGraph } from "../../components/shared/muscle-graph";
 
 type MuscleGroupings = Record<string, ExerciseGroups>;
 type ExerciseGroups = Record<string, IExercise & { count: number }>;
@@ -49,55 +46,83 @@ function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
     muscleGroups[exercise.muscleGroup][exercise.id].count++;
   });
 
-  return muscleGroups;
+  return Object.fromEntries(
+    muscleGroupValues
+      .filter((group) => muscleGroups[group])
+      .map((group) => [group, muscleGroups[group]]),
+  );
 }
 
 export function StatsView() {
-  const navigate = useNavigate();
   const { workoutMap } = useWorkoutStore();
   const { exerciseMap } = useExerciseStore();
+  const [isSplitOpen, setIsSplitOpen] = useState(false);
 
-  const muscleGroups = groupAndSort(workoutMap, exerciseMap);
+  const muscleGroups = useMemo(
+    () => groupAndSort(workoutMap, exerciseMap),
+    [workoutMap, exerciseMap],
+  );
+
+  const sortedExercises = (exercises: ExerciseGroups) =>
+    Object.values(exercises).sort((a, b) =>
+      a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
+    );
+
+  // Persist across views
+  const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
+
+  function handleMuscleSelect(muscle: string) {
+    setIsSplitOpen(false);
+    setSelectedMuscle(muscle);
+  }
 
   return (
     <Page>
       <Header text="Stats" />
 
-      <List hasFade>
-        {Object.keys(muscleGroups).length ? (
-          Object.entries(muscleGroups).map(([muscle, exercises]) => (
-            <section key={muscle} className="flex flex-col gap-2">
-              <h2 className="text-xl font-semibold">{muscle}</h2>
+      <List>
+        <MuscleGraph view="front" onMuscleSelect={handleMuscleSelect} />
 
-              {Object.values(exercises)
-                .sort((a, b) =>
-                  a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
-                )
-                .map((exercise) => (
-                  <Card
-                    key={exercise.id}
-                    title={exercise.name}
-                    mainContent={
-                      <div className="flex flex-col">
-                        <Text>
-                          Done {exercise.count} time
-                          {exercise.count === 1 ? "" : "s"}
-                        </Text>
-                        {/* <Text>
-                    Heaviest weight: {findHighest(exercises).weight} kg
-                  </Text> */}
-                      </div>
-                    }
-                    rightContent={<ForwardIcon />}
-                    onCardClick={() => navigate(`/stats/${exercise.id}`)}
-                  />
-                ))}
-            </section>
-          ))
-        ) : (
-          <Text>No exercises logged yet.</Text>
+        {selectedMuscle && (
+          <Card
+            title={selectedMuscle}
+            mainContent={<div>View exercises</div>}
+            rightContent={<ForwardIcon />}
+            onCardClick={() => setIsSplitOpen((v) => !v)}
+          />
+        )}
+
+        {!selectedMuscle && (
+          <Card
+            title="No muscle selected"
+            mainContent={<div>Tap on the model to view a muscle</div>}
+          />
         )}
       </List>
+
+      {isSplitOpen && selectedMuscle && (
+        <SplitPanel
+          title={selectedMuscle}
+          mainContent={
+            <>
+              {!muscleGroups[selectedMuscle] && (
+                <div className="px-6">No exercises yet</div>
+              )}
+              {muscleGroups[selectedMuscle] && (
+                <List hasFade>
+                  {sortedExercises(muscleGroups[selectedMuscle]).map(
+                    (exercise) => (
+                      <ExerciseCard key={exercise.id} exercise={exercise} />
+                    ),
+                  )}
+                </List>
+              )}
+            </>
+          }
+          isOpen={isSplitOpen}
+          onClose={() => setIsSplitOpen(false)}
+        />
+      )}
 
       <Footer>
         <NavBar />
@@ -105,3 +130,24 @@ export function StatsView() {
     </Page>
   );
 }
+
+const ExerciseCard = memo(({ exercise }: { exercise: ExerciseGroups[0] }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Card
+      className="bg-gray-200/75"
+      key={exercise.id}
+      title={exercise.name}
+      mainContent={
+        <div className="flex flex-col">
+          <Text>
+            {exercise.count} {exercise.count === 1 ? "entry" : "entries"}
+          </Text>
+        </div>
+      }
+      rightContent={<ForwardIcon />}
+      onCardClick={() => navigate(`/stats/${exercise.id}`)}
+    />
+  );
+});

@@ -1,5 +1,6 @@
 export * from "./card";
 export * from "./text";
+export * from "./split-panel";
 
 export * from "./button/button";
 export * from "./button/nav-button";
