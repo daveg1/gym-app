@@ -9,25 +9,9 @@ import {
 } from "../../models";
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
-import { memo, useMemo } from "react";
-
-// const findHighest = (exercises: IWorkoutExercise[]) => {
-//   let highest = -1;
-//   let highestSetNo = 0;
-//   let highestRef: IWorkoutExercise = exercises[0];
-
-//   for (const exercise of exercises) {
-//     for (let i = 0; i < exercise.sets.length; i++) {
-//       if (exercise.sets[i].weight > highest) {
-//         highest = exercise.sets[i].weight;
-//         highestRef = exercise;
-//         highestSetNo = i;
-//       }
-//     }
-//   }
-
-//   return highestRef.sets[highestSetNo];
-// };
+import { memo, useMemo, useState } from "react";
+import { MuscleGraph } from "../../components/shared/muscle-graph";
+import { SectionCard } from "../../components/ui/section-card";
 
 type MuscleGroupings = Record<string, ExerciseGroups>;
 type ExerciseGroups = Record<string, IExercise & { count: number }>;
@@ -76,11 +60,33 @@ export function StatsView() {
       a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
     );
 
+  const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
+
+  function handleMuscleClick(muscle: string) {
+    setSelectedMuscle(muscle);
+  }
+
   return (
     <Page>
       <Header text="Stats" />
 
-      <List hasFade>
+      <List>
+        <MuscleGraph onMuscleClick={handleMuscleClick} />
+
+        {selectedMuscle && (
+          <SectionCard title={selectedMuscle}>
+            <div>Go to exercises </div>
+          </SectionCard>
+        )}
+
+        {!selectedMuscle && (
+          <SectionCard title="No muscle selected">
+            <div>Tap on the model to view a muscle</div>
+          </SectionCard>
+        )}
+      </List>
+
+      {/* <List hasFade>
         {Object.keys(muscleGroups).length ? (
           Object.entries(muscleGroups).map(([muscle, exercises]) => (
             <Card
@@ -96,7 +102,7 @@ export function StatsView() {
         ) : (
           <Text>No exercises logged yet.</Text>
         )}
-      </List>
+      </List> */}
 
       <Footer>
         <NavBar />
