@@ -9,6 +9,10 @@
 
 ## Ideas
 
+### Session persistence
+
+- zustand store ?
+
 ### Workouts
 
 - Notes for exercises (like a description)
