@@ -13,6 +13,7 @@ import {
 import { Button } from "./button/button";
 import { BackIcon, NextIcon } from "../icons";
 import { Text } from "./text";
+import { useNavigate } from "react-router";
 
 interface CalendarProps {
   workouts: IWorkout[];
@@ -20,6 +21,7 @@ interface CalendarProps {
 
 export function Calendar(props: CalendarProps) {
   const { workouts } = props;
+  const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
 
   const monthName = format(date, "MMMM");
@@ -43,13 +45,11 @@ export function Calendar(props: CalendarProps) {
     for (let day = 0; day < 30; day++) {
       const cellDate = day - anchorIndex + 1;
       const cellDateObj = addDays(firstCellDate, day);
-      const hasWorkout = workouts.some((w) =>
-        isSameDay(w.timestamp, cellDateObj),
-      );
+      const workout = workouts.find((w) => isSameDay(w.timestamp, cellDateObj));
 
       cells.push({
         date: cellDate < 1 ? prevMonthDays + cellDate : cellDate,
-        hasWorkout,
+        workout,
         rowBreak: !!(day % 7),
       });
     }
@@ -99,11 +99,17 @@ export function Calendar(props: CalendarProps) {
           {weekCells.map((week, wIdx) => (
             <tr key={wIdx}>
               {week.map((day, dIdx) => (
-                <td key={dIdx} className="relative h-8 w-[calc(100%/7)]">
+                <td
+                  key={dIdx}
+                  className="relative h-12 w-[calc(100%/7)]"
+                  onClick={() =>
+                    day.workout && navigate(`/details/${day.workout.id}`)
+                  }
+                >
                   <span
                     className={clsx(
-                      "inline-block size-2 rounded-full",
-                      day.hasWorkout ? "bg-red-400" : "bg-gray-300",
+                      "inline-block size-4 rounded-full",
+                      day.workout ? "bg-red-400" : "bg-gray-300",
                     )}
                   ></span>
                 </td>
