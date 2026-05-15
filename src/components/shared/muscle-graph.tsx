@@ -330,7 +330,7 @@ function FrontView(props: Pick<Props, "onMuscleSelect">) {
 
       <g
         id="front-shoulders"
-        onTouchEnd={() => props.onMuscleSelect("Shoulders")}
+        onTouchEnd={() => props.onMuscleSelect("Shoulders Front")}
         className="text-gray-300"
       >
         <path
@@ -739,7 +739,7 @@ function BackView(props: Pick<Props, "onMuscleSelect">) {
       </g>
       <g
         id="lats"
-        onTouchEnd={() => props.onMuscleSelect("Back")}
+        onTouchEnd={() => props.onMuscleSelect("Lats")}
         className="text-gray-300"
       >
         <path
@@ -753,7 +753,7 @@ function BackView(props: Pick<Props, "onMuscleSelect">) {
       </g>
       <g
         id="lowerback"
-        onTouchEnd={() => props.onMuscleSelect("Back")}
+        onTouchEnd={() => props.onMuscleSelect("Lowerback")}
         className="text-gray-300"
       >
         <path
@@ -763,7 +763,7 @@ function BackView(props: Pick<Props, "onMuscleSelect">) {
       </g>
       <g
         id="traps-middle"
-        onTouchEnd={() => props.onMuscleSelect("Traps")}
+        onTouchEnd={() => props.onMuscleSelect("Traps Middle")}
         className="text-gray-300"
       >
         <path
@@ -773,7 +773,7 @@ function BackView(props: Pick<Props, "onMuscleSelect">) {
       </g>
       <g
         id="rear-shoulders"
-        onTouchEnd={() => props.onMuscleSelect("Shoulders")}
+        onTouchEnd={() => props.onMuscleSelect("Shoulders Rear")}
         className="text-gray-300"
       >
         <path
