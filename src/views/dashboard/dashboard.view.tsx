@@ -1,12 +1,20 @@
-import { useWorkoutStore } from "../../hooks";
-import { Page, List, Text, Footer } from "../../components/ui";
+import { useCreateSessionStore, useWorkoutStore } from "../../hooks";
+import { Page, List, Text, Footer, Calendar } from "../../components/ui";
 import { DashboardItem } from "./components/dashboard-item";
-import { Fragment, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { NavBar } from "../../components/shared";
 import { DashboardHeader } from "./components/dashboard-header";
+import { HOME_STORE_KEY } from "../../constants";
+
+interface HomeSession {
+  date: number;
+}
 
 export function DashboardView() {
   const { workoutMap } = useWorkoutStore();
+  const { getSession, setSession } =
+    useCreateSessionStore<HomeSession>(HOME_STORE_KEY);
+  const [dateTs, setDateTs] = useState(getSession("date") ?? Date.now());
 
   const workouts = useMemo(() => {
     return Object.values(workoutMap).sort((a, b) => {
@@ -19,20 +27,20 @@ export function DashboardView() {
       <DashboardHeader />
 
       <List hasFade>
-        {workouts.length ? (
-          workouts.map((workout, index) =>
-            index === 0 ? (
-              <Fragment key={workout.id}>
-                <DashboardItem workout={workout} />
-                {workouts.length > 1 && <Text>Previous</Text>}
-              </Fragment>
-            ) : (
-              <DashboardItem key={workout.id} workout={workout} />
-            ),
-          )
-        ) : (
-          <Text>No sessions yet, go do one</Text>
-        )}
+        <Text bold size="m">
+          Latest
+        </Text>
+
+        <DashboardItem workout={workouts[0]} />
+
+        <Calendar
+          date={dateTs}
+          workouts={workouts}
+          onChange={(d) => {
+            setSession("date", +d);
+            setDateTs(+d);
+          }}
+        />
       </List>
 
       <Footer>

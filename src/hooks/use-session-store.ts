@@ -10,6 +10,8 @@ function write<T>(storageKey: string, data: T): void {
 
 /**
  * Used to persist user flow
+ *
+ * TODO: add last update time to clear if data is too old
  */
 export function useCreateSessionStore<T>(storageKey: Readonly<string>) {
   const [store, setStore] = useState<T>(read(storageKey));
