@@ -18,3 +18,4 @@ export * from "./resume-icon";
 export * from "./save-icon";
 export * from "./settings-icon";
 export * from "./stats-icon";
+export * from "./weight-icon";
