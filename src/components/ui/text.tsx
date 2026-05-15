@@ -1,13 +1,20 @@
 import clsx from "clsx";
+import type { PropsWithChildren } from "react";
 
 interface Props {
   size?: "s" | "m";
+  bold?: boolean;
   pre?: boolean;
   selectable?: boolean;
-  children: React.ReactNode;
 }
 
-export function Text({ size, pre, selectable, children }: Props) {
+export function Text({
+  size,
+  pre,
+  selectable,
+  bold,
+  children,
+}: PropsWithChildren<Props>) {
   return (
     <p
       className={clsx(
@@ -15,6 +22,7 @@ export function Text({ size, pre, selectable, children }: Props) {
         !size || (size === "m" && "text-lg"),
         pre && "whitespace-pre-wrap",
         selectable && "select-text",
+        bold && "font-semibold",
       )}
     >
       {children}
