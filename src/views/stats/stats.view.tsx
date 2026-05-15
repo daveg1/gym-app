@@ -7,8 +7,16 @@ import {
   Text,
   SplitPanel,
 } from "../../components/ui";
-import { NavBar } from "../../components/shared";
-import { useExerciseStore, useWorkoutStore } from "../../hooks";
+import {
+  MuscleGraph,
+  NavBar,
+  type MuscleGraphProps,
+} from "../../components/shared";
+import {
+  useCreateSessionStore,
+  useExerciseStore,
+  useWorkoutStore,
+} from "../../hooks";
 import {
   muscleGroupValues,
   type IExercise,
@@ -18,10 +26,14 @@ import {
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
 import { memo, useMemo, useState } from "react";
-import { MuscleGraph } from "../../components/shared/muscle-graph";
+import { STATS_STORE_KEY } from "../../constants";
 
 type MuscleGroupings = Record<string, ExerciseGroups>;
 type ExerciseGroups = Record<string, IExercise & { count: number }>;
+
+interface StatsSession {
+  muscleView: MuscleGraphProps["view"];
+}
 
 function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
   const muscleGroups: MuscleGroupings = {};
@@ -54,9 +66,19 @@ function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
 }
 
 export function StatsView() {
+  const { getSession, setSession } =
+    useCreateSessionStore<StatsSession>(STATS_STORE_KEY);
   const { workoutMap } = useWorkoutStore();
   const { exerciseMap } = useExerciseStore();
+
   const [isSplitOpen, setIsSplitOpen] = useState(false);
+  const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
+  const [muscleView, setMuscleView] = useState(
+    getSession("muscleView") ?? "front",
+  );
+
+  const smallView: MuscleGraphProps["view"] =
+    muscleView === "front" ? "back" : "front";
 
   const muscleGroups = useMemo(
     () => groupAndSort(workoutMap, exerciseMap),
@@ -68,9 +90,6 @@ export function StatsView() {
       a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
     );
 
-  // Persist across views
-  const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
-
   function handleMuscleSelect(muscle: string) {
     setIsSplitOpen(false);
     setSelectedMuscle(muscle);
@@ -81,7 +100,23 @@ export function StatsView() {
       <Header text="Stats" />
 
       <List>
-        <MuscleGraph view="front" onMuscleSelect={handleMuscleSelect} />
+        <MuscleGraph
+          isEnabled
+          view={muscleView}
+          onMuscleSelect={handleMuscleSelect}
+        />
+
+        <div className="absolute right-4 w-[100px]">
+          <MuscleGraph
+            isEnabled={false}
+            view={smallView}
+            onMuscleSelect={handleMuscleSelect}
+            onClick={() => {
+              setMuscleView(smallView);
+              setSession("muscleView", smallView);
+            }}
+          />
+        </div>
 
         {selectedMuscle && (
           <Card
