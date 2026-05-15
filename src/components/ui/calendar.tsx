@@ -11,7 +11,7 @@ import {
   subMonths,
 } from "date-fns";
 import { Button } from "./button/button";
-import { BackIcon, NextIcon } from "../icons";
+import { BackIcon, NextIcon, WeightIcon } from "../icons";
 import { Text } from "./text";
 import { useNavigate } from "react-router";
 
@@ -23,6 +23,8 @@ export function Calendar(props: CalendarProps) {
   const { workouts } = props;
   const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
+
+  // TODO : PERSISTENCE FOR DATE
 
   const monthName = format(date, "MMMM");
   const yearName = format(date, "yyyy");
@@ -108,10 +110,14 @@ export function Calendar(props: CalendarProps) {
                 >
                   <span
                     className={clsx(
-                      "inline-block size-4 rounded-full",
-                      day.workout ? "bg-red-400" : "bg-gray-300",
+                      "inline-grid size-8 place-items-center rounded-full",
+                      day.workout
+                        ? "bg-red-400 text-white"
+                        : "outline outline-gray-200",
                     )}
-                  ></span>
+                  >
+                    {day.workout ? <WeightIcon /> : day.date}
+                  </span>
                 </td>
               ))}
             </tr>
