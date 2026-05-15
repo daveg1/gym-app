@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { IWorkout } from "../../models";
 import {
   addDays,
@@ -16,16 +16,16 @@ import { Text } from "./text";
 import { useNavigate } from "react-router";
 
 interface CalendarProps {
+  date: number;
   workouts: IWorkout[];
+  onChange(date: Date): void;
 }
 
 export function Calendar(props: CalendarProps) {
   const { workouts } = props;
   const navigate = useNavigate();
-  const [date, setDate] = useState(new Date());
 
-  // TODO : PERSISTENCE FOR DATE
-
+  const date = useMemo(() => new Date(props.date), [props.date]);
   const monthName = format(date, "MMMM");
   const yearName = format(date, "yyyy");
 
@@ -69,7 +69,7 @@ export function Calendar(props: CalendarProps) {
   }, [dayCells]);
 
   function moveMonth(direction: 1 | -1) {
-    setDate((d) => addMonths(d, direction));
+    props.onChange(addMonths(date, direction));
   }
 
   return (
