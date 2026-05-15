@@ -12,7 +12,11 @@ import {
   NavBar,
   type MuscleGraphProps,
 } from "../../components/shared";
-import { useExerciseStore, useWorkoutStore } from "../../hooks";
+import {
+  useCreateSessionStore,
+  useExerciseStore,
+  useWorkoutStore,
+} from "../../hooks";
 import {
   muscleGroupValues,
   type IExercise,
@@ -22,9 +26,14 @@ import {
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
 import { memo, useMemo, useState } from "react";
+import { STATS_STORE_KEY } from "../../constants";
 
 type MuscleGroupings = Record<string, ExerciseGroups>;
 type ExerciseGroups = Record<string, IExercise & { count: number }>;
+
+interface StatsSession {
+  muscleView: MuscleGraphProps["view"];
+}
 
 function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
   const muscleGroups: MuscleGroupings = {};
@@ -57,12 +66,16 @@ function groupAndSort(workoutMap: IWorkoutMap, exerciseMap: IExerciseMap) {
 }
 
 export function StatsView() {
+  const { getSession, setSession } =
+    useCreateSessionStore<StatsSession>(STATS_STORE_KEY);
   const { workoutMap } = useWorkoutStore();
   const { exerciseMap } = useExerciseStore();
+
   const [isSplitOpen, setIsSplitOpen] = useState(false);
-  // TODO: persist
-  const [muscleView, setMuscleView] =
-    useState<MuscleGraphProps["view"]>("front");
+  const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
+  const [muscleView, setMuscleView] = useState(
+    getSession("muscleView") ?? "front",
+  );
 
   const smallView: MuscleGraphProps["view"] =
     muscleView === "front" ? "back" : "front";
@@ -76,9 +89,6 @@ export function StatsView() {
     Object.values(exercises).sort((a, b) =>
       a.name > b.name ? 1 : a.name < b.name ? -1 : 0,
     );
-
-  // Persist across views
-  const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
 
   function handleMuscleSelect(muscle: string) {
     setIsSplitOpen(false);
@@ -101,7 +111,10 @@ export function StatsView() {
             isEnabled={false}
             view={smallView}
             onMuscleSelect={handleMuscleSelect}
-            onClick={() => setMuscleView(smallView)}
+            onClick={() => {
+              setMuscleView(smallView);
+              setSession("muscleView", smallView);
+            }}
           />
         </div>
 
