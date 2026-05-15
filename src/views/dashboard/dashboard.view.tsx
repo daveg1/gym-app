@@ -19,10 +19,12 @@ export function DashboardView() {
       <DashboardHeader />
 
       <List hasFade>
-        <Text>Latest</Text>
+        <Text bold size="m">
+          Latest
+        </Text>
+
         <DashboardItem workout={workouts[0]} />
 
-        <Text>History</Text>
         <Calendar workouts={workouts} />
 
         {/* {workouts.length ? (

@@ -1,7 +1,18 @@
 import clsx from "clsx";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { IWorkout } from "../../models";
-import { addDays, getDaysInMonth, isSameDay, startOfDay, subMonths } from "date-fns";
+import {
+  addDays,
+  addMonths,
+  format,
+  getDaysInMonth,
+  isSameDay,
+  startOfDay,
+  subMonths,
+} from "date-fns";
+import { Button } from "./button/button";
+import { BackIcon, NextIcon } from "../icons";
+import { Text } from "./text";
 
 interface CalendarProps {
   workouts: IWorkout[];
@@ -9,7 +20,10 @@ interface CalendarProps {
 
 export function Calendar(props: CalendarProps) {
   const { workouts } = props;
-  const date = useMemo(() => new Date(), []);
+  const [date, setDate] = useState(new Date());
+
+  const monthName = format(date, "MMMM");
+  const yearName = format(date, "yyyy");
 
   //  M,  T,  W,  T,  F,  S,  S
   // -4, -3, -2, -1,  0,  1,  2,
@@ -29,7 +43,9 @@ export function Calendar(props: CalendarProps) {
     for (let day = 0; day < 30; day++) {
       const cellDate = day - anchorIndex + 1;
       const cellDateObj = addDays(firstCellDate, day);
-      const hasWorkout = workouts.some((w) => isSameDay(w.timestamp, cellDateObj));
+      const hasWorkout = workouts.some((w) =>
+        isSameDay(w.timestamp, cellDateObj),
+      );
 
       cells.push({
         date: cellDate < 1 ? prevMonthDays + cellDate : cellDate,
@@ -50,36 +66,62 @@ export function Calendar(props: CalendarProps) {
     return result;
   }, [dayCells]);
 
-  return (
-    <table className="w-full text-center">
-      <thead>
-        <tr>
-          <th>M</th>
-          <th>T</th>
-          <th>W</th>
-          <th>T</th>
-          <th>F</th>
-          <th>S</th>
-          <th>S</th>
-        </tr>
-      </thead>
+  function moveMonth(direction: 1 | -1) {
+    setDate((d) => addMonths(d, direction));
+  }
 
-      <tbody>
-        {weekCells.map((week, wIdx) => (
-          <tr key={wIdx}>
-            {week.map((day, dIdx) => (
-              <td key={dIdx} className="relative h-8 w-[calc(100%/7)]">
-                <span
-                  className={clsx(
-                    "inline-block size-2 rounded-full",
-                    day.hasWorkout ? "bg-red-400" : "bg-gray-300",
-                  )}
-                ></span>
-              </td>
-            ))}
+  return (
+    <div className="mt-4 flex w-full flex-col gap-4">
+      <header className="flex justify-between">
+        <Text bold size="m">
+          {monthName}
+        </Text>
+
+        <Text bold size="m">
+          {yearName}
+        </Text>
+      </header>
+
+      <table className="w-full text-center">
+        <thead>
+          <tr>
+            <th>M</th>
+            <th>T</th>
+            <th>W</th>
+            <th>T</th>
+            <th>F</th>
+            <th>S</th>
+            <th>S</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {weekCells.map((week, wIdx) => (
+            <tr key={wIdx}>
+              {week.map((day, dIdx) => (
+                <td key={dIdx} className="relative h-8 w-[calc(100%/7)]">
+                  <span
+                    className={clsx(
+                      "inline-block size-2 rounded-full",
+                      day.hasWorkout ? "bg-red-400" : "bg-gray-300",
+                    )}
+                  ></span>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <menu className="flex justify-between">
+        <Button onClick={() => moveMonth(-1)}>
+          <BackIcon />
+        </Button>
+
+        <Button onClick={() => moveMonth(1)}>
+          <NextIcon />
+        </Button>
+      </menu>
+    </div>
   );
 }
