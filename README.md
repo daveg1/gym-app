@@ -15,7 +15,6 @@
 
 ### Workouts
 
-- Calendar view
 - Notes for exercises (like a description)
 - reorder exercises
 - rename exercises
