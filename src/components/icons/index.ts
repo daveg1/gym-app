@@ -10,6 +10,7 @@ export * from "./export-icon";
 export * from "./forward-icon";
 export * from "./home-icon";
 export * from "./import-icon";
+export * from "./next-icon";
 export * from "./overflow-menu-icon";
 export * from "./pause-icon";
 export * from "./planner-icon";
