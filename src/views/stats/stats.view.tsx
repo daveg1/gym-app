@@ -81,7 +81,7 @@ export function StatsView() {
       <Header text="Stats" />
 
       <List>
-        <MuscleGraph view="front" onMuscleSelect={handleMuscleSelect} />
+        <MuscleGraph view="back" onMuscleSelect={handleMuscleSelect} />
 
         {selectedMuscle && (
           <Card
