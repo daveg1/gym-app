@@ -1,14 +1,14 @@
 import clsx from "clsx";
 import { useMemo } from "react";
+import type { IWorkout } from "../../models";
+import { addDays, getDaysInMonth, isSameDay, startOfDay, subMonths } from "date-fns";
 
-function getNumDaysOfMonth(month: number) {
-  // TODO: leap year
-  if (month === 1) return 28;
-  if ([0, 2, 4, 6, 7, 9, 11].includes(month)) return 31;
-  return 30;
+interface CalendarProps {
+  workouts: IWorkout[];
 }
 
-export function Calendar() {
+export function Calendar(props: CalendarProps) {
+  const { workouts } = props;
   const date = useMemo(() => new Date(), []);
 
   //  M,  T,  W,  T,  F,  S,  S
@@ -19,30 +19,34 @@ export function Calendar() {
 
   const dayCells = useMemo(() => {
     const cells = [];
-    const anchor = date.getDay() - (date.getDate() % 7);
-    const today = anchor + date.getDate() - 1;
-    const prevMonthDays = getNumDaysOfMonth(date.getMonth() - 1);
+    const anchorIndex = date.getDay() - (date.getDate() % 7);
+    const prevMonthDays = getDaysInMonth(subMonths(date, 1));
+
+    // First cell date: go back (anchorIndex + date.getDate() - 1) days from today
+    const todayIndex = anchorIndex + date.getDate() - 1;
+    const firstCellDate = addDays(startOfDay(date), -todayIndex);
 
     for (let day = 0; day < 30; day++) {
-      const cellDate = day - anchor + 1;
+      const cellDate = day - anchorIndex + 1;
+      const cellDateObj = addDays(firstCellDate, day);
+      const hasWorkout = workouts.some((w) => isSameDay(w.timestamp, cellDateObj));
 
       cells.push({
         date: cellDate < 1 ? prevMonthDays + cellDate : cellDate,
-        isToday: day === today,
+        hasWorkout,
         rowBreak: !!(day % 7),
       });
     }
 
     return cells;
-  }, [date]);
+  }, [date, workouts]);
 
-  const monthCells = useMemo(() => {
+  // Split flat list into week rows
+  const weekCells = useMemo(() => {
     const result = [];
-
     for (let i = 0; i < dayCells.length; i += 7) {
       result.push(dayCells.slice(i, i + 7));
     }
-
     return result;
   }, [dayCells]);
 
@@ -61,25 +65,16 @@ export function Calendar() {
       </thead>
 
       <tbody>
-        {monthCells.map((week, wIdx) => (
+        {weekCells.map((week, wIdx) => (
           <tr key={wIdx}>
             {week.map((day, dIdx) => (
               <td key={dIdx} className="relative h-8 w-[calc(100%/7)]">
                 <span
                   className={clsx(
-                    "absolute top-1/2 left-1/2 -z-10 -translate-1/2",
-                    day.isToday ? "text-red-400" : "text-gray-500",
+                    "inline-block size-2 rounded-full",
+                    day.hasWorkout ? "bg-red-400" : "bg-gray-300",
                   )}
-                >
-                  {`${day.date}`.padStart(2, "0")}
-                </span>
-
-                {/* <span
-                  className={clsx(
-                    "inline-block size-2.5 rounded-full",
-                    day.isToday ? "bg-red-400" : "bg-gray-300",
-                  )}
-                ></span> */}
+                ></span>
               </td>
             ))}
           </tr>

@@ -1,7 +1,7 @@
 import { useWorkoutStore } from "../../hooks";
-import { Page, List, Text, Footer } from "../../components/ui";
+import { Page, List, Text, Footer, Calendar } from "../../components/ui";
 import { DashboardItem } from "./components/dashboard-item";
-import { Fragment, useMemo } from "react";
+import { useMemo } from "react";
 import { NavBar } from "../../components/shared";
 import { DashboardHeader } from "./components/dashboard-header";
 
@@ -19,20 +19,19 @@ export function DashboardView() {
       <DashboardHeader />
 
       <List hasFade>
-        {workouts.length ? (
-          workouts.map((workout, index) =>
-            index === 0 ? (
-              <Fragment key={workout.id}>
-                <DashboardItem workout={workout} />
-                {workouts.length > 1 && <Text>Previous</Text>}
-              </Fragment>
-            ) : (
-              <DashboardItem key={workout.id} workout={workout} />
-            ),
-          )
+        <Text>Latest</Text>
+        <DashboardItem workout={workouts[0]} />
+
+        <Text>History</Text>
+        <Calendar workouts={workouts} />
+
+        {/* {workouts.length ? (
+          workouts
+            .slice(1)
+            .map((workout) => <DashboardItem workout={workout} />)
         ) : (
           <Text>No sessions yet, go do one</Text>
-        )}
+        )} */}
       </List>
 
       <Footer>
