@@ -7,7 +7,11 @@ import {
   Text,
   SplitPanel,
 } from "../../components/ui";
-import { NavBar } from "../../components/shared";
+import {
+  MuscleGraph,
+  NavBar,
+  type MuscleGraphProps,
+} from "../../components/shared";
 import { useExerciseStore, useWorkoutStore } from "../../hooks";
 import {
   muscleGroupValues,
@@ -18,7 +22,6 @@ import {
 import { useNavigate } from "react-router";
 import { ForwardIcon } from "../../components/icons";
 import { memo, useMemo, useState } from "react";
-import { MuscleGraph } from "../../components/shared/muscle-graph";
 
 type MuscleGroupings = Record<string, ExerciseGroups>;
 type ExerciseGroups = Record<string, IExercise & { count: number }>;
@@ -57,6 +60,12 @@ export function StatsView() {
   const { workoutMap } = useWorkoutStore();
   const { exerciseMap } = useExerciseStore();
   const [isSplitOpen, setIsSplitOpen] = useState(false);
+  // TODO: persist
+  const [muscleView, setMuscleView] =
+    useState<MuscleGraphProps["view"]>("front");
+
+  const smallView: MuscleGraphProps["view"] =
+    muscleView === "front" ? "back" : "front";
 
   const muscleGroups = useMemo(
     () => groupAndSort(workoutMap, exerciseMap),
@@ -81,7 +90,20 @@ export function StatsView() {
       <Header text="Stats" />
 
       <List>
-        <MuscleGraph view="back" onMuscleSelect={handleMuscleSelect} />
+        <MuscleGraph
+          isEnabled
+          view={muscleView}
+          onMuscleSelect={handleMuscleSelect}
+        />
+
+        <div className="absolute right-4 w-[100px]">
+          <MuscleGraph
+            isEnabled={false}
+            view={smallView}
+            onMuscleSelect={handleMuscleSelect}
+            onClick={() => setMuscleView(smallView)}
+          />
+        </div>
 
         {selectedMuscle && (
           <Card
